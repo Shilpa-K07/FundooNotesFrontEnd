@@ -8,34 +8,69 @@
     </v-app-bar>-->
 
     <v-content>
-      <v-card width="550" class="mx-auto mt-9 pt-7 pl-7 pr-7 pb-7">
-        <v-card-title>
+      <v-card width="500" class="mx-auto mt-9 pt-7 pl-7 pr-7 pb-7">
+        <v-card-title> 
           fundooNotes
           <br />Create your fundooNotes Account
         </v-card-title>
         <v-card-text>
-          <div class="text-filed-align">
-            <v-text-field
-              d-flex
-              outlined
-              dense
-              label="First name"
-              v-model="post.fName"
-              class="sideBySide"
-            />
-            <v-text-field outlined dense label="Last name" v-model="post.lName" class="sideBySide" />
-          </div>
-          <v-text-field outlined dense label="Email address" v-model="post.emailId" />
-          <div>
-            <v-text-field outlined dense label="Password" v-model="post.password" />
-            <v-text-field outlined dense label="Password" v-model="post.password" />
-          </div>
+          <v-row>
+            <v-col>
+              <v-text-field
+                d-flex
+                outlined
+                dense
+                label="First name"
+                v-model="post.fName"
+                :rules="fNameRules"
+              />
+            </v-col>
+            <v-col>
+              <v-text-field
+                outlined
+                dense
+                label="Last name"
+                v-model="post.lName"
+                :rules="lNameRules"
+              />
+            </v-col>
+          </v-row>
+          <v-row><v-col></v-col></v-row>
+          <v-text-field outlined dense label="Email address" v-model="post.emailId" :rules="emailRules"/>
+          <v-row><v-col></v-col></v-row>
+          <v-row>
+            <v-col>
+              <v-text-field
+                outlined
+                dense
+                hint="Use 8 or more characters with a mix of letters, numbers & symbols"
+                persistent-hint
+                label="Password"
+                :type="showPassword ? 'text' : 'password'"
+                v-model="post.password"
+                :rules="passwordRules"
+              />
+            </v-col>
+            <v-col>
+              <v-text-field
+                outlined
+                dense
+                :type="showPassword ? 'text' : 'password'"
+                label="Confirm"
+                v-model="post.confirm"
+              />
+            </v-col>
+          </v-row>
+          <v-checkbox v-on:click="showPassword = !showPassword" label="Show Password"></v-checkbox>
+          <v-row>
+          <v-btn text small color="info">Sign in instead</v-btn>
+          <v-col></v-col>
+           <v-btn color="info" @click="registration">Register</v-btn>
+          </v-row>
         </v-card-text>
-
-        <v-divider></v-divider>
-        <v-card-actions>
+       <!--  <v-card-actions>
           <v-btn color="info" @click="registration">Register</v-btn>
-        </v-card-actions>
+        </v-card-actions> -->
       </v-card>
     </v-content>
   </v-app>
@@ -50,7 +85,23 @@ export default {
       password: null, */
       post: {},
       showPassword: false,
-      URL: "http://localhost:3000/registration"
+      URL: "http://localhost:3000/registration",
+      fNameRules: [
+        name => !!name || 'Enter first names',
+        name => /^[A-Za-z]{2,}$/.test(name) || 'Name should contain minimum two characters'
+      ],
+      lNameRules:[
+        name => !!name || 'Enter last names',
+      ],
+      emailRules:[
+        email => !!email || 'Enter email address',
+        email => /^([0-9A-Za-z])+([-+._][0-9A-Za-z]+)*@([0-9A-Za-z])+[.]([a-zA-Z])+([.][A-Za-z]+)*$/.test(email) || 'E-mail must be valid'
+      ],
+      passwordRules:[
+        password => !!password || 'Enter password',
+        password => /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/.test(password) || 'Use 8 or more characters with a mix of letters, numbers & symbols',
+        
+      ],
     };
   },
   methods: {
