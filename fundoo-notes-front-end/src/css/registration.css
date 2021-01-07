@@ -1,0 +1,27 @@
+.account-img {
+    margin-left: 50px;
+    margin-top: 70px;
+  }
+  .password-hint {
+    margin-top: -25px;
+    margin-left: 20px;
+  }
+  .mdi-eye {
+    margin-top: -10px;
+  }
+  .second-title {
+    margin-top: -20px;
+  }
+  .red-text{
+    color: red;
+  }
+  .blue-text{
+    color:blue
+  }
+  .orange-text{
+    color:orange
+  }
+  .green-text{
+    color:green
+  }
+  
