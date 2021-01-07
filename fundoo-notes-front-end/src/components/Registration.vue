@@ -1,33 +1,22 @@
 <template>
   <v-app>
-    <!--  <v-app-bar app>
-      <v-toolbar-title>fundooNotes</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn text>Sign Up</v-btn>
-      <v-btn text>Login</v-btn>
-    </v-app-bar>-->
-
     <v-content>
       <v-card class="mx-auto mt-9 pl-9 pt-9" max-width="55%" height="80%" outlined>
         <v-layout row wrap>
           <v-flex xs12 md6>
-            <!-- <v-card-title>
-          fundooNotes
-          <br />Create your fundooNotes Account
-            </v-card-title>-->
             <v-flex xs24 md12>
               <v-card-title>
-                <span class="blue-text">f</span>
-                <span class="red-text">u</span>
-                <span class="orange-text">n</span>
-                <span class="blue-text">d</span>
-                <span class="green-text">o</span>
-                <span class="red-text">o</span>
-                <span class="blue-text">N</span>
-                <span class="red-text">o</span>
-                <span class="orange-text">t</span>
-                <span class="blue-text">e</span>
-                <span class="green-text">s</span>
+                <span class="blue-text text-family-size">f</span>
+                <span class="red-text text-family-size">u</span>
+                <span class="orange-text text-family-size">n</span>
+                <span class="blue-text text-family-size">d</span>
+                <span class="green-text text-family-size">o</span>
+                <span class="red-text text-family-size">o</span>
+                <span class="blue-text text-family-size">N</span>
+                <span class="red-text text-family-size">o</span>
+                <span class="orange-text text-family-size">t</span>
+                <span class="blue-text text-family-size">e</span>
+                <span class="green-text text-family-size">s</span>
               </v-card-title>
             </v-flex>
             <v-flex class="second-title">
@@ -41,8 +30,9 @@
                     outlined
                     dense
                     label="First name"
-                    v-model="post.fName"
+                    v-model="user.fName"
                     :rules="fNameRules"
+                    required
                   />
                 </v-col>
                 <v-col>
@@ -50,8 +40,9 @@
                     outlined
                     dense
                     label="Last name"
-                    v-model="post.lName"
+                    v-model="user.lName"
                     :rules="lNameRules"
+                    required
                   />
                 </v-col>
               </v-row>
@@ -62,8 +53,9 @@
                 outlined
                 dense
                 label="Email address"
-                v-model="post.emailId"
+                v-model="user.emailId"
                 :rules="emailRules"
+                required
               />
               <v-row>
                 <v-col></v-col>
@@ -77,8 +69,9 @@
                     label="Password"
                     :type="showPassword ? 'text' : 'password'"
                     v-on:click="isClicked = true"
-                    v-model="post.password"
+                    v-model="user.password"
                     :rules="passwordRules"
+                    required
                   />
                 </v-col>
                 <v-col cols="12" md="6">
@@ -87,7 +80,8 @@
                     dense
                     :type="showPassword ? 'text' : 'password'"
                     label="Confirm"
-                    v-model="post.confirm"
+                    v-model="user.confirm"
+                    required
                   />
                 </v-col>
                 <!-- <v-col cols="12" md="2">
@@ -102,9 +96,11 @@
               <!--  <v-img src="../assets/account.svg" max-width="80" class="ml-3"></v-img> -->
               <!-- <v-checkbox v-on:click="showPassword = !showPassword" label="Show Password"></v-checkbox> -->
               <v-row>
-                <v-btn text small color="info">Sign in instead</v-btn>
+                <div >
+                <v-btn class="sign-in" text small color="info">Sign in instead</v-btn>
+                </div>
                 <v-col></v-col>
-                <v-btn color="info" @click="registration">Register</v-btn>
+                <v-btn color="info" @click="validate">Register</v-btn>
               </v-row>
             </v-card-text>
           </v-flex>
@@ -130,11 +126,11 @@
 export default {
   data() {
     return {
-      post: {},
+      user: {},
       showPassword: false,
       isClicked: false,
       URL: "http://localhost:3000/registration",
-      fNameRules: [
+      /* fNameRules: [
         name => !!name || "Enter first name",
         name =>
           /^[A-Za-z]{2,}$/.test(name) ||
@@ -153,10 +149,41 @@ export default {
         password =>
           /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/.test(password) ||
           "Use 8 or more characters with a mix of letters, numbers & symbols"
-      ]
+      ] */
+      fNameRules: [],
+      lNameRules: [],
+      emailRules: [],
+      passwordRules: []
+
     };
   },
   methods: {
+    validate() {alert("reached")
+      this.fNameRules= [
+        name => !!name || "Enter first name",
+        name =>
+          /^[A-Za-z]{2,}$/.test(name) ||
+          "Name should contain minimum two characters"
+      ],
+      this.lNameRules= [name => !!name || "Enter last name"],
+      this.emailRules= [
+        email => !!email || "Enter email address",
+        email =>
+          /^([0-9A-Za-z])+([-+._][0-9A-Za-z]+)*@([0-9A-Za-z])+[.]([a-zA-Z])+([.][A-Za-z]+)*$/.test(
+            email
+          ) || "E-mail must be valid"
+      ],
+      this.passwordRules= [
+        password => !!password || "Enter password",
+        password =>
+          /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/.test(password) ||
+          "Use 8 or more characters with a mix of letters, numbers & symbols"
+      ]
+      if(this.user.password != this.user.confirm){
+        
+        alert("Password mismatch")
+      }
+    },
     registration() {
       fetch(this.URL, {
         method: "POST",
@@ -174,32 +201,5 @@ export default {
 };
 </script>
 <style>
-/* .account-img {
-  margin-left: 50px;
-  margin-top: 70px;
-}
-.password-hint {
-  margin-top: -35px;
-  margin-left: 10px;
-}
-.mdi-eye {
-  margin-top: -10px;
-}
-.second-title {
-  margin-top: -20px;
-}
-.red-text{
-  color: red;
-}
-.blue-text{
-  color:blue
-}
-.orange-text{
-  color:orange
-}
-.green-text{
-  color:green
-} */
 @import url('../css/registration.css');
-
 </style>
