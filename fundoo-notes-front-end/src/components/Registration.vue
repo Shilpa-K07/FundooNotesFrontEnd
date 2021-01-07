@@ -8,8 +8,13 @@
     </v-app-bar>-->
 
     <v-content>
-      <v-card width="500" class="mx-auto mt-9 pt-7 pl-7 pr-7 pb-7">
-        <v-card-title> 
+      <v-card  class="mx-auto mt-9 pl-9 pt-9"
+      max-width="55%"
+      height="80%"
+      outlined>
+      <v-layout row wrap>
+        <v-flex xs12 md6>
+        <v-card-title>
           fundooNotes
           <br />Create your fundooNotes Account
         </v-card-title>
@@ -35,15 +40,25 @@
               />
             </v-col>
           </v-row>
-          <v-row><v-col></v-col></v-row>
-          <v-text-field outlined dense label="Email address" v-model="post.emailId" :rules="emailRules"/>
-          <v-row><v-col></v-col></v-row>
+          <v-row>
+            <v-col></v-col>
+          </v-row>
+          <v-text-field
+            outlined
+            dense
+            label="Email address"
+            v-model="post.emailId"
+            :rules="emailRules"
+          />
+          <v-row>
+            <v-col></v-col>
+          </v-row>
           <v-row>
             <v-col>
               <v-text-field
                 outlined
                 dense
-                hint="Use 8 or more characters with a mix of letters, numbers & symbols"
+               
                 persistent-hint
                 label="Password"
                 :type="showPassword ? 'text' : 'password'"
@@ -60,17 +75,23 @@
                 v-model="post.confirm"
               />
             </v-col>
+            <v-icon v-show="showPassword == true" v-on:click="showPassword = !showPassword" class="mdi-eye">mdi-eye</v-icon>
+            <v-icon v-show="showPassword == false" v-on:click="showPassword = !showPassword" class="mdi-eye">mdi-eye-off</v-icon>
           </v-row>
-          <v-checkbox v-on:click="showPassword = !showPassword" label="Show Password"></v-checkbox>
+          <p>Use 8 or more characters with a mix of letters, numbers & symbols</p>
+         <!--  <v-img src="../assets/account.svg" max-width="80" class="ml-3"></v-img> -->
+          <!-- <v-checkbox v-on:click="showPassword = !showPassword" label="Show Password"></v-checkbox> -->
           <v-row>
-          <v-btn text small color="info">Sign in instead</v-btn>
-          <v-col></v-col>
-           <v-btn color="info" @click="registration">Register</v-btn>
+            <v-btn text small color="info">Sign in instead</v-btn>
+            <v-col></v-col>
+            <v-btn color="info" @click="registration">Register</v-btn>
           </v-row>
         </v-card-text>
-       <!--  <v-card-actions>
-          <v-btn color="info" @click="registration">Register</v-btn>
-        </v-card-actions> -->
+        </v-flex>
+        <v-flex xs12 md6>
+          <v-img src="../assets/account.svg" max-width="220" class="account-img"></v-img>
+        </v-flex>
+      </v-layout>
       </v-card>
     </v-content>
   </v-app>
@@ -79,66 +100,40 @@
 export default {
   data() {
     return {
-      /* fName: null,
-      lName: null,
-      emailId: null,
-      password: null, */
       post: {},
       showPassword: false,
       URL: "http://localhost:3000/registration",
       fNameRules: [
-        name => !!name || 'Enter first names',
-        name => /^[A-Za-z]{2,}$/.test(name) || 'Name should contain minimum two characters'
+        name => !!name || "Enter first name",
+        name =>
+          /^[A-Za-z]{2,}$/.test(name) ||
+          "Name should contain minimum two characters"
       ],
-      lNameRules:[
-        name => !!name || 'Enter last names',
+      lNameRules: [name => !!name || "Enter last name"],
+      emailRules: [
+        email => !!email || "Enter email address",
+        email =>
+          /^([0-9A-Za-z])+([-+._][0-9A-Za-z]+)*@([0-9A-Za-z])+[.]([a-zA-Z])+([.][A-Za-z]+)*$/.test(
+            email
+          ) || "E-mail must be valid"
       ],
-      emailRules:[
-        email => !!email || 'Enter email address',
-        email => /^([0-9A-Za-z])+([-+._][0-9A-Za-z]+)*@([0-9A-Za-z])+[.]([a-zA-Z])+([.][A-Za-z]+)*$/.test(email) || 'E-mail must be valid'
-      ],
-      passwordRules:[
-        password => !!password || 'Enter password',
-        password => /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/.test(password) || 'Use 8 or more characters with a mix of letters, numbers & symbols',
-        
-      ],
+      passwordRules: [
+        password => !!password || "Enter password",
+        password =>
+          /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/.test(password) ||
+          "Use 8 or more characters with a mix of letters, numbers & symbols"
+      ]
     };
   },
   methods: {
     registration() {
-      console.log("data:" + JSON.stringify(this.post));
-      /* const request = new Request(
-        URL,
-        {
-          method: "POST",
-          mode: "cors",
-          body: JSON.stringify(this.post)
-        }
-      );
-      const res = await fetch(request);
-      const data = await res.json();
-      alert("data: "+data._id)
-      
-    } */
       fetch(this.URL, {
         method: "POST",
         mode: "no-cors",
         headers: {
           "Content-Type": "application/json"
         },
-        /* headers:{
-              'Access-Control-Allow-Origin':'*',
-              'Access-Control-Allow-Headers':'*'
-            }, */
-        body: JSON.stringify(
-          /* {
-                firstName : this.fName,
-                lastName : this.lName,
-                emailId: this.emailId,
-                password: this.password
-            } */ this
-            .post
-        )
+        body: JSON.stringify(this.post)
       })
         .then(res => res.json())
         .then(data => console.log("data: " + data))
@@ -148,8 +143,14 @@ export default {
 };
 </script>
 <style scoped>
-.text-filed-align {
-  display: flex;
-  justify-content: space-between;
+.account-img{
+  margin-left:50px;
+  margin-top:70px
+}
+.password-hint{
+ margin-top: -35px;
+}
+.mdi-eye{
+  margin-bottom: 20px;
 }
 </style>
