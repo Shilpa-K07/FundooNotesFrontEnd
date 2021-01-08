@@ -132,6 +132,7 @@
 </template>
 <script>
 import { required, minLength, email, sameAs} from "vuelidate/lib/validators";
+import register from "../services/registration.svc"
 export default {
   validations: {
     firstName: {
@@ -180,7 +181,7 @@ export default {
       const errors = []
       if (!this.$v.firstName.$dirty) return errors
       !this.$v.firstName.required && errors.push("Enter first name");
-      !this.$v.lastName.minLength &&
+      !this.$v.firstName.minLength &&
         errors.push("Name must contain 2 characters");
       return errors
     },
@@ -214,37 +215,23 @@ export default {
   },
   methods: {
     Register() {
-      this.$v.$touch();
-      this.isClicked = true;
-    }
-    /* validate() {
-      this.fNameRules= [
-        name => !!name || "Enter first name",
-        name =>
-          /^[A-Za-z]{2,}$/.test(name) ||
-          "Name should contain minimum two characters"
-      ],
-      this.lNameRules= [name => !!name || "Enter last name"],
-      this.emailRules= [
-        email => !!email || "Enter email address",
-        email =>
-          /^([0-9A-Za-z])+([-+._][0-9A-Za-z]+)*@([0-9A-Za-z])+[.]([a-zA-Z])+([.][A-Za-z]+)*$/.test(
-            email
-          ) || "E-mail must be valid"
-      ],
-      this.passwordRules= [
-        password => !!password || "Enter password",
-        password =>
-          /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/.test(password) ||
-          "Use 8 or more characters with a mix of letters, numbers & symbols"
-      ]
-      if(this.user.password != this.user.confirm){
-        
-        alert("Password mismatch")
-      }
-    }, */
+      this.$v.$touch()
+      this.isClicked = true
+     if(!this.$v.$invalid){
+       const userInput = {
+         firstName:this.firstName,
+         lastName:this.lastName,
+         emailId:this.emailId,
+         password:this.password
+       }
+       this.myFunction(JSON.stringify(userInput))
+     }
+  },
+  myFunction: function(userInput){
+     return register.register(userInput)
+   } 
   }
-};
+}
 </script>
 <style>
 @import url("../css/registration.css");
