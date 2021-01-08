@@ -16,7 +16,7 @@
   .second-title {
     margin-top: -20px;
   }
-  .red-text{
+  .red-text {
     color: red;
   }
   .blue-text{
@@ -34,4 +34,7 @@
   }
   .sign-in{
     text-transform: lowercase;
+  }
+  .error {
+    color: red;
   }
