@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Registration from './components/Registration'
+import Registration from './pages/Registration'
 export default {
   components: {
     registration: Registration

@@ -2,23 +2,11 @@
   <form>
     <v-app>
       <v-content>
-        <v-card class="mx-auto mt-9 pl-9 pt-9" max-width="55%" height="80%" outlined>
+        <v-card class=" card-height-width mx-auto mt-9 pl-9 pt-9" outlined>
           <v-layout row wrap>
             <v-flex xs12 md6>
               <v-flex xs24 md12>
-                <v-card-title>
-                  <span class="blue-text text-family-size">f</span>
-                  <span class="red-text text-family-size">u</span>
-                  <span class="orange-text text-family-size">n</span>
-                  <span class="blue-text text-family-size">d</span>
-                  <span class="green-text text-family-size">o</span>
-                  <span class="red-text text-family-size">o</span>
-                  <span class="blue-text text-family-size">N</span>
-                  <span class="red-text text-family-size">o</span>
-                  <span class="orange-text text-family-size">t</span>
-                  <span class="blue-text text-family-size">e</span>
-                  <span class="green-text text-family-size">s</span>
-                </v-card-title>
+                <Title/>
               </v-flex>
               <v-flex class="second-title">
                 <v-card-title>Create your fundooNotes Account</v-card-title>
@@ -34,7 +22,6 @@
                       :error-messages="firstNameErrors"
                       required
                     />
-                    <!--  <p class="error" v-if="!$v.user.fName.required">this field is required</p> -->
                   </v-col>
                   <v-col>
                     <v-text-field
@@ -84,24 +71,12 @@
                       required
                     />
                   </v-col>
-                  <!-- <v-col cols="12" md="2">
-            <v-icon v-show="showPassword == true" v-on:click="showPassword = !showPassword" class="mdi-eye">mdi-eye</v-icon>
-            <v-icon v-show="showPassword == false" v-on:click="showPassword = !showPassword" class="mdi-eye">mdi-eye-off</v-icon>
-                  </v-col>-->
                 </v-row>
                 <v-row v-show="isClicked == false">
                   <p
                     class="password-hint"
                   >Use 8 or more characters with a mix of letters, numbers & symbols</p>
                 </v-row>
-                 <v-row v-show="isPasswordMismatch == true">
-                  <p
-                    class="password-hint"
-                  >Passwords didn't match. Try again</p>
-                </v-row>
-
-                <!--  <v-img src="../assets/account.svg" max-width="80" class="ml-3"></v-img> -->
-                <!-- <v-checkbox v-on:click="showPassword = !showPassword" label="Show Password"></v-checkbox> -->
                 <v-row>
                   <div>
                     <v-btn class="sign-in" text small color="info">Sign in instead</v-btn>
@@ -112,7 +87,7 @@
               </v-card-text>
             </v-flex>
             <v-flex xs12 md6>
-              <v-img src="../assets/account.svg" max-width="220" class="account-img"></v-img>
+              <v-img :src="logoPath"  max-width="220" class="account-img"></v-img>
               <v-icon
                 v-show="showPassword == true"
                 v-on:click="showPassword = !showPassword"
@@ -132,8 +107,12 @@
 </template>
 <script>
 import { required, minLength, email, sameAs} from "vuelidate/lib/validators";
-import register from "../services/registration.svc"
+import register from "../services/user"
+import Title from "../components/Title"
 export default {
+  components: {
+    Title
+  },
   validations: {
     firstName: {
       required,
@@ -169,11 +148,8 @@ export default {
     showPassword: false,
     isClicked: false,
     isPasswordMismatch: false,
-    URL: "http://localhost:3000/registration"
-    /*  fNameRules: [],
-      lNameRules: [],
-      emailRules: [],
-      passwordRules: [] */
+    logoPath: require('../assets/account.svg')
+   // image: "D:/Fellowship_Tech/FundoNotes/fundoo-notes-front-end/src/assets/account.svg"
   }),
 
   computed: {
@@ -224,7 +200,10 @@ export default {
          emailId:this.emailId,
          password:this.password
        }
-       this.myFunction(JSON.stringify(userInput))
+       var response = this.myFunction(JSON.stringify(userInput))
+       response
+       .then(data => console.log("data: "+JSON.stringify(data.data)))
+       .catch(error => console.log("error: "+error))
      }
   },
   myFunction: function(userInput){

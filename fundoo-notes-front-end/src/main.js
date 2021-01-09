@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
-import vuetify from './plugins/vuetify'
 import Vuelidate from 'vuelidate'
-import AxiosPlugin from 'vue-axios-cors';
- 
-Vue.use(AxiosPlugin)
+/* import AxiosPlugin from 'vue-axios-cors' */
+import Vuetify from 'vuetify/lib/framework'
+import '@mdi/font/css/materialdesignicons.css'
+
+
+Vue.use(Vuetify)
 Vue.use(Vuelidate)
+/* Vue.use(AxiosPlugin) */
 /* Vue.config.productionTip = false */
 new Vue({
-  vuetify,
+  vuetify : new Vuetify(),
   render: h => h(App)
 }).$mount('#app')

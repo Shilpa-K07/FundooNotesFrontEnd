@@ -33,8 +33,12 @@
       font-weight: 500;
   }
   .sign-in{
-    text-transform: lowercase;
+    text-transform: lowercase !important;
   }
   .error {
     color: red;
+  }
+  .card-height-width {
+    max-width: 55% !important;
+    height: 80% !important;
   }
