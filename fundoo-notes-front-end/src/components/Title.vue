@@ -13,7 +13,6 @@
     <span class="green-text text-family-size">s</span>
   </v-card-title>
 </template>
-
 <script>
 export default {
 }
