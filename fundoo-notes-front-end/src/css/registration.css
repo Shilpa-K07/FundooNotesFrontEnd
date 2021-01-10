@@ -4,14 +4,15 @@
 .account-img {
     margin-left: 50px;
     margin-top: 70px;
+    max-width: 220px !important;
   }
-  .password-hint {
+  .password-hint , .error-hint {
     margin-top: -25px;
     margin-left: 20px;
     font-size: 12px;
   }
   .mdi-eye {
-    margin-top: -10px;
+    margin-top: 20px;
   }
   .second-title {
     margin-top: -20px;
@@ -33,7 +34,8 @@
       font-weight: 500;
   }
   .sign-in{
-    text-transform: lowercase;
+    text-transform: lowercase !important;
+    font-size: 20x !important;
   }
   .error {
     color: red;
@@ -42,3 +44,7 @@
     max-width: 55% !important;
     height: 80% !important;
   }
+  .red-border {
+    color: red !important
+  }
+  

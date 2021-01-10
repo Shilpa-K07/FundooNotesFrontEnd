@@ -1,12 +1,18 @@
 <template>
   <form>
     <v-app>
+      <v-snackbar v-model="snackbar" :timeout="timeout">
+        Registration successful
+        <template v-slot:action="{ attrs }">
+          <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+        </template>
+      </v-snackbar>
       <v-content>
-        <v-card class=" card-height-width mx-auto mt-9 pl-9 pt-9" outlined>
+        <v-card class="card-height-width mx-auto mt-9 pl-9 pt-9" outlined>
           <v-layout row wrap>
             <v-flex xs12 md6>
               <v-flex xs24 md12>
-                <Title/>
+                <Title />
               </v-flex>
               <v-flex class="second-title">
                 <v-card-title>Create your fundooNotes Account</v-card-title>
@@ -37,6 +43,8 @@
                 <v-row>
                   <v-col></v-col>
                 </v-row>
+                <v-row>
+                <v-col>
                 <v-text-field
                   outlined
                   dense
@@ -44,7 +52,13 @@
                   v-model="emailId"
                   :error-messages="emailIdErrors"
                   required
+                  :class="emailId.isUserExists? 'red-border' : ''"
                 />
+                </v-col>
+                </v-row>
+                <v-row v-show="isUserExists == true" >
+                <p class="error-hint red-text">User exists with this emailId</p>
+                </v-row>
                 <v-row>
                   <v-col></v-col>
                 </v-row>
@@ -82,12 +96,12 @@
                     <v-btn class="sign-in" text small color="info">Sign in instead</v-btn>
                   </div>
                   <v-col></v-col>
-                  <v-btn color="info" @click="Register">Register</v-btn>
+                  <v-btn color="info" @click="register">Register</v-btn>
                 </v-row>
               </v-card-text>
             </v-flex>
             <v-flex xs12 md6>
-              <v-img :src="logoPath"  max-width="220" class="account-img"></v-img>
+              <v-img :src="logoPath" class="account-img"></v-img>
               <v-icon
                 v-show="showPassword == true"
                 v-on:click="showPassword = !showPassword"
@@ -106,9 +120,9 @@
   </form>
 </template>
 <script>
-import { required, minLength, email, sameAs} from "vuelidate/lib/validators";
-import register from "../services/user"
-import Title from "../components/Title"
+import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
+import user from "../services/user";
+import Title from "../components/Title";
 export default {
   components: {
     Title
@@ -148,69 +162,84 @@ export default {
     showPassword: false,
     isClicked: false,
     isPasswordMismatch: false,
-    logoPath: require('../assets/account.svg')
-   // image: "D:/Fellowship_Tech/FundoNotes/fundoo-notes-front-end/src/assets/account.svg"
+    snackbar: false,
+    timeout: 2000,
+    isUserExists: false,
+    logoPath: require("../assets/account.svg")
   }),
 
   computed: {
     firstNameErrors() {
-      const errors = []
-      if (!this.$v.firstName.$dirty) return errors
+      const errors = [];
+      if (!this.$v.firstName.$dirty) return errors;
       !this.$v.firstName.required && errors.push("Enter first name");
       !this.$v.firstName.minLength &&
         errors.push("Name must contain 2 characters");
-      return errors
+      return errors;
     },
     lastNameErrors() {
-      const errors = []
+      const errors = [];
       if (!this.$v.lastName.$dirty) return errors;
       !this.$v.lastName.required && errors.push("Enter last name");
-      return errors
+      return errors;
     },
     emailIdErrors() {
-      const errors = []
+      const errors = [];
       if (!this.$v.emailId.$dirty) return errors;
       !this.$v.emailId.required && errors.push("Enter email address");
       !this.$v.emailId.email && errors.push("Must be valid email");
-      return errors
+      return errors;
     },
     passwordErrors() {
-      const errors = []
-      if (!this.$v.password.$dirty) return errors
-      !this.$v.password.required && errors.push("Enter password")
-      !this.$v.password.isPasswordStrong && errors.push("Use 8 or more characters with a mix of letters, numbers & symbols")
-      return errors
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.required && errors.push("Enter password");
+      !this.$v.password.isPasswordStrong &&
+        errors.push(
+          "Use 8 or more characters with a mix of letters, numbers & symbols"
+        );
+      return errors;
     },
     confirmPasswordErrors() {
-     const errors = []
-      if (!this.$v.confirmPassword.$dirty) return errors
-      !this.$v.confirmPassword.required && errors.push("confirm password")
-      !this.$v.confirmPassword.sameAsPassword && errors.push("Password mismatch")
-      return errors
+      const errors = [];
+      if (!this.$v.confirmPassword.$dirty) return errors;
+      !this.$v.confirmPassword.required && errors.push("confirm password");
+      !this.$v.confirmPassword.sameAsPassword &&
+        errors.push("Password mismatch");
+      return errors;
     }
   },
   methods: {
-    Register() {
-      this.$v.$touch()
+    register() {
+      this.$v.$touch();
       this.isClicked = true
-     if(!this.$v.$invalid){
-       const userInput = {
-         firstName:this.firstName,
-         lastName:this.lastName,
-         emailId:this.emailId,
-         password:this.password
-       }
-       var response = this.myFunction(JSON.stringify(userInput))
-       response
-       .then(data => console.log("data: "+JSON.stringify(data.data)))
-       .catch(error => console.log("error: "+error))
-     }
-  },
-  myFunction: function(userInput){
-     return register.register(userInput)
-   } 
+      this.isUserExists = false
+      if (!this.$v.$invalid) {
+        const userInput = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          emailId: this.emailId,
+          password: this.password
+        };
+        var response = this.myFunction(JSON.stringify(userInput));
+        response
+          .then(data => {
+            if (data) {
+              this.snackbar = true;
+            }
+          })
+          .catch(error => {console.log(error.response.status)
+            if (error.response.status == 409) {
+              this.isUserExists = true
+            }
+          });
+      }
+    },
+    myFunction: function(userInput) {
+      return user.userRegistration(userInput);
+    }
   }
-}
+};
 </script>
 <style>
 @import url("../css/registration.css");
