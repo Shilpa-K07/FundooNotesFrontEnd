@@ -1,4 +1,4 @@
-<template>
+ <template>
   <v-card-title>
     <span class="blue-text text-family-size">f</span>
     <span class="red-text text-family-size">u</span>
@@ -17,4 +17,4 @@
 <script>
 export default {
 }
-</script>
+
