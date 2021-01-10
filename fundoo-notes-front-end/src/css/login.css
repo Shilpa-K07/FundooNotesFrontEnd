@@ -1,0 +1,13 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.login-card {
+    width: 30%;
+    height: 80%
+}
+.third-title {
+    font-size: 17px !important;
+}
+.title-margin {
+    margin-top: -20px;
+}
