@@ -11,7 +11,7 @@
     margin-left: 20px;
     font-size: 12px;
   }
-  .mdi-eye {
+  .password-eye {
     margin-top: 20px;
   }
   .second-title {
@@ -35,7 +35,8 @@
   }
   .sign-in{
     text-transform: lowercase !important;
-    font-size: 20x !important;
+    font-size: 17px !important;
+    text-decoration: none;
   }
   .error {
     color: red;
