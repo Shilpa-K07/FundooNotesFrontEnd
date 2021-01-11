@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <v-card class="login-card mx-auto ml-19 mt-9 d-flex flex-column" outlined>
-        <Title class="d-flex justify-center" />
+        <Title class="d-flex justify-center"/>
         <v-card-title class="d-flex justify-center title-margin">Sign in</v-card-title>
         <v-card-title
           class="d-flex justify-center third-title title-margin"
