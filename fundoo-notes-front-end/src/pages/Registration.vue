@@ -93,7 +93,7 @@
                 </v-row>
                 <v-row>
                   <div>
-                    <v-btn class="sign-in" text small color="info">Sign in instead</v-btn>
+                    <router-link class="sign-in" to='/login'>Sign in instead</router-link>
                   </div>
                   <v-col></v-col>
                   <v-btn class="register" @click="register">Register</v-btn>
@@ -105,12 +105,12 @@
               <v-icon
                 v-show="showPassword == true"
                 v-on:click="showPassword = !showPassword"
-                class="mdi-eye"
+                class="password-eye"
               >mdi-eye</v-icon>
               <v-icon
                 v-show="showPassword == false"
                 v-on:click="showPassword = !showPassword"
-                class="mdi-eye"
+                class="password-eye"
               >mdi-eye-off</v-icon>
             </v-flex>
           </v-layout>
