@@ -1,10 +1,10 @@
 <template>
-  <form>
+  <v-form ref="form">
     <v-app>
       <v-snackbar v-model="snackbar" :timeout="timeout">
         Registration successful
         <template v-slot:action="{ attrs }">
-          <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+          <v-btn color="blue" text v-bind="attrs" @click="closeSnackbar">Close</v-btn>
         </template>
       </v-snackbar>
       <v-content>
@@ -44,20 +44,20 @@
                   <v-col></v-col>
                 </v-row>
                 <v-row>
-                <v-col>
-                <v-text-field
-                  outlined
-                  dense
-                  label="Email address"
-                  v-model="emailId"
-                  :error-messages="emailIdErrors"
-                  required
-                  :class="emailId.isUserExists? 'red-border' : ''"
-                />
-                </v-col>
+                  <v-col>
+                    <v-text-field
+                      outlined
+                      dense
+                      label="Email address"
+                      v-model="emailId"
+                      :error-messages="emailIdErrors"
+                      required
+                      :class="emailId.isUserExists? 'red-border' : ''"
+                    />
+                  </v-col>
                 </v-row>
-                <v-row v-show="isUserExists == true" >
-                <p class="error-hint red-text">User exists with this emailId</p>
+                <v-row v-show="isUserExists == true">
+                  <p class="error-hint red-text">User exists with this emailId</p>
                 </v-row>
                 <v-row>
                   <v-col></v-col>
@@ -117,7 +117,7 @@
         </v-card>
       </v-content>
     </v-app>
-  </form>
+  </v-form>
 </template>
 <script>
 import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
@@ -212,8 +212,8 @@ export default {
   methods: {
     register() {
       this.$v.$touch();
-      this.isClicked = true
-      this.isUserExists = false
+      this.isClicked = true;
+      this.isUserExists = false;
       if (!this.$v.$invalid) {
         const userInput = {
           firstName: this.firstName,
@@ -221,14 +221,16 @@ export default {
           emailId: this.emailId,
           password: this.password
         };
-        var response = this.myFunction(JSON.stringify(userInput));
+        var response = this.myFunction(userInput);
         response
           .then(data => {
             if (data) {
-              this.snackbar = true;
+              //this.snackbar = true;
+              this.showSnackbar()
             }
           })
-          .catch(error => {console.log(error.response.status)
+          .catch(error => {
+            console.log(error.response.status);
             if (error.response.status == 409) {
               this.isUserExists = true
             }
@@ -236,7 +238,20 @@ export default {
       }
     },
     myFunction: function(userInput) {
-      return user.userRegistration(userInput);
+      return user.userRegistration(userInput)
+    },
+    reset() {
+      this.$refs.form.reset()
+    },
+    showSnackbar() {
+      this.snackbar = true
+      setTimeout(() => {
+        this.reset()
+      }, this.timeout)
+    },
+    closeSnackbar() {
+      this.snackbar = false
+      this.reset()
     }
   }
 };

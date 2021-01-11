@@ -12,6 +12,10 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-axios-cors": "^1.0.1",
+<<<<<<< HEAD
+=======
+    "vue-flex": "^2.1.2",
+>>>>>>> development
     "vue-router": "^3.4.9",
     "vuelidate": "^0.7.6",
     "vuetify": "^2.4.0"

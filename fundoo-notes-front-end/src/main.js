@@ -21,9 +21,20 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login 
+  },
+  {
+    path: '*/*',
+    name: 'Register',
+    component: Register 
+  },
+  {
+    path: '/',
+    name: 'Register',
+    component: Register 
   }
 ]
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 /* Vue.config.productionTip = false */
