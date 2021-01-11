@@ -96,7 +96,7 @@
                     <v-btn class="sign-in" text small color="info">Sign in instead</v-btn>
                   </div>
                   <v-col></v-col>
-                  <v-btn color="info" @click="register">Register</v-btn>
+                  <v-btn class="register" @click="register">Register</v-btn>
                 </v-row>
               </v-card-text>
             </v-flex>
@@ -211,9 +211,9 @@ export default {
   },
   methods: {
     register() {
-      this.$v.$touch();
-      this.isClicked = true;
-      this.isUserExists = false;
+      this.$v.$touch()
+      this.isClicked = true
+      this.isUserExists = false
       if (!this.$v.$invalid) {
         const userInput = {
           firstName: this.firstName,
@@ -221,7 +221,7 @@ export default {
           emailId: this.emailId,
           password: this.password
         };
-        var response = this.myFunction(userInput);
+        var response = this.userRegistration(userInput)
         response
           .then(data => {
             if (data) {
@@ -230,14 +230,13 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error.response.status);
             if (error.response.status == 409) {
               this.isUserExists = true
             }
-          });
+          })
       }
     },
-    myFunction: function(userInput) {
+    userRegistration: function(userInput) {
       return user.userRegistration(userInput)
     },
     reset() {

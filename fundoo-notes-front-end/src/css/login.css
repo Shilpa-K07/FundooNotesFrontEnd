@@ -8,6 +8,30 @@
 .third-title {
     font-size: 17px !important;
 }
-.title-margin {
+.flex-gap {
     margin-top: -20px;
 }
+.flex-width {
+    width:80%;
+}
+.forgot-password {
+    font-size: 15px;
+    font-weight: bold;
+    color: "info";
+}
+.email-password {
+    display: flexbox;
+    padding: 5px;
+}
+.flex-gapp {
+    margin: 5px;
+}
+.create-account {
+    color: #2196f3;
+    font-size: 15px;
+}
+.login {
+    color: white !important;
+    background-color: #2196f3 !important;
+}
+
