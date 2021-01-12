@@ -6,10 +6,12 @@ import '@mdi/font/css/materialdesignicons.css'
 import VueRouter from 'vue-router'
 import Register from './pages/Registration'
 import Login from './pages/Login'
-
+import Vuex from 'vuex'
+import snackbar from './store/snackbar'
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
+Vue.use(Vuex)
 
 const routes = [
   {
@@ -37,9 +39,13 @@ const router = new VueRouter({
   mode: 'history',
   routes
 })
+const store = new Vuex.Store({
+  snackbar
+})
 /* Vue.config.productionTip = false */
 new Vue({
   vuetify : new Vuetify(),
+  store,
   router,
   render: h => h(App)
 }).$mount('#app')
