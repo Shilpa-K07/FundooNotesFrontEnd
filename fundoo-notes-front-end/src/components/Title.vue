@@ -1,6 +1,6 @@
  <template>
   <v-card-title>
-    <span class="blue-text text-family-size">f</span>
+    <span class="blue-text text-family-size">F</span>
     <span class="red-text text-family-size">u</span>
     <span class="orange-text text-family-size">n</span>
     <span class="blue-text text-family-size">d</span>

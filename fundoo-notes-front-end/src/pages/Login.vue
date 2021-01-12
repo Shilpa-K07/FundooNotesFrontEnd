@@ -1,12 +1,13 @@
 <template>
  <v-form ref="loginForm">
   <v-app>
-    <v-snackbar v-model="snackbar" :timeout="timeout">
+   <!--  <v-snackbar v-model="snackbar" :timeout="timeout">
        Login success
         <template v-slot:action="{ attrs }">
           <v-btn color="blue" text v-bind="attrs" @click="closeSnackbar">Close</v-btn>
         </template>
-      </v-snackbar>
+      </v-snackbar> -->
+    <!--   <Snackbar v-show="snackbar ==true"/> -->
     <v-content>
       <v-card class="login-card mx-auto ml-19 mt-9" outlined>
         <v-flex class="d-flex flex-column flex-gap mt-auto">
@@ -42,14 +43,16 @@
           </v-row>
         </v-col>
         <v-alert
-          v-model="isNotAuthorized"
+          v-show="isAuthorized == false"
+          v-model="isAuthorized"
           dense
           type="error"
           border="left"
           class="ml-12 mr-12"
         >Incorrect username or password</v-alert>
         <v-alert
-          v-model="isNotVerified"
+          v-show="isVerified == false"
+          v-model="isVerified"
           dense
           type="warning"
           border="left"
@@ -67,11 +70,12 @@
 
 <script>
 import { required, email } from "vuelidate/lib/validators";
+import {mapActions} from 'vuex';
 import user from "../services/user";
 import Title from "../components/Title";
 export default {
   components: {
-    Title
+    Title,
   },
   validations: {
     emailId: {
@@ -89,8 +93,8 @@ export default {
   data: () => ({
     emailId: "",
     password: "",
-    isNotAuthorized: false,
-    isNotVerified: false,
+    isAuthorized: true,
+    isVerified: true,
     snackbar: false,
     timeout: 2000,
     showPassword: false
@@ -127,17 +131,18 @@ export default {
         response
           .then(data => {console.log("data: "+JSON.stringify(data))
            if (data) {
-              this.showSnackbar()
+            /*  this.snackbar = true */
+            
             }
           })
           .catch(error => {
             console.log("error: " + JSON.stringify(error.response));
             if (error.response.data.message.includes("ERR:401-Authorization failed")) {
-              this.isNotAuthorized = true
-              this.isNotVerified = false
+              this.isAuthorized = false
+              this.isVerified = true
             } else if (error.response.status == 401) {
-              this.isNotVerified = true
-              this.isNotAuthorized = false
+              this.isVerified = false
+              this.isAuthorized = true
             }
           });
       }
@@ -161,7 +166,8 @@ export default {
       this.snackbar = false
       this.reset()
       this.$v.$reset()
-    }
+    },
+  
   }
 };
 </script>
