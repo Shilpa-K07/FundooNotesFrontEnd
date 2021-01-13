@@ -1,3 +1,6 @@
+ <!-- comment
+ This is the vue component for fundooNotes title 
+ -->
  <template>
   <v-card-title>
     <span class="blue-text text-family-size">F</span>

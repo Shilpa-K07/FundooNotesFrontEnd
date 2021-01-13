@@ -1,26 +1,7 @@
-<!--<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
-</template>
+<!-- comment
+This is the component where all the routers are defined. This is the main component
 -->
-<!--<template>
-  <registration></registration>
-</template>
 
-<script>
-import Registration from './pages/Registration'
-export default {
-  components: {
-    registration: Registration
-  }
-}
-</script>
--->
 <template>
   <div id="app">
       <router-link to="/register"></router-link> |

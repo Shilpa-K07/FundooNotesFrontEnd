@@ -1,3 +1,8 @@
+/**
+ * @description This file is for integrating UI with APIs
+ * @method userRegistration is for integrating registration UI with registration API
+ * @method userLogin is for integrating login UI with login API
+ */
 const axios = require('axios')
 class Registration {
   
@@ -11,8 +16,18 @@ class Registration {
     })
   }
 
-  userLogin = (userInput) => {console.log("userInput: "+userInput)
+  userLogin = (userInput) => {
     const URL = "http://localhost:3000/login"
+    return axios({
+      method: 'POST',
+      url: URL,
+      data: userInput,
+      headers: { 'Content-Type': 'application/json'}
+    })
+  }
+
+  userEmailVerification = (userInput) => {
+    const URL = "http://localhost:3000/verifyEmail"
     return axios({
       method: 'POST',
       url: URL,

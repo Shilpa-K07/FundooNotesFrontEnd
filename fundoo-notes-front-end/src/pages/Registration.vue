@@ -1,3 +1,6 @@
+<!-- comment
+  This is the vue component for user registration
+-->
 <template>
   <v-form ref="form">
     <v-app>
