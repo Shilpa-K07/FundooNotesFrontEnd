@@ -7,7 +7,7 @@ import VueRouter from 'vue-router'
 import Register from './pages/Registration'
 import Login from './pages/Login'
 import Vuex from 'vuex'
-import snackbar from './store/snackbar'
+import store from './store/index'
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
@@ -39,9 +39,9 @@ const router = new VueRouter({
   mode: 'history',
   routes
 })
-const store = new Vuex.Store({
+/* const store = new Vuex.Store({
   snackbar
-})
+}) */
 /* Vue.config.productionTip = false */
 new Vue({
   vuetify : new Vuetify(),

@@ -1,17 +1,23 @@
 <template>
-    <v-snackbar v-model="snackbar" :timeout="timeout">
-       Login success
+<div id="snackbar">
+    <v-snackbar v-model="showSnackbar" :timeout="timeout">
+       {{text}}
         <template v-slot:action="{ attrs }">
-          <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
+          <v-btn color="blue" text v-bind="attrs" @click="showSnackbar = false">Close</v-btn>
         </template>
       </v-snackbar> 
+</div>
 </template>
 
 <script>
 export default {
-    data: () => ({
-        timeout: 2000,
-        snackbar: true,
-    })
+   props:['text', 'showSnackbar','timeout'],
+   methods: {
+     setSnackbar(text, showSnackbar, timeout){
+       this.text = text
+       this.showSnackbar = showSnackbar
+       this.timeout = timeout
+     }
+   }
 }
 </script>
