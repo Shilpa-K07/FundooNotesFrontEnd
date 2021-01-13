@@ -35,7 +35,7 @@ This is vue component for login page
               required
             />
             <v-row class="d-flex justify-space-around">
-              <a>Forgot password?</a>
+              <router-link class="forgot-password" to="/forgotPassword">Forgot password</router-link>
               <a v-on:click="verifyEmail">Verify email?</a>
             </v-row>
           </v-col>

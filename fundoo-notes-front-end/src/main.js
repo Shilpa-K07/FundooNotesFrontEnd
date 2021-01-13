@@ -10,7 +10,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import VueRouter from 'vue-router'
 import Register from './pages/Registration'
 import Login from './pages/Login'
-
+import ForgotPassword from './pages/ForgotPassword'
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
@@ -25,6 +25,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login 
+  },
+  {
+    path: '/forgotPassword',
+    name: 'ForgotPassword',
+    component: ForgotPassword
+  },
+  {
+    path: '/resetPassword',
+    name: 'ResetPassword',
+    component: ResetPassword
   },
   {
     path: '*/*',

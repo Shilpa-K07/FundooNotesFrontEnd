@@ -35,5 +35,14 @@ class Registration {
       headers: { 'Content-Type': 'application/json'}
     })
   }
+  userPasswordReset = (userInput) => {
+    const URL = "http://localhost:3000/forgot-password"
+    return axios({
+      method: 'POST',
+      url: URL,
+      data: userInput,
+      headers: { 'Content-Type': 'application/json'}
+    })
+  }
 }
 module.exports = new Registration()

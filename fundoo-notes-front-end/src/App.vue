@@ -6,6 +6,7 @@ This is the component where all the routers are defined. This is the main compon
   <div id="app">
       <router-link to="/register"></router-link> |
       <router-link to="/login"></router-link>
+      <router-link to="/forgotPassword"></router-link>
     <router-view/>
 
     <v-snackbar v-model="snackbar" :timeout="timeout">

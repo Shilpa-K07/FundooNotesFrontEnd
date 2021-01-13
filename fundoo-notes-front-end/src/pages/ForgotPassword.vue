@@ -1,0 +1,135 @@
+<!-- cooment
+This vue component is for sending email to user 
+incase of forgot password
+-->
+
+<!--
+This is vue component for login page
+-->
+<template>
+  <v-form ref="forgotPasswordForm">
+    <v-app>
+      <Snackbar ref="snack" />
+      <v-content>
+        <v-card class="login-card mx-auto ml-19 mt-9" outlined>
+          <v-flex class="d-flex flex-column flex-gap mt-auto">
+            <Title class="justify-center" />
+            <v-card-title class="justify-center flex-gap">Account recovery</v-card-title>
+          </v-flex>
+          <v-col>
+            <v-text-field
+              class="ml-8 mr-8"
+              outlined
+              dense
+              label="Email"
+              v-model="emailId"
+              :error-messages="emailIdErrors"
+              required
+            />
+          </v-col>
+          <v-row class="d-flex justify-space-around mt-12">
+            <v-btn class="login" @click="sendResetPasswordLink">Send reset password link</v-btn>
+          </v-row>
+        </v-card>
+      </v-content>
+    </v-app>
+  </v-form>
+</template>
+
+<script>
+import { required, email } from "vuelidate/lib/validators";
+import user from "../services/user";
+import Title from "../components/Title";
+import Snackbar from "../components/Snackbar";
+
+export default {
+  components: {
+    Title,
+    Snackbar
+  },
+  validations: {
+    emailId: {
+      required,
+      email
+    }
+  },
+  data: () => ({
+    emailId: "",
+    snackbar: false,
+    timeout: 2000,
+    text: ""
+  }),
+
+  computed: {
+    emailIdErrors() {
+      const errors = [];
+      if (!this.$v.emailId.$dirty) return errors;
+      !this.$v.emailId.required && errors.push("Enter email address");
+      !this.$v.emailId.email && errors.push("Must be valid email");
+      return errors;
+    }
+  },
+  methods: {
+    sendResetPasswordLink() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        const userInput = {
+          emailId: this.emailId
+        };
+        this.userPasswordReset(userInput)
+          .then(data => {
+            if (data) {
+              const snackbarData = {
+                text: "Successfully sent password reset link",
+                timeout: this.timeout
+              };
+              this.$refs.snack.setSnackbar(snackbarData)
+              setTimeout(() => {
+                this.reset()
+              }, this.timeout)
+            }
+          })
+          .catch(error => {console.log("error: "+error)
+            if (error.response.status == 401) 
+              {
+                const snackbarData = {
+                  text: "Authorization falied",
+                  timeout: this.timeout
+                }
+                this.$refs.snack.setSnackbar(snackbarData)
+                setTimeout(() => {
+                this.reset()
+              }, this.timeout)
+              }
+            else if(error.response.status == 500) {
+                {
+                const snackbarData = {
+                  text: "Some error occurred",
+                  timeout: this.timeout
+                }
+                this.$refs.snack.setSnackbar(snackbarData)
+                setTimeout(() => {
+                this.reset()
+              }, this.timeout)
+              }
+            }
+          })
+      }
+    },
+    userPasswordReset: function(userInput) {
+      return user.userPasswordReset(userInput);
+    },
+    reset() {
+      this.$refs.loginForm.reset();
+      this.$v.$reset();
+    }
+  }
+};
+</script>
+
+<style>
+@import url("../css/login.css");
+</style>
+<style lang="scss">
+@import url("../css/login.scss");
+</style>
