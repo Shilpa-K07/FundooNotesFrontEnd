@@ -13,7 +13,7 @@ export default {
       },
     },
     actions: {
-      showSnack({ commit }, payload) {console.log("reacged snack")
+      showSnack({ commit }, payload) {
         commit("SHOW_MESSAGE", payload);
       },
     },

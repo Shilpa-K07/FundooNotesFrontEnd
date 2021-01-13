@@ -8,6 +8,7 @@
         </template>
       </v-snackbar> -->
     <!--   <Snackbar v-show="snackbar ==true"/> -->
+    <Snackbar ref="snack" :showSnackbar="snackbar"/>
     <v-content>
       <v-card class="login-card mx-auto ml-19 mt-9" outlined>
         <v-flex class="d-flex flex-column flex-gap mt-auto">
@@ -70,12 +71,14 @@
 
 <script>
 import { required, email } from "vuelidate/lib/validators";
-import {mapActions} from 'vuex';
 import user from "../services/user";
 import Title from "../components/Title";
+import Snackbar from "../components/Snackbar"
+
 export default {
   components: {
     Title,
+    Snackbar
   },
   validations: {
     emailId: {
@@ -96,8 +99,9 @@ export default {
     isAuthorized: true,
     isVerified: true,
     snackbar: false,
-    timeout: 2000,
-    showPassword: false
+    timeout: 0,
+    showPassword: false,
+    text: "",
   }),
   
   computed: {
@@ -131,16 +135,17 @@ export default {
         response
           .then(data => {console.log("data: "+JSON.stringify(data))
            if (data) {
-            /*  this.snackbar = true */
-            
+             this.$refs.snack.setSnackbar("Successfully logged in", "true", "2000")
             }
           })
           .catch(error => {
             console.log("error: " + JSON.stringify(error.response));
             if (error.response.data.message.includes("ERR:401-Authorization failed")) {
+              this.$refs.snack.setSnackbar("Authorization falied", "true", "2000")
               this.isAuthorized = false
               this.isVerified = true
             } else if (error.response.status == 401) {
+              this.$refs.snack.setSnackbar("Please verify your email address before login", "true", "2000")
               this.isVerified = false
               this.isAuthorized = true
             }
@@ -155,7 +160,6 @@ export default {
       this.$v.$reset()
     },
     showSnackbar() {
-      this.snackbar = true
       this.isNotVerified = false
       this.isNotAuthorized = false
       setTimeout(() => {
@@ -167,7 +171,6 @@ export default {
       this.reset()
       this.$v.$reset()
     },
-  
   }
 };
 </script>
