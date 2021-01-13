@@ -2,10 +2,6 @@
 This vue component is for sending email to user 
 incase of forgot password
 -->
-
-<!--
-This is vue component for login page
--->
 <template>
   <v-form ref="forgotPasswordForm">
     <v-app>
@@ -55,7 +51,6 @@ export default {
   },
   data: () => ({
     emailId: "",
-    snackbar: false,
     timeout: 2000,
     text: ""
   }),
@@ -76,7 +71,7 @@ export default {
         const userInput = {
           emailId: this.emailId
         };
-        this.userPasswordReset(userInput)
+        this.userForgotPasword(userInput)
           .then(data => {
             if (data) {
               const snackbarData = {
@@ -116,8 +111,8 @@ export default {
           })
       }
     },
-    userPasswordReset: function(userInput) {
-      return user.userPasswordReset(userInput);
+    userForgotPasword: function(userInput) {
+      return user.userForgotPasword(userInput);
     },
     reset() {
       this.$refs.loginForm.reset();

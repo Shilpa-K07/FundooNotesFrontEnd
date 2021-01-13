@@ -7,18 +7,19 @@ This is the component where all the routers are defined. This is the main compon
       <router-link to="/register"></router-link> |
       <router-link to="/login"></router-link>
       <router-link to="/forgotPassword"></router-link>
+      <router-link to="/resetPassword/:token"></router-link>
     <router-view/>
-
+<!-- 
     <v-snackbar v-model="snackbar" :timeout="timeout">
        {{text}}
         <template v-slot:action="{ attrs }">
           <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
         </template>
-      </v-snackbar>
+      </v-snackbar> -->
   </div>
 </template>
 <script>
-export default {
+/* export default {
   created() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === "snackbar/SHOW_MESSAGE") {
@@ -35,5 +36,5 @@ export default {
     color:"",
     show:"",
   })
-}
+} */
 </script>

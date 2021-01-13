@@ -11,6 +11,7 @@ import VueRouter from 'vue-router'
 import Register from './pages/Registration'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
@@ -32,7 +33,7 @@ const routes = [
     component: ForgotPassword
   },
   {
-    path: '/resetPassword',
+    path: '/resetPassword/:token',
     name: 'ResetPassword',
     component: ResetPassword
   },

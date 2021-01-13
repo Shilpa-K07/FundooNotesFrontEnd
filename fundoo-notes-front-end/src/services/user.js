@@ -4,7 +4,7 @@
  * @method userLogin is for integrating login UI with login API
  */
 const axios = require('axios')
-class Registration {
+class User {
   
   userRegistration = (userInput) => {
     const URL = "http://localhost:3000/registration"
@@ -35,7 +35,7 @@ class Registration {
       headers: { 'Content-Type': 'application/json'}
     })
   }
-  userPasswordReset = (userInput) => {
+  userForgotPasword = (userInput) => {
     const URL = "http://localhost:3000/forgot-password"
     return axios({
       method: 'POST',
@@ -44,5 +44,15 @@ class Registration {
       headers: { 'Content-Type': 'application/json'}
     })
   }
+  userPasswordReset = (userInput) => {console.log("api: "+userInput)
+    console.log("userInput"+userInput)
+    const URL = "http://localhost:3000/reset-password"
+    return axios({
+      method: 'PUT',
+      url: URL,
+      data: userInput,
+      headers: { 'Content-Type': 'application/json'}
+    })
+  }
 }
-module.exports = new Registration()
+module.exports = new User()
