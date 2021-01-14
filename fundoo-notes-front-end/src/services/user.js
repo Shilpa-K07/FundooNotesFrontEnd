@@ -7,7 +7,7 @@ const axios = require('axios')
 class User {
   
   userRegistration = (userInput) => {
-    const URL = "http://localhost:3000/registration"
+    const URL = process.env.VUE_APP_REGISTRATION
     return axios({
       method: 'POST',
       url: URL,
@@ -17,7 +17,7 @@ class User {
   }
 
   userLogin = (userInput) => {
-    const URL = "http://localhost:3000/login"
+    const URL =  process.env.VUE_APP_LOGIN
     return axios({
       method: 'POST',
       url: URL,
@@ -27,7 +27,7 @@ class User {
   }
 
   userEmailVerification = (userInput) => {
-    const URL = "http://localhost:3000/verifyEmail"
+    const URL =process.env.VUE_APP_VERIFYEMAIL
     return axios({
       method: 'POST',
       url: URL,
@@ -36,7 +36,7 @@ class User {
     })
   }
   userForgotPasword = (userInput) => {
-    const URL = "http://localhost:3000/forgot-password"
+    const URL = process.env.VUE_APP_FORGOTPASSWORD
     return axios({
       method: 'POST',
       url: URL,
@@ -44,14 +44,13 @@ class User {
       headers: { 'Content-Type': 'application/json'}
     })
   }
-  userPasswordReset = (userInput) => {console.log("api: "+userInput)
-    console.log("userInput"+userInput)
-    const URL = "http://localhost:3000/reset-password"
+  userPasswordReset = (userInput) => {
+    const URL =process.env.VUE_APP_RESETPASSWORD
     return axios({
       method: 'PUT',
       url: URL,
       data: userInput,
-      headers: { 'Content-Type': 'application/json'}
+      headers: { 'Content-Type': 'application/json', 'token':userInput.token}
     })
   }
 }

@@ -84,7 +84,7 @@ export default {
               }, this.timeout)
             }
           })
-          .catch(error => {console.log("error: "+error)
+          .catch(error => {
             if (error.response.status == 401) 
               {
                 const snackbarData = {

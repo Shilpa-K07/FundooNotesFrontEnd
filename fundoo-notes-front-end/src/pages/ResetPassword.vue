@@ -48,7 +48,7 @@ This vue component is for resetting user password
 </template>
 
 <script>
-import { required, email, sameAs } from "vuelidate/lib/validators";
+import { required, sameAs } from "vuelidate/lib/validators";
 import user from "../services/user";
 import Title from "../components/Title";
 import Snackbar from "../components/Snackbar";
@@ -59,10 +59,6 @@ export default {
     Snackbar
   },
   validations: {
-    emailId: {
-      required,
-      email
-    },
     password: {
       required,
       isPasswordStrong(password) {
@@ -105,45 +101,44 @@ export default {
     }
   },
   methods: {
-    resetPassword() {console.log("reached")
+    resetPassword() {
       this.$v.$touch();
-      console.log(this.$v.$invalid)
       if (!this.$v.$invalid) {
         const userInput = {
-          newPassword: this.password
+          newPassword: this.password,
+          token: this.$route.params.token
         }
-        console.log("111")
         this.userPasswordReset(userInput)
-          .then(data => {console.log("data: "+data)
+          .then(data => {
             if (data) {
               const snackbarData = {
                 text: "Successfully changed password",
                 timeout: this.timeout
               };
-              this.$refs.snack.setSnackbar(snackbarData);
+              this.$refs.snack.setSnackbar(snackbarData)
               setTimeout(() => {
                 this.reset();
-              }, this.timeout);
+              }, this.timeout)
             }
           })
-          .catch(error => {
-            console.log("error: " + error)
+          .catch(error => { 
             if (error.response.status == 401) {
               const snackbarData = {
                 text: "Authorization falied",
                 timeout: this.timeout
-              };
-              this.$refs.snack.setSnackbar(snackbarData);
+              }
+              this.$refs.snack.setSnackbar(snackbarData)
               setTimeout(() => {
-                this.reset();
-              }, this.timeout);
+                this.reset()
+              }, this.timeout)
+             
             } else if (error.response.status == 500) {
-              {
+              {  
                 const snackbarData = {
                   text: "Some error occurred",
                   timeout: this.timeout
                 };
-                this.$refs.snack.setSnackbar(snackbarData);
+                this.$refs.snack.setSnackbar(snackbarData)
                 setTimeout(() => {
                   this.reset()
                 }, this.timeout)

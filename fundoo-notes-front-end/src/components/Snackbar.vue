@@ -16,7 +16,7 @@ for displaying snackbar
 export default {
    props:['text', 'showSnackbar','timeout'],
    methods: {
-     setSnackbar(snackbarData){console.log("data: "+JSON.stringify(snackbarData))
+     setSnackbar(snackbarData){
        this.text = snackbarData.text
        this.showSnackbar = true
        this.timeout = snackbarData.timeout

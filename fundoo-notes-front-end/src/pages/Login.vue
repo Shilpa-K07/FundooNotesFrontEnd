@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     login() {
-      this.$v.$touch()
+      this.$v.$touch();
       if (!this.$v.$invalid) {
         const userInput = {
           emailId: this.emailId,
@@ -179,7 +179,7 @@ export default {
           emailId: this.emailId,
         }
         this.userEmailVerification(userInput)
-        .then(data => {console.log("data: "+JSON.stringify(data))
+        .then(data => {
           if(data){
               const snackbarData = {
                 text: "Verification email has been sent !",
@@ -190,7 +190,6 @@ export default {
                 this.reset()
               }, this.timeout)
           }
-          console.log("empty")
         })
         .catch(error => {
           if(error.response.status == 401){
