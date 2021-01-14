@@ -4,12 +4,7 @@
 <template>
   <v-form ref="form">
     <v-app>
-      <v-snackbar v-model="snackbar" :timeout="timeout">
-        Registration successful
-        <template v-slot:action="{ attrs }">
-          <v-btn color="blue" text v-bind="attrs" @click="closeSnackbar">Close</v-btn>
-        </template>
-      </v-snackbar>
+      <Snackbar ref="snack" />
       <v-content>
         <v-card class="card-height-width mx-auto mt-9 pl-9 pt-9" outlined>
           <v-layout row wrap>
@@ -55,12 +50,8 @@
                       v-model="emailId"
                       :error-messages="emailIdErrors"
                       required
-                      :class="emailId.isUserExists? 'red-border' : ''"
                     />
                   </v-col>
-                </v-row>
-                <v-row v-show="isUserExists == true">
-                  <p class="error-hint red-text">User exists with this emailId</p>
                 </v-row>
                 <v-row>
                   <v-col></v-col>
@@ -96,7 +87,7 @@
                 </v-row>
                 <v-row>
                   <div>
-                    <router-link class="sign-in" to='/login'>Sign in instead</router-link>
+                    <router-link class="sign-in" to="/login">Sign in instead</router-link>
                   </div>
                   <v-col></v-col>
                   <v-btn class="register" @click="register">Register</v-btn>
@@ -126,9 +117,11 @@
 import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
 import user from "../services/user";
 import Title from "../components/Title";
+import Snackbar from "../components/Snackbar";
 export default {
   components: {
-    Title
+    Title,
+    Snackbar
   },
   validations: {
     firstName: {
@@ -161,42 +154,39 @@ export default {
     emailId: "",
     password: "",
     confirmPassword: "",
-    user: {},
     showPassword: false,
     isClicked: false,
     isPasswordMismatch: false,
-    snackbar: false,
     timeout: 2000,
-    isUserExists: false,
     logoPath: require("../assets/account.svg")
   }),
 
   computed: {
     firstNameErrors() {
-      const errors = [];
-      if (!this.$v.firstName.$dirty) return errors;
-      !this.$v.firstName.required && errors.push("Enter first name");
+      const errors = []
+      if (!this.$v.firstName.$dirty) return errors
+      !this.$v.firstName.required && errors.push("Enter first name")
       !this.$v.firstName.minLength &&
-        errors.push("Name must contain 2 characters");
-      return errors;
+        errors.push("Name must contain 2 characters")
+      return errors
     },
     lastNameErrors() {
-      const errors = [];
-      if (!this.$v.lastName.$dirty) return errors;
-      !this.$v.lastName.required && errors.push("Enter last name");
-      return errors;
+      const errors = []
+      if (!this.$v.lastName.$dirty) return errors
+      !this.$v.lastName.required && errors.push("Enter last name")
+      return errors
     },
     emailIdErrors() {
-      const errors = [];
-      if (!this.$v.emailId.$dirty) return errors;
-      !this.$v.emailId.required && errors.push("Enter email address");
-      !this.$v.emailId.email && errors.push("Must be valid email");
-      return errors;
+      const errors = []
+      if (!this.$v.emailId.$dirty) return errors
+      !this.$v.emailId.required && errors.push("Enter email address")
+      !this.$v.emailId.email && errors.push("Must be valid email")
+      return errors
     },
     passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Enter password");
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.required && errors.push("Enter password")
       !this.$v.password.isPasswordStrong &&
         errors.push(
           "Use 8 or more characters with a mix of letters, numbers & symbols"
@@ -204,19 +194,18 @@ export default {
       return errors;
     },
     confirmPasswordErrors() {
-      const errors = [];
-      if (!this.$v.confirmPassword.$dirty) return errors;
-      !this.$v.confirmPassword.required && errors.push("confirm password");
+      const errors = []
+      if (!this.$v.confirmPassword.$dirty) return errors
+      !this.$v.confirmPassword.required && errors.push("confirm password")
       !this.$v.confirmPassword.sameAsPassword &&
-        errors.push("Password mismatch");
-      return errors;
+        errors.push("Password mismatch")
+      return errors
     }
   },
   methods: {
     register() {
-      this.$v.$touch()
-      this.isClicked = true
-      this.isUserExists = false
+      this.$v.$touch();
+      this.isClicked = true;
       if (!this.$v.$invalid) {
         const userInput = {
           firstName: this.firstName,
@@ -224,19 +213,34 @@ export default {
           emailId: this.emailId,
           password: this.password
         };
-        var response = this.userRegistration(userInput)
+        var response = this.userRegistration(userInput);
         response
           .then(data => {
             if (data) {
-              //this.snackbar = true;
-              this.showSnackbar()
+              const snackbarData = {
+                text: "Successfully registered",
+                timeout: this.timeout
+              };
+              this.$refs.snack.setSnackbar(snackbarData);
+              // this.reset()
+              setTimeout(() => {
+                this.reset();
+              }, this.timeout);
             }
           })
           .catch(error => {
             if (error.response.status == 409) {
-              this.isUserExists = true
+              const snackbarData = {
+                text: "User exists with this emailID",
+                timeout: this.timeout
+              };
+              this.$refs.snack.setSnackbar(snackbarData);
+              // this.reset()
+              setTimeout(() => {
+                this.reset();
+              }, this.timeout);
             }
-          })
+          });
       }
     },
     userRegistration: function(userInput) {
@@ -244,16 +248,7 @@ export default {
     },
     reset() {
       this.$refs.form.reset()
-    },
-    showSnackbar() {
-      this.snackbar = true
-      setTimeout(() => {
-        this.reset()
-      }, this.timeout)
-    },
-    closeSnackbar() {
-      this.snackbar = false
-      this.reset()
+      this.$v.$reset()
     }
   }
 };

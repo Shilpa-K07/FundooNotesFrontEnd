@@ -3,63 +3,58 @@
  * @method userRegistration is for integrating registration UI with registration API
  * @method userLogin is for integrating login UI with login API
  */
-const axios = require('axios')
+//const axios = require('axios')
+const apiCall = require('../services/apiCall')
 class User {
-  
   userRegistration = (userInput) => {
-    const URL = process.env.VUE_APP_REGISTRATION
-    return axios({
-      method: 'POST',
-      url: URL,
-      data: userInput,
+    const data = {
+      input: userInput,
+      url: process.env.VUE_APP_REGISTRATION,
       headers: { 'Content-Type': 'application/json'}
-    })
+    }
+    return apiCall.post(data)
   }
 
   userLogin = (userInput) => {
-    const URL =  process.env.VUE_APP_LOGIN
-    return axios({
-      method: 'POST',
-      url: URL,
-      data: userInput,
+    const data = {
+      input: userInput,
+      url: process.env.VUE_APP_LOGIN,
       headers: { 'Content-Type': 'application/json'}
-    })
+    }
+    return apiCall.post(data)
   }
 
   userEmailVerification = (userInput) => {
-    const URL =process.env.VUE_APP_VERIFYEMAIL
-    return axios({
-      method: 'POST',
-      url: URL,
-      data: userInput,
+    const data = {
+      input: userInput,
+      url: process.env.VUE_APP_VERIFYEMAIL,
       headers: { 'Content-Type': 'application/json'}
-    })
+    }
+    return apiCall.post(data)
   }
   userForgotPasword = (userInput) => {
-    const URL = process.env.VUE_APP_FORGOTPASSWORD
-    return axios({
-      method: 'POST',
-      url: URL,
-      data: userInput,
+    const data = {
+      input: userInput,
+      url: process.env.VUE_APP_FORGOTPASSWORD,
       headers: { 'Content-Type': 'application/json'}
-    })
+    }
+    return apiCall.post(data)
   }
   userPasswordReset = (userInput) => {
-    const URL =process.env.VUE_APP_RESETPASSWORD
-    return axios({
-      method: 'PUT',
-      url: URL,
-      data: userInput,
+    const data = {
+      input: userInput,
+      url: process.env.VUE_APP_RESETPASSWORD,
       headers: { 'Content-Type': 'application/json', 'token':userInput.token}
-    })
+    }
+    return apiCall.put(data)
   }
   userAccountActivate = (userInput) => {
-    const URL =process.env.VUE_APP_ACTIVATEACCOUNT
-    return axios({
-      method: 'PUT',
-      url: URL,
+    const data = {
+      input: userInput,
+      url: process.env.VUE_APP_ACTIVATEACCOUNT,
       headers: { 'Content-Type': 'application/json', 'token':userInput.token}
-    })
+    }
+    return apiCall.put(data)
   }
 }
 module.exports = new User()

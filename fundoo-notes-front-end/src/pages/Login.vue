@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     login() {
-      this.$v.$touch();
+      this.$v.$touch()
       if (!this.$v.$invalid) {
         const userInput = {
           emailId: this.emailId,
@@ -135,7 +135,8 @@ export default {
                 text: "Successfully logged in",
                 timeout: this.timeout
               };
-              this.$refs.snack.setSnackbar(snackbarData);
+              this.$refs.snack.setSnackbar(snackbarData)
+             // this.reset()
               setTimeout(() => {
                 this.reset()
               }, this.timeout)
@@ -158,6 +159,9 @@ export default {
                 timeout: this.timeout
               }
               this.$refs.snack.setSnackbar(snackbarData)
+              /* setTimeout(() => {
+                this.reset()
+              }, this.timeout) */
             }
           })
       }

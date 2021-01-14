@@ -56,6 +56,9 @@ export default {
               setTimeout(() => {
                 this.reset()
               }, this.timeout)
+              setTimeout(() => {
+                this.$router.push({ name: 'Login', query: { redirect: '/login' } });
+              }, this.timeout)
             }
           })
           .catch(error => {
@@ -64,7 +67,7 @@ export default {
                 text: "Authorization falied",
                 timeout: this.timeout
               };
-              this.$refs.snack.setSnackbar(snackbarData);
+              this.$refs.snack.setSnackbar(snackbarData)
             } else if (error.response.status == 500) {
               {
                 const snackbarData = {
@@ -83,7 +86,6 @@ export default {
   }
 };
 </script>
-
 <style>
 @import url("../css/login.css");
 </style>

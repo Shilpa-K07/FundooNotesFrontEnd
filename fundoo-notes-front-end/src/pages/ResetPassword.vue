@@ -120,6 +120,9 @@ export default {
               setTimeout(() => {
                 this.reset();
               }, this.timeout)
+              setTimeout(() => {
+                this.$router.push({ name: 'Login', query: { redirect: '/login' } });
+              }, this.timeout)
             }
           })
           .catch(error => { 
