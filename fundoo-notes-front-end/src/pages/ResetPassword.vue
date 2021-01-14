@@ -7,7 +7,7 @@ This vue component is for resetting user password
     <v-app>
       <Snackbar ref="snack" />
       <v-content>
-        <v-card class="login-card mx-auto ml-19 mt-9" outlined>
+        <v-card class="reset-password-card mx-auto ml-19 mt-9" outlined>
           <v-flex class="d-flex flex-column flex-gap mt-auto">
             <Title class="justify-center" />
             <v-card-title class="justify-center flex-gap">Reset passord</v-card-title>
@@ -37,10 +37,11 @@ This vue component is for resetting user password
               :error-messages="confirmPasswordErrors"
               required
             />
-          </v-col>
-          <v-row class="d-flex justify-space-around mt-12">
+            <v-row class="d-flex justify-space-around mt-12">
             <v-btn class="login" @click="resetPassword">Reset password</v-btn>
-          </v-row>
+            </v-row>
+          </v-col>
+         
         </v-card>
       </v-content>
     </v-app>

@@ -12,6 +12,8 @@ import Register from './pages/Registration'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import ActivateAccount from './pages/ActivateAccount'
+
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
@@ -36,6 +38,11 @@ const routes = [
     path: '/resetPassword/:token',
     name: 'ResetPassword',
     component: ResetPassword
+  },
+  {
+    path: '/activateAccount/:token',
+    name: 'ActivateAccount',
+    component: ActivateAccount
   },
   {
     path: '*/*',

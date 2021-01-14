@@ -29,14 +29,26 @@
     color: white !important;
     background-color: #2196f3 !important;
 }
+.activate-account {
+    width: 30%;
+    height: 50%
+}
 .v-alert {
     display: block;
     font-size: 15px !important;
     margin-bottom: 0px !important;
     padding: 0px !important;
 }
+.reset-password-card {
+    width: 30%;
+    height: 70%
+}
 .forgot-password {
     font-size: 17px;
     text-decoration: none;
+}
+.forgot-password-card {
+    width: 30%;
+    height: 60%
 }
 

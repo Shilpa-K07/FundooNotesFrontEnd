@@ -53,5 +53,13 @@ class User {
       headers: { 'Content-Type': 'application/json', 'token':userInput.token}
     })
   }
+  userAccountActivate = (userInput) => {
+    const URL =process.env.VUE_APP_ACTIVATEACCOUNT
+    return axios({
+      method: 'PUT',
+      url: URL,
+      headers: { 'Content-Type': 'application/json', 'token':userInput.token}
+    })
+  }
 }
 module.exports = new User()
