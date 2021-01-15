@@ -14,6 +14,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
+import Dashboard from './components/Dashboard'
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
@@ -50,7 +51,11 @@ const routes = [
     name: 'ActivateAccount',
     component: ActivateAccount
   },
- 
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
+  },
   {
     path: '*/*',
     name: 'Register',
