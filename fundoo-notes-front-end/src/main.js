@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ActivateAccount from './pages/ActivateAccount'
+import VerifyEmailAddress from './pages/VerifyEmailAddress'
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
@@ -40,10 +41,16 @@ const routes = [
     component: ResetPassword
   },
   {
+    path: '/verifyEmail',
+    name: 'VerifyEmailAddress',
+    component: VerifyEmailAddress
+  },
+  {
     path: '/activateAccount/:token',
     name: 'ActivateAccount',
     component: ActivateAccount
   },
+ 
   {
     path: '*/*',
     name: 'Register',

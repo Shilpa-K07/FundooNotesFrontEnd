@@ -8,7 +8,7 @@ This is vue component for login page
       <v-content>
         <v-card class="login-card mx-auto ml-19 mt-9" outlined>
           <v-flex class="d-flex flex-column flex-gap mt-auto">
-            <Title class="justify-center" />
+            <Title class="justify-center"/>
             <v-card-title class="justify-center flex-gap">Sign in</v-card-title>
             <v-card-title class="justify-center third-title flex-gap">Use your FundooNotes Account</v-card-title>
           </v-flex>
@@ -36,25 +36,9 @@ This is vue component for login page
             />
             <v-row class="d-flex justify-space-around">
               <router-link class="forgot-password" to="/forgotPassword">Forgot password</router-link>
-              <a v-on:click="verifyEmail">Verify email?</a>
+              <router-link class="verify-email" to="/verifyEmail">Verify email?</router-link>
             </v-row>
           </v-col>
-          <!-- <v-alert
-          v-show="isAuthorized == false"
-          v-model="isAuthorized"
-          dense
-          type="error"
-          border="left"
-          class="ml-12 mr-12"
-        >Incorrect username or password</v-alert>
-        <v-alert
-          v-show="isVerified == false"
-          v-model="isVerified"
-          dense
-          type="warning"
-          border="left"
-          class="ml-12 mr-12"
-          >Please verify your email before login</v-alert>-->
           <v-row class="d-flex justify-space-around mt-12">
             <router-link class="create-account" to="/register">Create account</router-link>
             <v-btn class="login" @click="login">Login</v-btn>
@@ -115,8 +99,8 @@ export default {
       !this.$v.password.isPasswordStrong &&
         errors.push(
           "Use 8 or more characters with a mix of letters, numbers & symbols"
-        );
-      return errors;
+        )
+      return errors
     }
   },
   methods: {
@@ -134,9 +118,8 @@ export default {
               const snackbarData = {
                 text: "Successfully logged in",
                 timeout: this.timeout
-              };
+              }
               this.$refs.snack.setSnackbar(snackbarData)
-             // this.reset()
               setTimeout(() => {
                 this.reset()
               }, this.timeout)
@@ -169,54 +152,12 @@ export default {
     userLogin: function(userInput) {
       return user.userLogin(userInput)
     },
-    userEmailVerification: function(userInput) {
-      return user.userEmailVerification(userInput)
-    },
     reset() {
       this.$refs.loginForm.reset()
       this.$v.$reset()
     },
-    verifyEmail() {
-     this.$v.$touch()
-      if (!this.$v.$invalid) {
-        const userInput = {
-          emailId: this.emailId,
-        }
-        this.userEmailVerification(userInput)
-        .then(data => {
-          if(data){
-              const snackbarData = {
-                text: "Verification email has been sent !",
-                timeout: this.timeout
-              }
-              this.$refs.snack.setSnackbar(snackbarData)
-              setTimeout(() => {
-                this.reset()
-              }, this.timeout)
-          }
-        })
-        .catch(error => {
-          if(error.response.status == 401){
-             const snackbarData = {
-                text: "This email is not registered",
-                timeout: this.timeout
-              }
-              this.$refs.snack.setSnackbar(snackbarData)
-          }
-        })
-      }
-    }
-    /*  showSnackbar() {
-      setTimeout(() => {
-        this.reset();
-      }, this.timeout);
-    },
-    closeSnackbar() {
-      this.reset();
-      this.$v.$reset();
-    } */
   }
-};
+}
 </script>
 
 <style>
