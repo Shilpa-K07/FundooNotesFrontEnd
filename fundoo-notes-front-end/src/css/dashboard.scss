@@ -9,9 +9,15 @@ $fontsize: "17px";
 /* .v-text-field{
     width: 40px !important;
 } */
-.app-bar .v-input__control{
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+    /* background-color: #f5f5f5; */
+}
+.app-bar .v-input__control {
     margin-top: 25px;
     margin-left: 100px
+}
+.app-bar .v-app-bar {
+    background-color: white !important;
 }
 .side-nav {
     font-size:15px !important;
@@ -27,4 +33,27 @@ $fontsize: "17px";
 .main-card {
     height: 100%;
     width: 100%
+}
+
+.app-bar .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow: none;
+/*     background-color: #50404014; */
+    background: #f1f3f4;
+   /*  border: 1px solid transparent; */
+}
+
+.search-text-style.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    background-color: white;
+}
+
+.theme--light.v-app-bar.v-toolbar.v-sheet {
+    background-color: white !important;
+}
+
+.v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
+   box-shadow: none !important;
+}
+.nav-bar{
+    width: 20% !important
 }

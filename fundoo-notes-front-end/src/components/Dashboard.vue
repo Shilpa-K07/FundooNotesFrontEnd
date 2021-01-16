@@ -1,29 +1,31 @@
 <template>
   <v-app>
     <v-content>
-      <v-card class="mx-auto overflow-hidden main-card" outlined>
+      <v-card class="mx-auto main-card" outlined>
         <v-row>
           <v-col>
             <v-app-bar class="app-bar">
               <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-              <v-toolbar-title>Title</v-toolbar-title>
-              <v-text-field label="Search" prepend-inner-icon="mdi-magnify" solo filled dense></v-text-field>
+              <v-toolbar-title>FundooNotes</v-toolbar-title>
+              <v-text-field label="Search" prepend-inner-icon="mdi-magnify" :class="{'search-text-style':changeStyle}" solo filled dense v-on:click="changeFiledStyle" v-click-outside="onClickOutside"></v-text-field>
               <v-spacer></v-spacer>
               <v-btn icon>
-                <v-icon>mdi-refresh</v-icon>
+                <v-icon>mdi-account-circle</v-icon>
               </v-btn>
-              <v-btn icon>
+              <span>Shilpa</span>
+            <!--   <v-btn icon>
                 <v-icon>mdi-view-stream</v-icon>
               </v-btn>
               <v-btn icon>
                 <v-icon>mdi-cog</v-icon>
-              </v-btn>
+              </v-btn> -->
             </v-app-bar>
           </v-col>
         </v-row>
+        <v-divider></v-divider>
         <v-row>
           <v-col>
-            <v-navigation-drawer v-model="drawer">
+            <v-navigation-drawer :class="{'nav-bar':drawer}">
               <v-list dense>
                 <v-list-item v-for="item in items" :key="item.title" link>
                   <v-list-item-icon>
@@ -48,7 +50,7 @@
                 <v-row> 
                 <v-icon class="mr-5">mdi-checkbox-marked-outline</v-icon>
                 <v-icon class="mr-5">mdi-brush</v-icon>
-                <v-icon class="mr-5">mdi-file-image</v-icon>
+                <v-icon class="mr-5">mdi-image</v-icon>
                 </v-row>
               </template>
             </v-text-field>
@@ -62,7 +64,8 @@
 <script>
 export default {
   data: () => ({
-    drawer: true,
+    drawer: false,
+    changeStyle: false,
     items: [
       { title: "Notes", icon: "mdi-lightbulb-outline" },
       { title: "Reminders", icon: "mdi-bell-outline" },
@@ -70,8 +73,16 @@ export default {
       { title: "Archive", icon: "mdi-download" },
       { title: "Trash", icon: "mdi-delete" }
     ]
-  })
-};
+  }),
+  methods: {
+    changeFiledStyle() {
+      this.changeStyle = true
+    },
+    onClickOutside() {
+      this.changeStyle = false
+    }
+  }
+}
 </script>
 
 <style lang="scss">
