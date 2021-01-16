@@ -26,8 +26,9 @@ $fontsize: "17px";
 .v-navigation-drawer__border{
     width: 0px !important;
 }
-.note-card .v-input {
-    width:70%;
+.note-card {
+    max-height: 30%;
+    max-width: 60%
 }
 
 .main-card {
@@ -56,4 +57,49 @@ $fontsize: "17px";
 }
 .nav-bar{
     width: 20% !important
+}
+.increase-card-size {
+    max-height: 100% !important;
+}
+.v-text-field > .v-input__control > .v-input__slot:after {
+    /* background-color: currentColor; */
+    /* border-color: currentColor; */
+    /* border-style: solid; */
+    /* border-width: thin 0 thin 0; */
+    /* transform: scaleX(0); */
+    border: none
+}
+.note-card .v-text-field > .v-input__control > .v-input__slot:before {
+    /* background-color: currentColor; */
+    /* border-color: currentColor; */
+    /* border-style: solid; */
+    /* border-width: thin 0 thin 0; */
+    /* transform: scaleX(0); */
+    border: none
+}
+.card-icons {
+    font-size: 20px !important;
+}
+.note-card .v-text-field {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+.note-card .v-text-field .v-input__control {
+    margin-top: 10px;
+}
+.text-weight {
+    font-weight: bold;
+}
+.theme--light.v-card {
+    background-color: white;
+    color: white;
+}
+.theme--light.v-messages {
+    color:white;
+}
+.theme--light.v-input {
+    color: white;
+}
+.note-card a {
+    color: black !important
 }
