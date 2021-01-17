@@ -155,6 +155,10 @@ export default {
     createNote: function(noteInput) {
       return user.createNote(noteInput)
     },
+    reset() {
+      this.noteTitle="",
+      this.noteDescription=""
+    },
     changeFiledStyle() {
       this.changeStyle = true;
     },
@@ -174,7 +178,10 @@ export default {
           description: this.noteDescription
         }
         this.createNote(noteInput)
-        .then(data => console.log(JSON.stringify(data)))
+        .then(data => {
+          console.log(JSON.stringify(data))
+          this.reset()
+        })
         .catch(error => console.log(JSON.stringify(error.response)))
       }
     }

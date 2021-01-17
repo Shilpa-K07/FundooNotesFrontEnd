@@ -15,6 +15,9 @@ import ResetPassword from './pages/ResetPassword'
 import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
 import Dashboard from './components/Dashboard'
+import Note from './components/Note'
+import axios from 'axios';
+axios.defaults.withCredentials = true
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
@@ -55,6 +58,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
+  },
+  {
+    path: '/notes',
+    name: 'Note',
+    component: Note
   },
   {
     path: '*/*',
