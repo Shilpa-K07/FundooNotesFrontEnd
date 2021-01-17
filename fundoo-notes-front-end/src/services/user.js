@@ -56,5 +56,14 @@ class User {
     }
     return apiCall.put(data)
   }
+
+  createNote = (noteInput) => {
+    const data = {
+      input: noteInput,
+      url: process.env.VUE_APP_CREATENOTE,
+      headers: { 'Content-Type': 'application/json' }
+    }
+    return apiCall.post(data)
+  }
 }
 module.exports = new User()

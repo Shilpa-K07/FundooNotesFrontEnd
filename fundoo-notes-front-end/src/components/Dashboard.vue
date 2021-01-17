@@ -54,7 +54,7 @@
               v-on:click="increaseCardHeight"
               v-click-outside="reduceCardHeight"
             >
-              <v-text-field :placeholder="text" class="text-weight ml-5 mt-5">
+              <v-text-field v-model ="noteTitle" :placeholder="text" class="text-weight ml-5 mt-5">
                 <template v-slot:append>
                   <v-icon v-show="cardClicked == false" class="mr-5">mdi-checkbox-marked-outline</v-icon>
                   <v-icon v-show="cardClicked == false" class="mr-5">mdi-brush</v-icon>
@@ -70,6 +70,7 @@
                 </template>
               </v-text-field>
               <v-text-field
+                v-model ="noteDescription"
                 v-show="cardClicked == true"
                 placeholder="Take a note..."
                 class="text-weight ml-5"
@@ -133,12 +134,15 @@
 </template>
 
 <script>
+import user from "../services/user";
 export default {
   data: () => ({
     drawer: false,
     changeStyle: false,
     cardClicked: false,
     text: "Take a note...",
+    noteTitle: "",
+    noteDescription: "",
     items: [
       { title: "Notes", icon: "mdi-lightbulb-outline" },
       { title: "Reminders", icon: "mdi-bell-outline" },
@@ -148,6 +152,9 @@ export default {
     ]
   }),
   methods: {
+    createNote: function(noteInput) {
+      return user.createNote(noteInput)
+    },
     changeFiledStyle() {
       this.changeStyle = true;
     },
@@ -161,6 +168,15 @@ export default {
     reduceCardHeight() {
       this.cardClicked = false;
       this.text = "Take a note...";
+      if(this.noteTitle && this.noteDescription){
+        const noteInput = {
+          title: this.noteTitle,
+          description: this.noteDescription
+        }
+        this.createNote(noteInput)
+        .then(data => console.log(JSON.stringify(data)))
+        .catch(error => console.log(JSON.stringify(error.response)))
+      }
     }
   }
 };
