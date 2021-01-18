@@ -24,6 +24,11 @@ class ApiCall {
             headers: data.headers
           })
     }
+
+    // axios get method for retrieving data
+    get= (data) => {
+        return axios.get(data.url)
+    }
 }
 
 module.exports = new ApiCall()

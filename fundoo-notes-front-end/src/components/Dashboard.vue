@@ -47,37 +47,37 @@
               </v-list>
             </v-navigation-drawer>
           </v-col>
-          <v-col cols="12" md="8" class="mt-10">
+          <v-col cols="12" md="8" class="mt-10 mr-20">
             <v-card
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
               v-on:click="increaseCardHeight"
               v-click-outside="reduceCardHeight"
             >
-              <v-text-field v-model ="noteTitle" :placeholder="text" class="text-weight ml-5 mt-5">
+              <v-text-field v-model="noteTitle" :placeholder="text" class="text-weight ml-5 mt-5">
                 <template v-slot:append>
                   <v-icon v-show="cardClicked == false" class="mr-5">mdi-checkbox-marked</v-icon>
                   <v-icon v-show="cardClicked == false" class="mr-5">mdi-brush</v-icon>
                   <v-icon v-show="cardClicked == false" class="mr-5">mdi-image</v-icon>
-                   
+
                   <v-tooltip bottom>
-                  <template v-slot:activator="{on}">
-                    <v-icon v-on="on" v-show="cardClicked == true" class="mr-5">mdi-pin</v-icon>
-                  </template>
-                  <span>Pin note</span>
-                </v-tooltip>
-                 <!--  <v-icon v-show="cardClicked == true" class="mr-5">mdi</v-icon> -->
+                    <template v-slot:activator="{on}">
+                      <v-icon v-on="on" v-show="cardClicked == true" class="mr-5">mdi-pin</v-icon>
+                    </template>
+                    <span>Pin note</span>
+                  </v-tooltip>
+                  <!--  <v-icon v-show="cardClicked == true" class="mr-5">mdi</v-icon> -->
                 </template>
               </v-text-field>
               <v-text-field
-                v-model ="noteDescription"
+                v-model="noteDescription"
                 v-show="cardClicked == true"
                 placeholder="Take a note..."
                 class="text-weight ml-5"
               ></v-text-field>
               <v-row v-show="cardClicked == true">
-                <Icons class="mt-4 ml-4"/>
-                   <!--  <v-tooltip bottom>
+                <Icons class="mt-4 ml-4" />
+                <!--  <v-tooltip bottom>
                   <template v-slot:activator="{on}">
                     <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-bell</v-icon>
                   </template>
@@ -112,7 +112,7 @@
                     <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-dots-vertical</v-icon>
                   </template>
                   <span>More</span>
-                </v-tooltip> -->
+                </v-tooltip>-->
 
                 <!-- <v-tooltip slot="append" bottom>
                   <v-icon slot="activator" class="ml-5 card-icons mb-5">mdi-bell</v-icon>
@@ -122,11 +122,12 @@
                 <v-icon class="ml-5 card-icons mb-5">mdi-palette</v-icon>
                 <v-icon class="ml-5 card-icons mb-5">mdi-image</v-icon>
                 <v-icon class="ml-5 card-icons mb-5">mdi-download</v-icon>
-                <v-icon class="ml-5 card-icons mb-5">mdi-dots-vertical</v-icon> -->
+                <v-icon class="ml-5 card-icons mb-5">mdi-dots-vertical</v-icon>-->
                 <v-spacer></v-spacer>
-                <a class="mr-5">Close</a>
+                <a class="mr-5 mt-4">Close</a>
               </v-row>
             </v-card>
+            <Note class="mt-15" ref="note" />
           </v-col>
         </v-row>
       </v-card>
@@ -136,10 +137,12 @@
 
 <script>
 import user from "../services/user";
-import Icons from "./Icons"
+import Icons from "./Icons";
+import Note from "./Note";
 export default {
   components: {
-    Icons
+    Icons,
+    Note
   },
   data: () => ({
     drawer: false,
@@ -156,13 +159,26 @@ export default {
       { title: "Trash", icon: "mdi-delete" }
     ]
   }),
+  beforeMount() {
+    this.getNotes()
+  },
   methods: {
+    getNotes: function() {
+      user.getNotes()
+      .then(data => {
+     //   console.log("data: "+JSON.stringify(data))
+        this.$refs.note.setNoteData(data)
+        })
+    .catch(error => {
+      console.error(error)
+    })
+    },
     createNote: function(noteInput) {
-      return user.createNote(noteInput)
+      return user.createNote(noteInput);
     },
     reset() {
-      this.noteTitle="",
-      this.noteDescription=""
+      this.noteTitle = "", 
+      this.noteDescription = ""
     },
     changeFiledStyle() {
       this.changeStyle = true;
@@ -175,19 +191,20 @@ export default {
       this.text = "Title";
     },
     reduceCardHeight() {
-      this.cardClicked = false;
-      this.text = "Take a note...";
-      if(this.noteTitle && this.noteDescription){
+      this.cardClicked = false
+      this.text = "Take a note..."
+      if (this.noteTitle && this.noteDescription) {
         const noteInput = {
           title: this.noteTitle,
           description: this.noteDescription
-        }
+        };
         this.createNote(noteInput)
-        .then(data => {
-          console.log(JSON.stringify(data))
-          this.reset()
-        })
-        .catch(error => console.log(JSON.stringify(error.response)))
+          .then(data => {
+            this.$refs.note.addNoteData(data)
+            this.getNotes()
+            this.reset()
+          })
+          .catch(error => console.log(JSON.stringify(error.response)))
       }
     }
   }
