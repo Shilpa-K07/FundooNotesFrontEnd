@@ -61,7 +61,7 @@ class User {
     const data = {
       input: noteInput,
       url: process.env.VUE_APP_CREATENOTE,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json',  /* 'token': sessionStorage.token */ },
       withCredentials: true
     }
     return apiCall.post(data)

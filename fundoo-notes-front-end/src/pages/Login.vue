@@ -119,6 +119,7 @@ export default {
                 text: "Successfully logged in",
                 timeout: this.timeout
               }
+            /*   sessionStorage.setItem("token", data.data.token) */
               this.$refs.snack.setSnackbar(snackbarData)
               setTimeout(() => {
                 this.reset()

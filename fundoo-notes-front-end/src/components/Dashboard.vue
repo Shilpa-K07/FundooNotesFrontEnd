@@ -56,7 +56,7 @@
             >
               <v-text-field v-model ="noteTitle" :placeholder="text" class="text-weight ml-5 mt-5">
                 <template v-slot:append>
-                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-checkbox-marked-outline</v-icon>
+                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-checkbox-marked</v-icon>
                   <v-icon v-show="cardClicked == false" class="mr-5">mdi-brush</v-icon>
                   <v-icon v-show="cardClicked == false" class="mr-5">mdi-image</v-icon>
                    
@@ -66,7 +66,7 @@
                   </template>
                   <span>Pin note</span>
                 </v-tooltip>
-                 <!--  <v-icon v-show="cardClicked == true" class="mr-5">mdi-pin</v-icon> -->
+                 <!--  <v-icon v-show="cardClicked == true" class="mr-5">mdi</v-icon> -->
                 </template>
               </v-text-field>
               <v-text-field
@@ -76,7 +76,8 @@
                 class="text-weight ml-5"
               ></v-text-field>
               <v-row v-show="cardClicked == true">
-                <v-tooltip bottom>
+                <Icons class="mt-4 ml-4"/>
+                   <!--  <v-tooltip bottom>
                   <template v-slot:activator="{on}">
                     <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-bell</v-icon>
                   </template>
@@ -84,7 +85,7 @@
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{on}">
-                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-account-outline</v-icon>
+                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-account</v-icon>
                   </template>
                   <span>Collaborator</span>
                 </v-tooltip>
@@ -111,7 +112,7 @@
                     <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-dots-vertical</v-icon>
                   </template>
                   <span>More</span>
-                </v-tooltip>
+                </v-tooltip> -->
 
                 <!-- <v-tooltip slot="append" bottom>
                   <v-icon slot="activator" class="ml-5 card-icons mb-5">mdi-bell</v-icon>
@@ -135,7 +136,11 @@
 
 <script>
 import user from "../services/user";
+import Icons from "./Icons"
 export default {
+  components: {
+    Icons
+  },
   data: () => ({
     drawer: false,
     changeStyle: false,
@@ -144,8 +149,8 @@ export default {
     noteTitle: "",
     noteDescription: "",
     items: [
-      { title: "Notes", icon: "mdi-lightbulb-outline" },
-      { title: "Reminders", icon: "mdi-bell-outline" },
+      { title: "Notes", icon: "mdi-lightbulb" },
+      { title: "Reminders", icon: "mdi-bell" },
       { title: "Edit labels", icon: "mdi-pencil" },
       { title: "Archive", icon: "mdi-download" },
       { title: "Trash", icon: "mdi-delete" }

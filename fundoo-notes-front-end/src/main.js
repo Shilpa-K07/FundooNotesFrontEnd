@@ -17,7 +17,7 @@ import VerifyEmailAddress from './pages/VerifyEmailAddress'
 import Dashboard from './components/Dashboard'
 import Note from './components/Note'
 import axios from 'axios';
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true 
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
