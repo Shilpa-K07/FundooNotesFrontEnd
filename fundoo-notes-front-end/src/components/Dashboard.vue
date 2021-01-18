@@ -47,7 +47,7 @@
               </v-list>
             </v-navigation-drawer>
           </v-col>
-          <v-col cols="12" md="8" class="mt-10">
+          <v-col cols="12" md="8" class="mt-10 mr-20">
             <v-card
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
@@ -177,7 +177,8 @@ export default {
       return user.createNote(noteInput);
     },
     reset() {
-      (this.noteTitle = ""), (this.noteDescription = "");
+      this.noteTitle = "", 
+      this.noteDescription = ""
     },
     changeFiledStyle() {
       this.changeStyle = true;
