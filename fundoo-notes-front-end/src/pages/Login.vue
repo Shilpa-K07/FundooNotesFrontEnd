@@ -4,44 +4,71 @@ This is vue component for login page
 <template>
   <v-form ref="loginForm">
     <v-app>
-      <Snackbar ref="snack"/>
+      <Snackbar ref="snack" />
       <v-content>
-        <v-card class="login-card mx-auto ml-19 mt-9" outlined>
+        <v-card
+          class="login-card mx-auto ml-19 mt-9"
+          outlined
+        >
           <v-flex class="d-flex flex-column flex-gap mt-auto">
-            <Title class="justify-center"/>
-            <v-card-title class="justify-center flex-gap">Sign in</v-card-title>
-            <v-card-title class="justify-center third-title flex-gap">Use your FundooNotes Account</v-card-title>
+            <Title class="justify-center" />
+            <v-card-title class="justify-center flex-gap">
+              Sign in
+            </v-card-title>
+            <v-card-title class="justify-center third-title flex-gap">
+              Use your FundooNotes Account
+            </v-card-title>
           </v-flex>
           <v-col>
             <v-text-field
+              v-model="emailId"
               class="ml-8 mr-8"
               outlined
               dense
               label="Email"
-              v-model="emailId"
               :error-messages="emailIdErrors"
               required
             />
             <v-text-field
+              v-model="password"
               class="ml-8 mr-8"
               outlined
               dense
               label="Password"
-              v-model="password"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
               :error-messages="passwordErrors"
               required
+              @click:append="showPassword = !showPassword"
             />
             <v-row class="d-flex justify-space-around">
-              <router-link class="forgot-password" to="/forgotPassword">Forgot password</router-link>
-              <router-link class="verify-email" to="/verifyEmail">Verify email?</router-link>
+              <router-link
+                class="forgot-password"
+                to="/forgotPassword"
+              >
+                Forgot password
+              </router-link>
+              <router-link
+                class="verify-email"
+                to="/verifyEmail"
+              >
+                Verify email?
+              </router-link>
             </v-row>
           </v-col>
           <v-row class="d-flex justify-space-around mt-12">
-            <router-link class="create-account" to="/register">Create account</router-link>
-            <v-btn class="login" @click="login">Login</v-btn>
+            <router-link
+              class="create-account"
+              to="/register"
+            >
+              Create account
+            </router-link>
+            <v-btn
+              class="login"
+              @click="login"
+            >
+              Login
+            </v-btn>
           </v-row>
         </v-card>
       </v-content>

@@ -19,7 +19,6 @@ class User {
     const data = {
       input: userInput,
       url: process.env.VUE_APP_LOGIN,
-    /*   headers: { 'Content-Type': 'application/json'} */
     }
     return apiCall.post(data)
   }
