@@ -163,5 +163,5 @@ export default {
 </script>
 
 <style>
-@import url("../css/login.css");
+@import url("../css/login.scss");
 </style>

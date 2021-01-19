@@ -1,3 +1,6 @@
+<!-- comment
+Icon components for cards
+-->
 <template>
   <v-row>
     <v-tooltip bottom>

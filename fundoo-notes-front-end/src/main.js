@@ -16,8 +16,8 @@ import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
 import Dashboard from './components/Dashboard'
 import Note from './components/Note'
-import axios from 'axios';
-axios.defaults.withCredentials = true 
+/* import axios from 'axios'; */
+/* axios.defaults.withCredentials = true  */
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)

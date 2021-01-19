@@ -1,3 +1,6 @@
+<!-- comment
+Note component to display notes on dashboard
+-->
 <template>
   <v-flex d-flex>
     <v-layout wrap>
