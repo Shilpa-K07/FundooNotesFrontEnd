@@ -57,13 +57,18 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    children: [{
+      path: '/notes',
+      name: 'Note',
+      component: Note,
+    }]
   },
-  {
+  /* {
     path: '/notes',
     name: 'Note',
     component: Note
-  },
+  }, */
   {
     path: '*/*',
     name: 'Register',

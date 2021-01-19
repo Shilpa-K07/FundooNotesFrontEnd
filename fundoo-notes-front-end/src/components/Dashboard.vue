@@ -47,7 +47,7 @@
               </v-list>
             </v-navigation-drawer>
           </v-col>
-          <v-col cols="12" md="9" class="mt-10 mr-20">
+          <v-col cols="12" md="9" class="mt-5 mr-20">
             <v-card
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
