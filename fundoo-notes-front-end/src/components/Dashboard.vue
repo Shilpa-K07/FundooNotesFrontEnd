@@ -1,23 +1,30 @@
 <template>
   <v-app>
     <v-content>
-      <v-card class="mx-auto main-card" outlined>
+      <v-card
+        class="mx-auto main-card"
+        outlined
+      >
         <v-row>
           <v-col>
-            <v-app-bar  fixed  elevate-on-scroll class="app-bar">
-              <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar
+              fixed
+              elevate-on-scroll
+              class="app-bar"
+            >
+              <v-app-bar-nav-icon @click="drawer = !drawer" />
               <v-toolbar-title>FundooNotes</v-toolbar-title>
               <v-text-field
+                v-click-outside="onClickOutside"
                 label="Search"
                 prepend-inner-icon="mdi-magnify"
                 :class="{'search-text-style':changeStyle}"
                 solo
                 filled
                 dense
-                v-on:click="changeFiledStyle"
-                v-click-outside="onClickOutside"
-              ></v-text-field>
-              <v-spacer></v-spacer>
+                @click="changeFiledStyle"
+              />
+              <v-spacer />
               <v-btn icon>
                 <v-icon>mdi-account-circle</v-icon>
               </v-btn>
@@ -31,38 +38,79 @@
             </v-app-bar>
           </v-col>
         </v-row>
-        <v-divider></v-divider>
+        <v-divider />
         <v-row>
-          <v-col cols="12" md="3">
-            <v-navigation-drawer fixed :class="{'nav-bar':drawer}">
+          <v-col
+            cols="12"
+            md="3"
+          >
+            <v-navigation-drawer
+              fixed
+              :class="{'nav-bar':drawer}"
+            >
               <v-list>
-                <v-list-item v-for="item in items" :key="item.title" link>
+                <v-list-item
+                  v-for="item in items"
+                  :key="item.title"
+                  link
+                >
                   <v-list-item-icon>
                     <v-icon>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title class="side-nav">{{ item.title }}</v-list-item-title>
+                    <v-list-item-title class="side-nav">
+                      {{ item.title }}
+                    </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
             </v-navigation-drawer>
           </v-col>
-          <v-col cols="12" md="9" class="mt-5 mr-20">
+          <v-col
+            cols="12"
+            md="9"
+            class="mt-5 mr-20"
+          >
             <v-card
+              v-click-outside="reduceCardHeight"
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
-              v-on:click="increaseCardHeight"
-              v-click-outside="reduceCardHeight"
+              @click="increaseCardHeight"
             >
-              <v-text-field v-model="noteTitle" :placeholder="text" class="text-weight ml-5 mt-5">
+              <v-text-field
+                v-model="noteTitle"
+                :placeholder="text"
+                class="text-weight ml-5 mt-5"
+              >
                 <template v-slot:append>
-                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-checkbox-marked</v-icon>
-                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-brush</v-icon>
-                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-image</v-icon>
+                  <v-icon
+                    v-show="cardClicked == false"
+                    class="mr-5"
+                  >
+                    mdi-checkbox-marked
+                  </v-icon>
+                  <v-icon
+                    v-show="cardClicked == false"
+                    class="mr-5"
+                  >
+                    mdi-brush
+                  </v-icon>
+                  <v-icon
+                    v-show="cardClicked == false"
+                    class="mr-5"
+                  >
+                    mdi-image
+                  </v-icon>
 
                   <v-tooltip bottom>
                     <template v-slot:activator="{on}">
-                      <v-icon v-on="on" v-show="cardClicked == true" class="mr-5">mdi-pin</v-icon>
+                      <v-icon
+                        v-show="cardClicked == true"
+                        class="mr-5"
+                        v-on="on"
+                      >
+                        mdi-pin
+                      </v-icon>
                     </template>
                     <span>Pin note</span>
                   </v-tooltip>
@@ -70,11 +118,11 @@
                 </template>
               </v-text-field>
               <v-text-field
-                v-model="noteDescription"
                 v-show="cardClicked == true"
+                v-model="noteDescription"
                 placeholder="Take a note..."
                 class="text-weight ml-5"
-              ></v-text-field>
+              />
               <v-row v-show="cardClicked == true">
                 <Icons class="mt-4 ml-4" />
                 <!--  <v-tooltip bottom>
@@ -123,11 +171,14 @@
                 <v-icon class="ml-5 card-icons mb-5">mdi-image</v-icon>
                 <v-icon class="ml-5 card-icons mb-5">mdi-download</v-icon>
                 <v-icon class="ml-5 card-icons mb-5">mdi-dots-vertical</v-icon>-->
-                <v-spacer></v-spacer>
+                <v-spacer />
                 <a class="mr-5 mt-4">Close</a>
               </v-row>
             </v-card>
-            <Note class="mt-15" ref="note" />
+            <Note
+              ref="note"
+              class="mt-15"
+            />
           </v-col>
         </v-row>
       </v-card>

@@ -6,10 +6,22 @@
     <v-app>
       <Snackbar ref="snack" />
       <v-content>
-        <v-card class="card-height-width mx-auto mt-9 pl-9 pt-9" outlined>
-          <v-layout row wrap>
-            <v-flex xs12 md6>
-              <v-flex xs24 md12>
+        <v-card
+          class="card-height-width mx-auto mt-9 pl-9 pt-9"
+          outlined
+        >
+          <v-layout
+            row
+            wrap
+          >
+            <v-flex
+              xs12
+              md6
+            >
+              <v-flex
+                xs24
+                md12
+              >
                 <Title />
               </v-flex>
               <v-flex class="second-title">
@@ -19,62 +31,68 @@
                 <v-row>
                   <v-col>
                     <v-text-field
+                      v-model="firstName"
                       outlined
                       dense
                       label="First name"
-                      v-model="firstName"
                       :error-messages="firstNameErrors"
                       required
                     />
                   </v-col>
                   <v-col>
                     <v-text-field
+                      v-model="lastName"
                       outlined
                       dense
                       label="Last name"
-                      v-model="lastName"
                       :error-messages="lastNameErrors"
                       required
                     />
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col></v-col>
+                  <v-col />
                 </v-row>
                 <v-row>
                   <v-col>
                     <v-text-field
+                      v-model="emailId"
                       outlined
                       dense
                       label="Email address"
-                      v-model="emailId"
                       :error-messages="emailIdErrors"
                       required
                     />
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col></v-col>
+                  <v-col />
                 </v-row>
                 <v-row>
-                  <v-col cols="12" md="6">
+                  <v-col
+                    cols="12"
+                    md="6"
+                  >
                     <v-text-field
+                      v-model="password"
                       outlined
                       dense
                       label="Password"
                       :type="showPassword ? 'text' : 'password'"
-                      v-model="password"
                       :error-messages="passwordErrors"
                       required
                     />
                   </v-col>
-                  <v-col cols="12" md="6">
+                  <v-col
+                    cols="12"
+                    md="6"
+                  >
                     <v-text-field
+                      v-model="confirmPassword"
                       outlined
                       dense
                       :type="showPassword ? 'text' : 'password'"
                       label="Confirm"
-                      v-model="confirmPassword"
                       :error-messages="confirmPasswordErrors"
                       required
                     />
@@ -83,29 +101,51 @@
                 <v-row v-show="isClicked == false">
                   <p
                     class="password-hint"
-                  >Use 8 or more characters with a mix of letters, numbers & symbols</p>
+                  >
+                    Use 8 or more characters with a mix of letters, numbers & symbols
+                  </p>
                 </v-row>
                 <v-row>
                   <div>
-                    <router-link class="sign-in" to="/login">Sign in instead</router-link>
+                    <router-link
+                      class="sign-in"
+                      to="/login"
+                    >
+                      Sign in instead
+                    </router-link>
                   </div>
-                  <v-col></v-col>
-                  <v-btn class="register" @click="register">Register</v-btn>
+                  <v-col />
+                  <v-btn
+                    class="register"
+                    @click="register"
+                  >
+                    Register
+                  </v-btn>
                 </v-row>
               </v-card-text>
             </v-flex>
-            <v-flex xs12 md6>
-              <v-img :src="logoPath" class="account-img"></v-img>
+            <v-flex
+              xs12
+              md6
+            >
+              <v-img
+                :src="logoPath"
+                class="account-img"
+              />
               <v-icon
                 v-show="showPassword == true"
-                v-on:click="showPassword = !showPassword"
                 class="password-eye"
-              >mdi-eye</v-icon>
+                @click="showPassword = !showPassword"
+              >
+                mdi-eye
+              </v-icon>
               <v-icon
                 v-show="showPassword == false"
-                v-on:click="showPassword = !showPassword"
                 class="password-eye"
-              >mdi-eye-off</v-icon>
+                @click="showPassword = !showPassword"
+              >
+                mdi-eye-off
+              </v-icon>
             </v-flex>
           </v-layout>
         </v-card>

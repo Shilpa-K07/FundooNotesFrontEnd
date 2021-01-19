@@ -7,41 +7,50 @@ This vue component is for resetting user password
     <v-app>
       <Snackbar ref="snack" />
       <v-content>
-        <v-card class="reset-password-card mx-auto ml-19 mt-9" outlined>
+        <v-card
+          class="reset-password-card mx-auto ml-19 mt-9"
+          outlined
+        >
           <v-flex class="d-flex flex-column flex-gap mt-auto">
             <Title class="justify-center" />
-            <v-card-title class="justify-center flex-gap">Reset passord</v-card-title>
+            <v-card-title class="justify-center flex-gap">
+              Reset passord
+            </v-card-title>
           </v-flex>
           <v-col>
             <v-text-field
+              v-model="password"
               class="ml-8 mr-8"
               outlined
               dense
               label="New password"
-              v-model="password"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
               :error-messages="passwordErrors"
               required
+              @click:append="showPassword = !showPassword"
             />
             <v-text-field
+              v-model="confirmPassword"
               class="ml-8 mr-8"
               outlined
               dense
               label="Confirm password"
-              v-model="confirmPassword"
               :append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
               :type="showPasswordConfirm ? 'text' : 'password'"
-              @click:append="showPasswordConfirm = !showPasswordConfirm"
               :error-messages="confirmPasswordErrors"
               required
+              @click:append="showPasswordConfirm = !showPasswordConfirm"
             />
             <v-row class="d-flex justify-space-around mt-12">
-            <v-btn class="login" @click="resetPassword">Reset password</v-btn>
+              <v-btn
+                class="login"
+                @click="resetPassword"
+              >
+                Reset password
+              </v-btn>
             </v-row>
           </v-col>
-         
         </v-card>
       </v-content>
     </v-app>

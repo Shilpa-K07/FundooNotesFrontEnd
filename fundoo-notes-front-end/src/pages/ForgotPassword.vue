@@ -7,26 +7,35 @@ incase of forgot password
     <v-app>
       <Snackbar ref="snack" />
       <v-content>
-        <v-card class="forgot-password-card mx-auto ml-19 mt-9" outlined>
+        <v-card
+          class="forgot-password-card mx-auto ml-19 mt-9"
+          outlined
+        >
           <v-flex class="d-flex flex-column flex-gap mt-auto">
             <Title class="justify-center" />
-            <v-card-title class="justify-center flex-gap">Account recovery</v-card-title>
+            <v-card-title class="justify-center flex-gap">
+              Account recovery
+            </v-card-title>
           </v-flex>
           <v-col class="d-flex flex-column justify-space-around">
             <v-text-field
+              v-model="emailId"
               class="ml-8 mr-8"
               outlined
               dense
               label="Email"
-              v-model="emailId"
               :error-messages="emailIdErrors"
               required
             />
             <v-row class="d-flex justify-space-around mt-8">
-            <v-btn class="login" @click="sendResetPasswordLink">Send reset password link</v-btn>
+              <v-btn
+                class="login"
+                @click="sendResetPasswordLink"
+              >
+                Send reset password link
+              </v-btn>
             </v-row>
           </v-col>
-          
         </v-card>
       </v-content>
     </v-app>
