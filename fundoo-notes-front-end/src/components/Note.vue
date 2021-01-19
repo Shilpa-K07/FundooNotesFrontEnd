@@ -4,15 +4,16 @@ Note component to display notes on dashboard
 <template>
   <v-flex d-flex>
     <v-layout wrap>
-      <v-flex md3 v-for="item in items" :key="item.id" class="mr-15 mb-10">
+      <v-flex md3 v-for="item in items" :key="item.id" class=" mr-5 mb-10">
         <v-hover
-          v-slot:default="{ hover }"
-        >
-        <v-card :elevation="hover ? 0.5 : 0.5" class="mx-auto card-container">
+        v-slot="{ hover }"
+      >
+        <v-card class="mx-auto card-container" outlined :class="{'on-hover':hover}">
           <v-list-item >{{ item.title }}</v-list-item>
-          <v-list-item two-line>{{ item.description }}</v-list-item>
-         <!--  <v-list-item v-show="!hover"></v-list-item> -->
-          <Icons v-show="hover"/>
+          <v-list-item >{{ item.description }}</v-list-item>
+          <v-list-item></v-list-item>
+         <Icons v-show="hover"/>
+          
          <!--  <Icons v-show="hover"/> -->
           <!-- <v-btn @click="deleteItem(item.id)">Delete</v-btn> -->
         </v-card>
