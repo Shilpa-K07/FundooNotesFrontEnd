@@ -10,7 +10,7 @@ class User {
     const data = {
       input: userInput,
       url: process.env.VUE_APP_REGISTRATION,
-      headers: { 'Content-Type': 'application/json'}
+    /*   headers: { 'Content-Type': 'application/json'} */
     }
     return apiCall.post(data)
   }
@@ -19,7 +19,7 @@ class User {
     const data = {
       input: userInput,
       url: process.env.VUE_APP_LOGIN,
-      headers: { 'Content-Type': 'application/json'}
+    /*   headers: { 'Content-Type': 'application/json'} */
     }
     return apiCall.post(data)
   }
@@ -28,7 +28,7 @@ class User {
     const data = {
       input: userInput,
       url: process.env.VUE_APP_VERIFYEMAIL,
-      headers: { 'Content-Type': 'application/json'}
+      /* headers: { 'Content-Type': 'application/json'} */
     }
     return apiCall.post(data)
   }
@@ -36,7 +36,7 @@ class User {
     const data = {
       input: userInput,
       url: process.env.VUE_APP_FORGOTPASSWORD,
-      headers: { 'Content-Type': 'application/json'}
+     /*  headers: { 'Content-Type': 'application/json'} */
     }
     return apiCall.post(data)
   }
@@ -61,17 +61,17 @@ class User {
     const data = {
       input: noteInput,
       url: process.env.VUE_APP_NOTE,
-      headers: { 'Content-Type': 'application/json',  /* 'token': sessionStorage.token */ },
-      withCredentials: true
+      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+     /*  withCredentials: true */
     }
-    return apiCall.post(data)
+    return apiCall.postWithHeader(data)
   }
 
   getNotes = () => {
     const data = {
-      url: process.env.VUE_APP_NOTE,
-      headers: { 'Content-Type': 'application/json'},
-      withCredentials: true
+      url: process.env.VUE_APP_NOTE
+     /*  headers: { 'Content-Type': 'application/json'}, */
+      /* withCredentials: true */
     }
     return apiCall.get(data)
   }

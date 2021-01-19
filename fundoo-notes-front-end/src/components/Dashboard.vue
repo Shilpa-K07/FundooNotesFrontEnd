@@ -4,7 +4,7 @@
       <v-card class="mx-auto main-card" outlined>
         <v-row>
           <v-col>
-            <v-app-bar class="app-bar">
+            <v-app-bar  fixed  elevate-on-scroll class="app-bar">
               <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
               <v-toolbar-title>FundooNotes</v-toolbar-title>
               <v-text-field
@@ -33,9 +33,9 @@
         </v-row>
         <v-divider></v-divider>
         <v-row>
-          <v-col>
-            <v-navigation-drawer :class="{'nav-bar':drawer}">
-              <v-list dense>
+          <v-col cols="12" md="3">
+            <v-navigation-drawer fixed :class="{'nav-bar':drawer}">
+              <v-list>
                 <v-list-item v-for="item in items" :key="item.title" link>
                   <v-list-item-icon>
                     <v-icon>{{ item.icon }}</v-icon>
@@ -47,7 +47,7 @@
               </v-list>
             </v-navigation-drawer>
           </v-col>
-          <v-col cols="12" md="8" class="mt-10 mr-20">
+          <v-col cols="12" md="9" class="mt-10 mr-20">
             <v-card
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
