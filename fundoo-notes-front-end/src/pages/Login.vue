@@ -141,16 +141,15 @@ export default {
         var response = this.userLogin(userInput)
         response
           .then(data => {
-            if (data) {
+            if (data) {console.log(JSON.stringify(data))
               const snackbarData = {
                 text: "Successfully logged in",
                 timeout: this.timeout
               }
               sessionStorage.setItem("token", data.data.token)
+              sessionStorage.setItem("emailId", data.data.emailId)
               this.$refs.snack.setSnackbar(snackbarData)
-              setTimeout(() => {
-                this.reset()
-              }, this.timeout)
+              this.$router.push({   name: 'Note',query: { redirect: '/notes' }} );
             }
           })
           .catch(error => {
