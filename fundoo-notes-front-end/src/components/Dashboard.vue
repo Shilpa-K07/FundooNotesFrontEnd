@@ -1,17 +1,10 @@
 <template>
   <v-app>
     <v-content>
-      <v-card
-        class="mx-auto main-card"
-        outlined
-      >
+      <v-card class="mx-auto main-card" outlined>
         <v-row>
           <v-col>
-            <v-app-bar
-              fixed
-              elevate-on-scroll
-              class="app-bar"
-            >
+            <v-app-bar fixed elevate-on-scroll class="app-bar">
               <v-app-bar-nav-icon @click="drawer = !drawer" />
               <v-toolbar-title>FundooNotes</v-toolbar-title>
               <v-text-field
@@ -25,10 +18,20 @@
                 @click="changeFiledStyle"
               />
               <v-spacer />
-              <v-btn icon>
-                <v-icon>mdi-account-circle</v-icon>
-              </v-btn>
-              <span>Shilpa</span>
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-btn icon v-on="on">
+                    <v-icon>mdi-account-circle</v-icon>
+                  </v-btn>
+                  <span>{{name}}</span>
+                </template>
+                <v-card outlined class="mx-auto sign-out-card d-flex flex-column">
+                  <v-list-item class="sign-out-list">{{emailId}}</v-list-item>
+                  <v-list-item class="ml-10">
+                    <v-btn color="info" @click="clearSession">Sign out</v-btn>
+                  </v-list-item>
+                </v-card>
+              </v-menu>
               <!--   <v-btn icon>
                 <v-icon>mdi-view-stream</v-icon>
               </v-btn>
@@ -40,37 +43,21 @@
         </v-row>
         <v-divider />
         <v-row>
-          <v-col
-            cols="12"
-            md="3"
-          >
-            <v-navigation-drawer
-              fixed
-              :class="{'nav-bar':drawer}"
-            >
+          <v-col cols="12" md="3">
+            <v-navigation-drawer fixed :class="{'nav-bar':drawer}">
               <v-list>
-                <v-list-item
-                  v-for="item in items"
-                  :key="item.title"
-                  link
-                >
+                <v-list-item v-for="item in items" :key="item.title" link>
                   <v-list-item-icon>
                     <v-icon>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title class="side-nav">
-                      {{ item.title }}
-                    </v-list-item-title>
+                    <v-list-item-title class="side-nav">{{ item.title }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
             </v-navigation-drawer>
           </v-col>
-          <v-col
-            cols="12"
-            md="9"
-            class="mt-5 mr-20"
-          >
+          <v-col cols="12" md="9" class="mt-5 mr-20">
             <v-card
               v-click-outside="reduceCardHeight"
               class="mx-auto note-card"
@@ -80,37 +67,17 @@
               <v-text-field
                 v-model="noteTitle"
                 :placeholder="text"
+                maxlength="100"
                 class="text-weight ml-5 mt-5"
               >
                 <template v-slot:append>
-                  <v-icon
-                    v-show="cardClicked == false"
-                    class="mr-5"
-                  >
-                    mdi-checkbox-marked
-                  </v-icon>
-                  <v-icon
-                    v-show="cardClicked == false"
-                    class="mr-5"
-                  >
-                    mdi-brush
-                  </v-icon>
-                  <v-icon
-                    v-show="cardClicked == false"
-                    class="mr-5"
-                  >
-                    mdi-image
-                  </v-icon>
+                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-checkbox-marked</v-icon>
+                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-brush</v-icon>
+                  <v-icon v-show="cardClicked == false" class="mr-5">mdi-image</v-icon>
 
                   <v-tooltip bottom>
                     <template v-slot:activator="{on}">
-                      <v-icon
-                        v-show="cardClicked == true"
-                        class="mr-5"
-                        v-on="on"
-                      >
-                        mdi-pin
-                      </v-icon>
+                      <v-icon v-show="cardClicked == true" class="mr-5" v-on="on">mdi-pin</v-icon>
                     </template>
                     <span>Pin note</span>
                   </v-tooltip>
@@ -120,65 +87,18 @@
               <v-text-field
                 v-show="cardClicked == true"
                 v-model="noteDescription"
+                maxlength="200"
                 placeholder="Take a note..."
                 class="text-weight ml-5"
               />
               <v-row v-show="cardClicked == true">
                 <Icons class="mt-4 ml-4" />
-                <!--  <v-tooltip bottom>
-                  <template v-slot:activator="{on}">
-                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-bell</v-icon>
-                  </template>
-                  <span>Remind me</span>
-                </v-tooltip>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{on}">
-                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-account</v-icon>
-                  </template>
-                  <span>Collaborator</span>
-                </v-tooltip>
-                 <v-tooltip bottom>
-                  <template v-slot:activator="{on}">
-                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-palette</v-icon>
-                  </template>
-                  <span>Change color</span>
-                </v-tooltip>
-                  <v-tooltip bottom>
-                  <template v-slot:activator="{on}">
-                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-image</v-icon>
-                  </template>
-                  <span>Add image</span>
-                </v-tooltip>
-                  <v-tooltip bottom>
-                  <template v-slot:activator="{on}">
-                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-download</v-icon>
-                  </template>
-                  <span>Archive</span>
-                </v-tooltip>
-                  <v-tooltip bottom>
-                  <template v-slot:activator="{on}">
-                    <v-icon v-on="on" class="ml-5 card-icons mb-5">mdi-dots-vertical</v-icon>
-                  </template>
-                  <span>More</span>
-                </v-tooltip>-->
 
-                <!-- <v-tooltip slot="append" bottom>
-                  <v-icon slot="activator" class="ml-5 card-icons mb-5">mdi-bell</v-icon>
-                  <span>tt</span>
-                </v-tooltip>
-                <v-icon class="ml-5 card-icons mb-5">mdi-account-outline</v-icon>
-                <v-icon class="ml-5 card-icons mb-5">mdi-palette</v-icon>
-                <v-icon class="ml-5 card-icons mb-5">mdi-image</v-icon>
-                <v-icon class="ml-5 card-icons mb-5">mdi-download</v-icon>
-                <v-icon class="ml-5 card-icons mb-5">mdi-dots-vertical</v-icon>-->
                 <v-spacer />
                 <a class="mr-5 mt-4">Close</a>
               </v-row>
             </v-card>
-            <Note
-              ref="note"
-              class="mt-15"
-            />
+            <Note ref="note" class="mt-15" />
           </v-col>
         </v-row>
       </v-card>
@@ -196,6 +116,8 @@ export default {
     Note
   },
   data: () => ({
+    emailId: sessionStorage.emailId,
+    name: sessionStorage.emailId.substring(0, 6),
     drawer: false,
     changeStyle: false,
     cardClicked: false,
@@ -211,25 +133,25 @@ export default {
     ]
   }),
   beforeMount() {
-    this.getNotes()
+    this.getNotes();
   },
   methods: {
     getNotes: function() {
-      user.getNotes()
-      .then(data => {
-     //   console.log("data: "+JSON.stringify(data))
-        this.$refs.note.setNoteData(data)
+      user
+        .getNotes()
+        .then(data => {
+          //   console.log("data: "+JSON.stringify(data))
+          this.$refs.note.setNoteData(data);
         })
-    .catch(error => {
-      console.error(error)
-    })
+        .catch(error => {
+          console.error(error);
+        });
     },
     createNote: function(noteInput) {
       return user.createNote(noteInput);
     },
     reset() {
-      this.noteTitle = "", 
-      this.noteDescription = ""
+      (this.noteTitle = ""), (this.noteDescription = "");
     },
     changeFiledStyle() {
       this.changeStyle = true;
@@ -242,8 +164,8 @@ export default {
       this.text = "Title";
     },
     reduceCardHeight() {
-      this.cardClicked = false
-      this.text = "Take a note..."
+      this.cardClicked = false;
+      this.text = "Take a note...";
       if (this.noteTitle && this.noteDescription) {
         const noteInput = {
           title: this.noteTitle,
@@ -251,12 +173,16 @@ export default {
         };
         this.createNote(noteInput)
           .then(data => {
-            this.$refs.note.addNoteData(data)
-            this.getNotes()
-            this.reset()
+            this.$refs.note.addNoteData(data);
+            this.getNotes();
+            this.reset();
           })
-          .catch(error => console.log(JSON.stringify(error.response)))
+          .catch(error => console.log(JSON.stringify(error.response)));
       }
+    },
+    clearSession() {
+      sessionStorage.clear()
+      this.$router.push({ name: 'Login', query: { redirect: '/login' } });
     }
   }
 };

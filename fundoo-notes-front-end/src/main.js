@@ -59,9 +59,9 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     children: [{
-      path: '/notes',
+      path: 'dashboard/notes',
       name: 'Note',
-      component: Note,
+      component: Dashboard
     }]
   },
   /* {

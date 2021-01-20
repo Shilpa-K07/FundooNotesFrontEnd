@@ -63,7 +63,7 @@ Icon components for cards
 
 
     <!-- <v-tooltip bottom> -->
-       <!-- <v-menu
+       <v-menu
             bottom
             left
           >
@@ -74,9 +74,9 @@ Icon components for cards
         >
           mdi-dots-vertical
         </v-icon>
-      </template> -->
+      </template>
      <!--  <span>More</span> -->
-     <!--  <v-list>
+      <v-list>
               <v-list-item
                 v-for="(item, i) in items"
                 :key="i"
@@ -84,7 +84,7 @@ Icon components for cards
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
-          </v-menu> -->
+          </v-menu>
    <!--  </v-tooltip> -->
      
   </v-row>
