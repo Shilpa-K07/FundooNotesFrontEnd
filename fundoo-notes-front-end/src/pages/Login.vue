@@ -147,7 +147,8 @@ export default {
                 timeout: this.timeout
               }
               sessionStorage.setItem("token", data.data.token)
-              sessionStorage.setItem("emailId", data.data.emailId)
+              sessionStorage.setItem("emailId", data.data.data.emailId)
+                sessionStorage.setItem("name", data.data.data.name)
               this.$refs.snack.setSnackbar(snackbarData)
               this.$router.push({   name: 'Note',query: { redirect: '/notes' }} );
             }
