@@ -18,26 +18,7 @@
                 @click="changeFiledStyle"
               />
               <v-spacer />
-              <v-menu offset-y>
-                <template v-slot:activator="{ on }">
-                  <v-btn icon v-on="on">
-                    <v-icon>mdi-account-circle</v-icon>
-                  </v-btn>
-                  <span>{{name}}</span>
-                </template>
-                <v-card outlined class="mx-auto sign-out-card d-flex flex-column">
-                  <v-list-item class="sign-out-list">{{emailId}}</v-list-item>
-                  <v-list-item class="ml-10">
-                    <v-btn color="info" @click="clearSession">Sign out</v-btn>
-                  </v-list-item>
-                </v-card>
-              </v-menu>
-              <!--   <v-btn icon>
-                <v-icon>mdi-view-stream</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-cog</v-icon>
-              </v-btn>-->
+              <Logout />
             </v-app-bar>
           </v-col>
         </v-row>
@@ -110,14 +91,16 @@
 import user from "../services/user";
 import Icons from "./Icons";
 import Note from "./Note";
+import Logout from "./Logout"
 export default {
   components: {
     Icons,
-    Note
+    Note,
+    Logout
   },
   data: () => ({
-    emailId: sessionStorage.emailId,
-    name: sessionStorage.emailId.substring(0, 6),
+    /* emailId: sessionStorage.emailId,
+    name: sessionStorage.emailId.substring(0, 6), */
     drawer: false,
     changeStyle: false,
     cardClicked: false,
@@ -180,10 +163,10 @@ export default {
           .catch(error => console.log(JSON.stringify(error.response)));
       }
     },
-    clearSession() {
+   /*  clearSession() {
       sessionStorage.clear()
       this.$router.push({ name: 'Login', query: { redirect: '/login' } });
-    }
+    } */
   }
 };
 </script>

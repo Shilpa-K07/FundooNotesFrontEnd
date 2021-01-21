@@ -59,7 +59,7 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     children: [{
-      path: 'dashboard/notes',
+      path: '/notes',
       name: 'Note',
       component: Dashboard
     }]

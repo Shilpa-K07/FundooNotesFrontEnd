@@ -58,10 +58,6 @@ Icon components for cards
       </template>
       <span>Archive</span>
     </v-tooltip>
-    
-
-
-
     <!-- <v-tooltip bottom> -->
        <v-menu
             bottom
@@ -77,14 +73,9 @@ Icon components for cards
       </template>
      <!--  <span>More</span> -->
       <v-list>
-              <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+        <v-list-item link @click="deleteNote">Delete note</v-list-item>
+      </v-list>
+    </v-menu>
    <!--  </v-tooltip> -->
      
   </v-row>
@@ -94,7 +85,7 @@ Icon components for cards
   export default {
     data: () => ({
       items: [
-        { title: 'Delete note' },
+        { title: 'Delete note', },
         { title: 'Add label' },
       ],
     }),
