@@ -20,7 +20,7 @@ class ApiCall {
 
     // axios get method for retrieving data
     get= (data) => {
-        return axios.get(data.url)
+        return axios.get(data.url,{ headers: data.headers})
     }
 }
 
