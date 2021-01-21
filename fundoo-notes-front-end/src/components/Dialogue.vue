@@ -7,7 +7,7 @@
     </template>
     <v-card v-click-outside="onClickOutside">
       <v-card-text>
-        <v-form ref="edit-form">
+        <v-form ref="editNoteForm">
           <v-text-field solo label="id" v-model="editTransaction._id" v-show=false></v-text-field>
           <v-text-field solo label="title" v-model="editTransaction.title" required></v-text-field>
           <v-text-field solo label="description" v-model="editTransaction.description" required></v-text-field>
@@ -40,23 +40,21 @@ export default {
   },
   methods: {
     reset() {
-      this.$refs.edit - form.reset();
+      this.$refs.editNoteForm.reset()
     },
-    updateNote: function(noteInput) {
-      return user.updateNote(noteInput);
+    updateNote: function(noteInput, noteId) {
+      return user.updateNote(noteInput, noteId)
     },
     onClickOutside() {
-      if (this.editTransaction.title && this.editTransaction.title) {
+      if (this.editTransaction.title && this.editTransaction.description) {
         const noteInput = {
-          id: this.editTransaction._id,
           title: this.editTransaction.title,
           description: this.editTransaction.description
         }
-        alert(JSON.stringify(noteInput))
-        this.updateNote(noteInput)
-          .then(data => {
-            this.$refs.dashboard.getNotes();
-            // this.reset();
+        this.updateNote(noteInput,this.editTransaction._id)
+          .then(data => { console.log("result: "+JSON.stringify(data))
+            this.$refs.dashboard.getNotes()
+            this.reset()
           })
           .catch(error => console.log(JSON.stringify(error.response)));
       }

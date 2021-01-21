@@ -66,11 +66,19 @@ class User {
     return apiCall.postWithHeader(data)
   }
 
+  updateNote = (noteInput, noteId) => {
+    const data = {
+      input: noteInput,
+      url: process.env.VUE_APP_NOTE+"/"+noteId,
+      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+    }
+    return apiCall.put(data)
+  }
+
   getNotes = () => {
     const data = {
-      url: process.env.VUE_APP_NOTE
-     /*  headers: { 'Content-Type': 'application/json'}, */
-      /* withCredentials: true */
+      url: process.env.VUE_APP_NOTE,
+      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
     }
     return apiCall.get(data)
   }

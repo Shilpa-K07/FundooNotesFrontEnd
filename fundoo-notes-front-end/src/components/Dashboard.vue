@@ -123,7 +123,8 @@ export default {
       user
         .getNotes()
         .then(data => {
-          //   console.log("data: "+JSON.stringify(data))
+          console.log("data: "+JSON.stringify(data))
+          if(data)
           this.$refs.note.setNoteData(data);
         })
         .catch(error => {
