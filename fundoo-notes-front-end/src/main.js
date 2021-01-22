@@ -16,9 +16,10 @@ import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
 import Dashboard from './components/Dashboard'
 import Note from './components/Note'
+import Icons from './components/Icons'
 /* import axios from 'axios'; */
 /* axios.defaults.withCredentials = true  */
-
+//Vue.component('icons', Icons)
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)

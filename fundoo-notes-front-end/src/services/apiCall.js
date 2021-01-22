@@ -22,6 +22,11 @@ class ApiCall {
     get= (data) => {
         return axios.get(data.url,{ headers: data.headers})
     }
+
+    // axios delete method for soft deleting data
+    softDelete= (data) => {
+        return axios.delete(data.url,{ headers: data.headers})
+    }
 }
 
 module.exports = new ApiCall()
