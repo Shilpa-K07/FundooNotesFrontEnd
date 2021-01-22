@@ -24,7 +24,7 @@ class ApiCall {
     }
 
     // axios delete method for soft deleting data
-    softDelete= (data) => {
+    delete= (data) => {alert("api")
         return axios.delete(data.url,{ headers: data.headers})
     }
 }

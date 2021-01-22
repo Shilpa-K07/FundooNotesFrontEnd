@@ -52,30 +52,43 @@ Icon components for cards
 <script>
 /* import Note from "./Note"; */
 import Dashboard from "./Dashboard";
-import user from "../services/user"; 
+import user from "../services/user";
 export default {
-  name: 'Icons',
+  name: "Icons",
   components: {
-   // Note,
+    // Note,
     Dashboard
   },
-  props: ["noteDetails"],
-   data() {
+  props: ['noteDetails', 'field'],
+  data() {
     return {
       dialog: false,
-      deleteDetails: this.noteDetails
+      deleteDetails: this.noteDetails,
+      currentField: this.field
     };
   },
   methods: {
-    deleteNote: function(noteId) {
-      return user.softDeleteNote(noteId)
+    softDeleteNote: function(noteId) {
+      return user.softDeleteNote(noteId);
+    },
+    hardDeleteNote: function(noteId) {
+      return user.hardDeleteNote(noteId);
     },
     onDelete() {
-      this.deleteNote(this.noteDetails._id)
-      .then(data => {
-        this.$refs.dashboard.getNotes()
-      })
-      .catch(error => console.log(error))
+      if (this.currentField == "trash") {alert("hard")
+        this.hardDeleteNote(this.noteDetails._id)
+          .then(data => {
+            this.$refs.dashboard.getNotes();
+          })
+          .catch(error => console.log(error));
+      }
+      else{alert("soft")
+      this.softDeleteNote(this.noteDetails._id)
+        .then(data => {
+          this.$refs.dashboard.getNotes();
+        })
+        .catch(error => console.log(error));
+    }
     }
   }
 }

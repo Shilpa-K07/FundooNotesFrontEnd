@@ -80,7 +80,15 @@ class User {
       url: process.env.VUE_APP_NOTE+"/"+noteId,
       headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
     }
-    return apiCall.softDelete(data)
+    return apiCall.delete(data)
+  }
+
+  hardDeleteNote = (noteId) => {alert("api-hard")
+    const data = {
+      url: process.env.VUE_APP_DELETENOTE+"/"+noteId,
+      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+    }
+    return apiCall.delete(data)
   }
 
   getNotes = () => {

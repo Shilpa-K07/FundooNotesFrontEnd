@@ -15,10 +15,10 @@ Note component to display notes on dashboardrow
             <v-list-item class="v-list">{{ item.title }}</v-list-item>
             <v-list-item class="v-list">{{ item.description }}</v-list-item>
             <v-list-item></v-list-item>
-            <Icons v-show="hover==true || click==true" :noteDetails="item"/>
-            <v-flex>
+            <Icons v-show="hover==true || click==true" :noteDetails="item" :field="trash"/>
+            <!-- <v-flex>
               <Dialogue :transaction="item"></Dialogue>
-            </v-flex>
+            </v-flex> -->
             </v-card>
         </v-hover>
       </v-flex>
@@ -37,7 +37,8 @@ export default {
   },
   data: () => ({
     click: false,
-    items: []
+    items: [],
+    trash: "trash"
   }),
   methods: {
     setNoteData(notes) {
