@@ -75,6 +75,14 @@ class User {
     return apiCall.put(data)
   }
 
+  softDeleteNote = (noteId) => {
+    const data = {
+      url: process.env.VUE_APP_NOTE+"/"+noteId,
+      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+    }
+    return apiCall.softDelete(data)
+  }
+
   getNotes = () => {
     const data = {
       url: process.env.VUE_APP_NOTE,

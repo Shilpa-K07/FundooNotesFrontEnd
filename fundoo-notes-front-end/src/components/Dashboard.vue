@@ -93,6 +93,7 @@ import Icons from "./Icons";
 import Note from "./Note";
 import Logout from "./Logout"
 export default {
+  name:'Dashboard',
   components: {
     Icons,
     Note,

@@ -14,7 +14,6 @@
           <Icons />
         </v-form>
       </v-card-text>
-      <Note v-show=false ref="note" />
       <Dashboard v-show=false ref="dashboard" />
     </v-card>
   </v-dialog>
@@ -22,13 +21,11 @@
 
 <script>
 import Icons from "./Icons";
-import Note from "./Note";
 import Dashboard from "./Dashboard";
 import user from "../services/user";
 export default {
   components: {
     Icons,
-    Note,
     Dashboard
   },
   props: ["transaction"],
@@ -52,7 +49,7 @@ export default {
           description: this.editTransaction.description
         }
         this.updateNote(noteInput,this.editTransaction._id)
-          .then(data => { console.log("result: "+JSON.stringify(data))
+          .then(data => {
             this.$refs.dashboard.getNotes()
             this.reset()
           })

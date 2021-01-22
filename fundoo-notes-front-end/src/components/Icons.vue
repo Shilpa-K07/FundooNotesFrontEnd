@@ -5,89 +5,77 @@ Icon components for cards
   <v-row>
     <v-tooltip bottom>
       <template v-slot:activator="{on}">
-        <v-icon
-          class="ml-5 card-icons mb-5"
-          v-on="on"
-        >
-          mdi-bell
-        </v-icon>
+        <v-icon class="ml-5 card-icons mb-5" v-on="on">mdi-bell</v-icon>
       </template>
       <span>Remind me</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{on}">
-        <v-icon
-          class="ml-5 card-icons mb-5"
-          v-on="on"
-        >
-          mdi-account
-        </v-icon>
+        <v-icon class="ml-5 card-icons mb-5" v-on="on">mdi-account</v-icon>
       </template>
       <span>Collaborator</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{on}">
-        <v-icon
-          class="ml-5 card-icons mb-5"
-          v-on="on"
-        >
-          mdi-palette
-        </v-icon>
+        <v-icon class="ml-5 card-icons mb-5" v-on="on">mdi-palette</v-icon>
       </template>
       <span>Change color</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{on}">
-        <v-icon
-          class="ml-5 card-icons mb-5"
-          v-on="on"
-        >
-          mdi-image
-        </v-icon>
+        <v-icon class="ml-5 card-icons mb-5" v-on="on">mdi-image</v-icon>
       </template>
       <span>Add image</span>
     </v-tooltip>
     <v-tooltip bottom>
       <template v-slot:activator="{on}">
-        <v-icon
-          class="ml-5 card-icons mb-5"
-          v-on="on"
-        >
-          mdi-download
-        </v-icon>
+        <v-icon class="ml-5 card-icons mb-5" v-on="on">mdi-download</v-icon>
       </template>
       <span>Archive</span>
     </v-tooltip>
     <!-- <v-tooltip bottom> -->
-       <v-menu
-            bottom
-            left
-          >
+    <v-menu bottom left>
       <template v-slot:activator="{on}">
-        <v-icon
-          class="ml-5 card-icons mb-5"
-          v-on="on"
-        >
-          mdi-dots-vertical
-        </v-icon>
+        <v-icon class="ml-5 card-icons mb-5" v-on="on">mdi-dots-vertical</v-icon>
       </template>
-     <!--  <span>More</span> -->
+      <!--  <span>More</span> -->
       <v-list>
-        <v-list-item link @click="deleteNote">Delete note</v-list-item>
+        <v-text-field solo label="id" v-show="false"></v-text-field>
+        <v-list-item link @click="onDelete">Delete note</v-list-item>
       </v-list>
     </v-menu>
-   <!--  </v-tooltip> -->
-     
+    <!--  </v-tooltip> -->
   </v-row>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      items: [
-        { title: 'Delete note', },
-        { title: 'Add label' },
-      ],
-    }),
+/* import Note from "./Note"; */
+import Dashboard from "./Dashboard";
+import user from "../services/user"; 
+export default {
+  name: 'Icons',
+  components: {
+   // Note,
+    Dashboard
+  },
+  props: ["noteDetails"],
+   data() {
+    return {
+      dialog: false,
+      deleteDetails: this.noteDetails
+    };
+  },
+  methods: {
+    deleteNote: function(noteId) {
+      return user.softDeleteNote(noteId)
+    },
+    onDelete() {
+      this.deleteNote(this.noteDetails._id)
+      .then(data => {
+        this.$refs.dashboard.getNotes()
+      })
+      .catch(error => console.log(error))
+    }
   }
+}
 </script>
