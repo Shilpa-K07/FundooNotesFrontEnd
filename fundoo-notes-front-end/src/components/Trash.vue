@@ -4,7 +4,7 @@ Note component to display notes on dashboardrow
 <template>
   <v-flex>
     <v-layout row wrap>
-      <v-flex v-for="item in items" v-if="item.isDeleted == false" :key="item._id" md3 class="mr-5 mb-10">
+      <v-flex v-for="item in items" v-if="item.isDeleted == true" :key="item._id" md3 class="mr-5 mb-10">
         <v-hover v-slot="{ hover }">
           <v-card
             class="mx-auto card-container v-list"
@@ -19,7 +19,7 @@ Note component to display notes on dashboardrow
             <v-flex>
               <Dialogue :transaction="item"></Dialogue>
             </v-flex>
-          </v-card>
+            </v-card>
         </v-hover>
       </v-flex>
     </v-layout>
@@ -31,10 +31,9 @@ import Icons from "./Icons";
 import Dialogue from "./Dialogue";
 export default {
   name: 'Note',
-  props:["field"],
   components: {
     Icons,
-    Dialogue,
+    Dialogue
   },
   data: () => ({
     click: false,
@@ -42,7 +41,6 @@ export default {
   }),
   methods: {
     setNoteData(notes) {
-      console.log("data: "+notes.data.data[0].isDeleted)
       this.items = notes.data.data;
     },
     addNoteData(note) {

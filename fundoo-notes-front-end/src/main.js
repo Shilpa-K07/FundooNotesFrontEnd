@@ -15,8 +15,9 @@ import ResetPassword from './pages/ResetPassword'
 import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
 import Dashboard from './components/Dashboard'
-import Note from './components/Note'
-import Icons from './components/Icons'
+import Trash from './components/Trash'
+/* import Note from './components/Note'
+import Icons from './components/Icons' */
 /* import axios from 'axios'; */
 /* axios.defaults.withCredentials = true  */
 //Vue.component('icons', Icons)
@@ -61,9 +62,15 @@ const routes = [
     component: Dashboard,
     children: [{
       path: '/notes',
-      name: 'Note',
+      name: 'Notes',
       component: Dashboard
-    }]
+    },
+    {
+      path: '/trash',
+      name: 'Trash',
+      component: Dashboard
+    }
+  ]
   },
   /* {
     path: '/notes',

@@ -150,7 +150,7 @@ export default {
               sessionStorage.setItem("emailId", data.data.data.emailId)
                 sessionStorage.setItem("name", data.data.data.name)
               this.$refs.snack.setSnackbar(snackbarData)
-              this.$router.push({   name: 'Note',query: { redirect: '/notes' }} );
+              this.$router.push({   name: 'Dashboard',query: { redirect: '/dashboard' }} );
             }
           })
           .catch(error => {

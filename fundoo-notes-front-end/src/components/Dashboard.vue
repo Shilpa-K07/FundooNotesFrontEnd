@@ -29,10 +29,10 @@
               <v-list>
                 <v-list-item v-for="item in items" :key="item.title" link>
                   <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
+                    <v-icon @click="handleSelectItem(item)">{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title class="side-nav">{{ item.title }}</v-list-item-title>
+                    <v-list-item-title @click="handleSelectItem(item)" class="side-nav">{{ item.title }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -79,7 +79,8 @@
                 <a class="mr-5 mt-4">Close</a>
               </v-row>
             </v-card>
-            <Note ref="note" class="mt-15" />
+            <Note ref="note" class="mt-15" v-show= "selectedItem == 'Notes' || isNote ==true" />
+            <Trash ref="trash" class="mt-15" v-show= "selectedItem == 'Trash'" />
           </v-col>
         </v-row>
       </v-card>
@@ -91,13 +92,15 @@
 import user from "../services/user";
 import Icons from "./Icons";
 import Note from "./Note";
-import Logout from "./Logout"
-export default {
+import Logout from "./Logout";
+import Trash from "./Trash"
+export default {//"selectedItem == 'Notes' || isNote"
   name:'Dashboard',
   components: {
     Icons,
     Note,
-    Logout
+    Logout,
+    Trash
   },
   data: () => ({
     /* emailId: sessionStorage.emailId,
@@ -105,18 +108,22 @@ export default {
     drawer: false,
     changeStyle: false,
     cardClicked: false,
+    isNote: false,
+    isTrash: true,
+    selectedItem: null,
     text: "Take a note...",
     noteTitle: "",
     noteDescription: "",
     items: [
-      { title: "Notes", icon: "mdi-lightbulb" },
+      { title: "Notes", icon: "mdi-lightbulb"},
       { title: "Reminders", icon: "mdi-bell" },
       { title: "Edit labels", icon: "mdi-pencil" },
       { title: "Archive", icon: "mdi-download" },
-      { title: "Trash", icon: "mdi-delete" }
+      { title: "Trash", icon: "mdi-delete"}
     ]
   }),
   beforeMount() {
+    this.isNote=true
     this.getNotes();
   },
   methods: {
@@ -124,9 +131,9 @@ export default {
       user
         .getNotes()
         .then(data => {
-          console.log("data: "+JSON.stringify(data))
           if(data)
           this.$refs.note.setNoteData(data);
+           this.$refs.trash.setNoteData(data);
         })
         .catch(error => {
           console.error(error);
@@ -155,7 +162,7 @@ export default {
         const noteInput = {
           title: this.noteTitle,
           description: this.noteDescription
-        };
+        }
         this.createNote(noteInput)
           .then(data => {
             this.$refs.note.addNoteData(data);
@@ -169,8 +176,16 @@ export default {
       sessionStorage.clear()
       this.$router.push({ name: 'Login', query: { redirect: '/login' } });
     } */
+    handleSelectItem(item) {
+      this.isNote=false
+      this.selectedItem=item.title
+      if(item.title == 'Trash'){
+        this.isTrash=true
+      }
+      this.$router.push({name: item.title});
+    }
   }
-};
+}
 </script>
 
 <style lang="scss">

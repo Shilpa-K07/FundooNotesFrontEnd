@@ -45,6 +45,7 @@ Icon components for cards
       </v-list>
     </v-menu>
     <!--  </v-tooltip> -->
+    <Dashboard ref="dashboard" />
   </v-row>
 </template>
 
