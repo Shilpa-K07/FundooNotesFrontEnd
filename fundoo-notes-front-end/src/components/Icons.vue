@@ -45,19 +45,19 @@ Icon components for cards
       </v-list>
     </v-menu>
     <!--  </v-tooltip> -->
-    <Dashboard ref="dashboard" />
+   <!--  <Dashboard ref="dashboard" /> -->
   </v-row>
 </template>
 
 <script>
 /* import Note from "./Note"; */
-import Dashboard from "./Dashboard";
+/* import Dashboard from "./Dashboard"; */
 import user from "../services/user";
 export default {
   name: "Icons",
   components: {
     // Note,
-    Dashboard
+   /*  Dashboard */
   },
   props: ['noteDetails', 'field'],
   data() {
@@ -75,17 +75,19 @@ export default {
       return user.hardDeleteNote(noteId);
     },
     onDelete() {
-      if (this.currentField == "trash") {alert("hard")
+      if (this.currentField == "trash") {
         this.hardDeleteNote(this.noteDetails._id)
           .then(data => {
-            this.$refs.dashboard.getNotes();
+            //this.$refs.dashboard.getNotes();
+            this.$emit('hardDelete')
           })
           .catch(error => console.log(error));
       }
-      else{alert("soft")
+      else{
       this.softDeleteNote(this.noteDetails._id)
         .then(data => {
-          this.$refs.dashboard.getNotes();
+         // this.$refs.dashboard.getNotes();
+          this.$emit('softDelete')
         })
         .catch(error => console.log(error));
     }

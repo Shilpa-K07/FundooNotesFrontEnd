@@ -73,14 +73,13 @@
                 class="text-weight ml-5"
               />
               <v-row v-show="cardClicked == true">
-                <Icons class="mt-4 ml-4" />
-
+                <Icons class="mt-4 ml-4"></Icons>
                 <v-spacer />
                 <a class="mr-5 mt-4">Close</a>
               </v-row>
             </v-card>
-            <Note ref="note" class="mt-15" v-show= "selectedItem == 'Notes' || isNote ==true" />
-            <Trash ref="trash" class="mt-15" v-show= "selectedItem == 'Trash'" />
+            <Note ref="note" class="mt-15" v-show= "selectedItem == 'Notes' || isNote ==true" @softDelete="afterDelete"/>
+            <Trash ref="trash" class="mt-15" v-show= "selectedItem == 'Trash'" @hardDelete="afterDelete"/>
           </v-col>
         </v-row>
       </v-card>
@@ -172,6 +171,9 @@ export default {//"selectedItem == 'Notes' || isNote"
           .catch(error => console.log(JSON.stringify(error.response)));
       }
     },
+    afterDelete(){alert("dashboard")
+      this.getNotes()
+    },
    /*  clearSession() {
       sessionStorage.clear()
       this.$router.push({ name: 'Login', query: { redirect: '/login' } });
@@ -182,7 +184,8 @@ export default {//"selectedItem == 'Notes' || isNote"
       if(item.title == 'Trash'){
         this.isTrash=true
       }
-      this.$router.push({name: item.title});
+    //  this.$router.push({name: item.title});
+       this.$router.push({   name: item.title/* , query: { redirect: '/notes' } */} );
     }
   }
 }

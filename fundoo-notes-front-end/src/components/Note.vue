@@ -15,7 +15,7 @@ Note component to display notes on dashboardrow
             <v-list-item class="v-list">{{ item.title }}</v-list-item>
             <v-list-item class="v-list">{{ item.description }}</v-list-item>
             <v-list-item></v-list-item>
-            <Icons v-show="hover==true || click==true" :noteDetails="item"/>
+            <Icons v-show="hover==true || click==true" :noteDetails="item" @softDelete="afterSoftDelete"/>
             <v-flex>
               <Dialogue :transaction="item"></Dialogue>
             </v-flex>
@@ -47,6 +47,9 @@ export default {
     },
     addNoteData(note) {
       this.items.push(note.data);
+    },
+    afterSoftDelete(value) {alert("note")
+     this.$emit('softDelete')
     }
   }
 };

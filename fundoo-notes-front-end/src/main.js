@@ -61,12 +61,12 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     children: [{
-      path: '/notes',
+      path: 'notes',
       name: 'Notes',
       component: Dashboard
     },
     {
-      path: '/trash',
+      path: 'trash',
       name: 'Trash',
       component: Dashboard
     }

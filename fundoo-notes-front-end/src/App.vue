@@ -9,6 +9,7 @@ This is the component where all the routers are defined. This is the main compon
     <router-link to="/forgotPassword" />
     <router-link to="/resetPassword/:token" />
     <router-link to="/dashboard/notes" />
+     <router-link to="/dashboard/trash"></router-link>
     <router-view />
     <!-- 
     <v-snackbar v-model="snackbar" :timeout="timeout">
