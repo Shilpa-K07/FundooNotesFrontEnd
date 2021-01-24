@@ -42,7 +42,6 @@ export default {
   }),
   methods: {
     setNoteData(notes) {
-      console.log("data: "+notes.data.data[0].isDeleted)
       this.items = notes.data.data;
     },
     addNoteData(note) {

@@ -105,13 +105,14 @@ class User {
   }
   getLabels = () => {
     const data = {
-      url: process.env.VUE_APP_LABELS,
+      url: process.env.VUE_APP_LABELSBYUSER,
      headers:headers
     }
     return apiCall.get(data)
   }
-  createLabel = () => {
+  createLabel = (labelData) => {
     const data = {
+      input: labelData,
       url: process.env.VUE_APP_LABELS,
      headers:headers
     }

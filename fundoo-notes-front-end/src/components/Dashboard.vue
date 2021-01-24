@@ -40,7 +40,7 @@
                 </v-list-item>
                 <Labels ref="labels" />
                 <v-list-item link>
-                  <EditLabels />
+                  <EditLabels ref="editLabels" @onLabelEdit="onLabelEdit"/>
                 </v-list-item>
                 <v-list-item v-for="item in secondList" :key="item.title" link>
                   <v-list-item-icon>
@@ -145,7 +145,6 @@ export default {
     text: "Take a note...",
     noteTitle: "",
     noteDescription: "",
-    // labels: [],
     items: [
       { title: "Notes", icon: "mdi-lightbulb" },
       { title: "Reminders", icon: "mdi-bell" }
@@ -176,20 +175,21 @@ export default {
         });
     },
     createNote: function(noteInput) {
-      return user.createNote(noteInput);
+      return user.createNote(noteInput)
     },
     getLabels: function() {
       user
         .getLabels()
         .then(data => {
-          this.$refs.labels.setLabelData(data);
+          this.$refs.labels.setLabelData(data)
+          this.$refs.editLabels.setLabelData(data)
         })
         .catch(error => {
           console.error(error);
         });
     },
     reset() {
-      (this.noteTitle = ""), (this.noteDescription = "");
+      (this.noteTitle = ""), (this.noteDescription = "")
     },
     changeFiledStyle() {
       this.changeStyle = true;
@@ -198,12 +198,12 @@ export default {
       this.changeStyle = false;
     },
     increaseCardHeight() {
-      this.cardClicked = true;
-      this.text = "Title";
+      this.cardClicked = true
+      this.text = "Title"
     },
     reduceCardHeight() {
-      this.cardClicked = false;
-      this.text = "Take a note...";
+      this.cardClicked = false
+      this.text = "Take a note..."
       if (this.noteTitle && this.noteDescription) {
         const noteInput = {
           title: this.noteTitle,
@@ -215,11 +215,14 @@ export default {
             this.getNotes();
             this.reset();
           })
-          .catch(error => console.log(JSON.stringify(error.response)));
+          .catch(error => console.log(JSON.stringify(error.response)))
       }
     },
     afterDelete() {
       this.getNotes();
+    },
+    onLabelEdit() {
+      this.getLabels()
     },
     handleSelectItem(item) {
       this.isNote = false;
