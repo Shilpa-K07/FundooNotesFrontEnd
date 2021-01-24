@@ -5,6 +5,7 @@
  */
 //const axios = require('axios')
 const apiCall = require('../services/apiCall')
+const headers = require('./sessionStorage')
 class User {
   userRegistration = (userInput) => {
     const data = {
@@ -60,7 +61,7 @@ class User {
     const data = {
       input: noteInput,
       url: process.env.VUE_APP_NOTE,
-      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+      headers: headers
      /*  withCredentials: true */
     }
     return apiCall.postWithHeader(data)
@@ -70,7 +71,8 @@ class User {
     const data = {
       input: noteInput,
       url: process.env.VUE_APP_NOTE+"/"+noteId,
-      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+     /*  headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token }, */
+      headers:headers
     }
     return apiCall.put(data)
   }
@@ -78,7 +80,8 @@ class User {
   softDeleteNote = (noteId) => {
     const data = {
       url: process.env.VUE_APP_NOTE+"/"+noteId,
-      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+     /*  headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token }, */
+      headers:headers
     }
     return apiCall.delete(data)
   }
@@ -86,7 +89,8 @@ class User {
   hardDeleteNote = (noteId) => {
     const data = {
       url: process.env.VUE_APP_DELETENOTE+"/"+noteId,
-      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+     /*  headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token }, */
+     headers:headers
     }
     return apiCall.delete(data)
   }
@@ -94,9 +98,24 @@ class User {
   getNotes = () => {
     const data = {
       url: process.env.VUE_APP_NOTE,
-      headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token },
+     /*  headers: { 'Content-Type': 'application/json',  'token': sessionStorage.token }, */
+     headers:headers
     }
     return apiCall.get(data)
+  }
+  getLabels = () => {
+    const data = {
+      url: process.env.VUE_APP_LABELS,
+     headers:headers
+    }
+    return apiCall.get(data)
+  }
+  createLabel = () => {
+    const data = {
+      url: process.env.VUE_APP_LABELS,
+     headers:headers
+    }
+    return apiCall.postWithHeader(data)
   }
 }
 module.exports = new User()

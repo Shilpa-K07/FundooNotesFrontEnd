@@ -40,8 +40,9 @@ Icon components for cards
       </template>
       <!--  <span>More</span> -->
       <v-list>
-        <v-text-field solo label="id" v-show="false"></v-text-field>
+       <!--  <v-text-field solo label="id" v-show="false"></v-text-field> -->
         <v-list-item link @click="onDelete">Delete note</v-list-item>
+        <v-list-item link @click="addLabel">Add label</v-list-item>
       </v-list>
     </v-menu>
     <!--  </v-tooltip> -->
@@ -74,6 +75,9 @@ export default {
     hardDeleteNote: function(noteId) {
       return user.hardDeleteNote(noteId);
     },
+    createLabel: function(noteId) {
+      return user.createLabel(noteId);
+    },
     onDelete() {
       if (this.currentField == "trash") {
         this.hardDeleteNote(this.noteDetails._id)
@@ -91,6 +95,11 @@ export default {
         })
         .catch(error => console.log(error));
     }
+    },
+    addLabel() {
+      this.createLabel()
+      .then(data => console.log("label-data: "+JSON.stringify(data)))
+      .catch(error => console.error(error))
     }
   }
 }

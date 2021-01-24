@@ -47,7 +47,7 @@ export default {
     addNoteData(note) {
       this.items.push(note.data);
     },
-    afterHardDelete() {alert("hard")
+    afterHardDelete() {
       this.$emit('hardDelete')
     }
   }

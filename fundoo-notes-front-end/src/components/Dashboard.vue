@@ -32,7 +32,25 @@
                     <v-icon @click="handleSelectItem(item)">{{ item.icon }}</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title @click="handleSelectItem(item)" class="side-nav">{{ item.title }}</v-list-item-title>
+                    <v-list-item-title
+                      @click="handleSelectItem(item)"
+                      class="side-nav"
+                    >{{ item.title }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <Labels ref="labels" />
+                <v-list-item link>
+                  <EditLabels />
+                </v-list-item>
+                <v-list-item v-for="item in secondList" :key="item.title" link>
+                  <v-list-item-icon>
+                    <v-icon @click="handleSelectItem(item)">{{ item.icon }}</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      @click="handleSelectItem(item)"
+                      class="side-nav"
+                    >{{ item.title }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -62,7 +80,7 @@
                     </template>
                     <span>Pin note</span>
                   </v-tooltip>
-                  <!--  <v-icon v-show="cardClicked == true" class="mr-5">mdi</v-icon> -->
+                  <!--  <v-icon v-show="cardClicked == true" class="mr-5">mdi</v-icon> v-if="item.title != 'Edit labels'"-->
                 </template>
               </v-text-field>
               <v-text-field
@@ -78,8 +96,18 @@
                 <a class="mr-5 mt-4">Close</a>
               </v-row>
             </v-card>
-            <Note ref="note" class="mt-15" v-show= "selectedItem == 'Notes' || isNote ==true" @softDelete="afterDelete"/>
-            <Trash ref="trash" class="mt-15" v-show= "selectedItem == 'Trash'" @hardDelete="afterDelete"/>
+            <Note
+              ref="note"
+              class="mt-15"
+              v-show="selectedItem == 'Notes' || isNote ==true"
+              @softDelete="afterDelete"
+            />
+            <Trash
+              ref="trash"
+              class="mt-15"
+              v-show="selectedItem == 'Trash'"
+              @hardDelete="afterDelete"
+            />
           </v-col>
         </v-row>
       </v-card>
@@ -92,14 +120,18 @@ import user from "../services/user";
 import Icons from "./Icons";
 import Note from "./Note";
 import Logout from "./Logout";
-import Trash from "./Trash"
-export default {//"selectedItem == 'Notes' || isNote"
-  name:'Dashboard',
+import Trash from "./Trash";
+import Labels from "./Labels";
+import EditLabels from "./EditLabels";
+export default {
+  name: "Dashboard",
   components: {
     Icons,
     Note,
     Logout,
-    Trash
+    Trash,
+    Labels,
+    EditLabels
   },
   data: () => ({
     /* emailId: sessionStorage.emailId,
@@ -108,31 +140,36 @@ export default {//"selectedItem == 'Notes' || isNote"
     changeStyle: false,
     cardClicked: false,
     isNote: false,
-    isTrash: true,
+    //isTrash: true,
     selectedItem: null,
     text: "Take a note...",
     noteTitle: "",
     noteDescription: "",
+    // labels: [],
     items: [
-      { title: "Notes", icon: "mdi-lightbulb"},
-      { title: "Reminders", icon: "mdi-bell" },
-      { title: "Edit labels", icon: "mdi-pencil" },
+      { title: "Notes", icon: "mdi-lightbulb" },
+      { title: "Reminders", icon: "mdi-bell" }
+      /*  { title: "Edit labels", icon: "mdi-pencil" },
       { title: "Archive", icon: "mdi-download" },
-      { title: "Trash", icon: "mdi-delete"}
+      { title: "Trash", icon: "mdi-delete"} */
+    ],
+    secondList: [
+      { title: "Archive", icon: "mdi-download" },
+      { title: "Trash", icon: "mdi-delete" }
     ]
   }),
   beforeMount() {
-    this.isNote=true
+    this.isNote = true;
     this.getNotes();
+    this.getLabels();
   },
   methods: {
     getNotes: function() {
       user
         .getNotes()
         .then(data => {
-          if(data)
           this.$refs.note.setNoteData(data);
-           this.$refs.trash.setNoteData(data);
+          this.$refs.trash.setNoteData(data);
         })
         .catch(error => {
           console.error(error);
@@ -140,6 +177,16 @@ export default {//"selectedItem == 'Notes' || isNote"
     },
     createNote: function(noteInput) {
       return user.createNote(noteInput);
+    },
+    getLabels: function() {
+      user
+        .getLabels()
+        .then(data => {
+          this.$refs.labels.setLabelData(data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
     reset() {
       (this.noteTitle = ""), (this.noteDescription = "");
@@ -161,7 +208,7 @@ export default {//"selectedItem == 'Notes' || isNote"
         const noteInput = {
           title: this.noteTitle,
           description: this.noteDescription
-        }
+        };
         this.createNote(noteInput)
           .then(data => {
             this.$refs.note.addNoteData(data);
@@ -171,24 +218,19 @@ export default {//"selectedItem == 'Notes' || isNote"
           .catch(error => console.log(JSON.stringify(error.response)));
       }
     },
-    afterDelete(){alert("dashboard")
-      this.getNotes()
+    afterDelete() {
+      this.getNotes();
     },
-   /*  clearSession() {
-      sessionStorage.clear()
-      this.$router.push({ name: 'Login', query: { redirect: '/login' } });
-    } */
     handleSelectItem(item) {
-      this.isNote=false
-      this.selectedItem=item.title
-      if(item.title == 'Trash'){
-        this.isTrash=true
-      }
-    //  this.$router.push({name: item.title});
-       this.$router.push({   name: item.title/* , query: { redirect: '/notes' } */} );
+      this.isNote = false;
+      this.selectedItem = item.title;
+      if (item.title != "Edit labels")
+        this.$router.push({
+          name: item.title /* , query: { redirect: '/notes' } */
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
