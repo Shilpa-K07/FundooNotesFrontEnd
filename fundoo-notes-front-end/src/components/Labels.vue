@@ -1,6 +1,6 @@
 <template>
   <v-list>
-    <v-list-item v-for="item in items" :key="item.name" link>
+    <v-list-item v-for="item in items" v-if="item.isDeleted == false" :key="item.name" link>
       <v-list-item-icon>
         <v-icon> mdi-label</v-icon>
       </v-list-item-icon>

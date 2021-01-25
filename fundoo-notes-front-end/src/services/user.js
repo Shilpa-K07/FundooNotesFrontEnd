@@ -118,13 +118,20 @@ class User {
     }
     return apiCall.postWithHeader(data)
   }
-  updateLabel = (labelData, labelId) => {alert('user')
+  updateLabel = (labelData, labelId) => {
     const data = {
       input: labelData,
       url: process.env.VUE_APP_LABELS+"/"+labelId,
        headers:headers
     }
     return apiCall.put(data)
+  }
+  deleteLabel = (labelId) => {
+    const data = {
+      url: process.env.VUE_APP_LABELS+"/"+labelId,
+     headers:headers
+    }
+    return apiCall.delete(data)
   }
 }
 module.exports = new User()
