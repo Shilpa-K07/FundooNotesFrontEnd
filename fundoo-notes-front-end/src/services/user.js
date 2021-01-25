@@ -118,5 +118,13 @@ class User {
     }
     return apiCall.postWithHeader(data)
   }
+  updateLabel = (labelData, labelId) => {alert('user')
+    const data = {
+      input: labelData,
+      url: process.env.VUE_APP_LABELS+"/"+labelId,
+       headers:headers
+    }
+    return apiCall.put(data)
+  }
 }
 module.exports = new User()

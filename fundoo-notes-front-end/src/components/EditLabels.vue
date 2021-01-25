@@ -17,22 +17,34 @@
             v-model="newLabel"
             prepend-icon="mdi-window-close"
             append-outer-icon="mdi-check"
+            @click:prepend="reset()"
+            @click:append-outer="createLabel()"
           ></v-text-field>
-          <v-list>
+          <v-list class="label-list">
             <v-list-item v-for="item in labelsList" :key="item.name" link>
-              <v-hover v-slot="{ hover }">
-                <v-list-item-icon>
-                  <v-icon v-show="hover">mdi-delete</v-icon>
-                  <v-icon v-show="!hover">mdi-label</v-icon>
-                </v-list-item-icon>
-              </v-hover>
-              <v-list-item-content>
-                <v-list-item-title class="side-nav">{{ item.name }}</v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-list-item-icon>
-            </v-list-item>
+              <!-- <v-hover v-slot="{ hover }"> -->
+                <!-- <v-list-item-icon>
+                  <v-icon v-show="hover || item.isClicked">mdi-delete</v-icon>
+                  <v-icon v-show="!hover && !item.isClicked">mdi-label</v-icon>
+                </v-list-item-icon> -->
+              <!-- </v-hover> --><!-- :class="{ pressed: pressedElement === el, active: !hidden }" -->
+              <DeleteLabel />
+              <v-text-field
+               v-model="item.name"
+                :class="{'onclick-label-list':onClickField}"
+               @click="onClickLabel(item)" 
+               :prepend-icon="onClickField ? 'mdi-delete':'mdi-label'"
+               :append-outer-icon="onClickField ? 'mdi-check':'mdi-pencil'"
+              > </v-text-field>
+             <!--  <v-list-item-content>
+                <v-list-item class="side-nav">{{ item.name }}</v-list-item>
+              </v-list-item-content> -->
+              <!-- <v-list-item-icon>
+                <v-icon @click="onClickLabel">mdi-pencil</v-icon> -->
+                <!-- <v-icon v-show="!onClickField">mdi-pencil</v-icon>
+                <v-icon v-show="onClickField">mdi-check</v-icon>
+              </v-list-item-icon> --> 
+            </v-list-item> 
           </v-list>
           <v-divider></v-divider>
           <v-flex class="d-flex flex-row-reverse">
@@ -45,31 +57,26 @@
 </template>
 
 <script>
-/* import Icons from "./Icons";
-import Dashboard from "./Dashboard"; */
 import user from "../services/user";
-/* import Labels from "./Labels" */
 export default {
-  /* components: {
-    Icons,
-    Dashboard
-  }, */
   data() {
     return {
       dialog: false,
       newLabel: "",
-      labelsList: []
+      labelsList: [],
+      isClicked: false,
+      onClickField: false
     };
   },
   methods: {
     setLabelData(labels) {
-      this.labelsList = labels.data.data;
+      this.labelsList = labels.data.data
     },
     createLabel() {
       if (this.newLabel) {
         const labelData = {
           name: this.newLabel
-        };
+        }
         user
           .createLabel(labelData)
           .then(data => {
@@ -80,10 +87,49 @@ export default {
           })
           .catch(error => console.error(error))
       }
-    }
-  },
-  reset() {
+      else if(this.renameLabel){
+       const labelData = {
+          name: this.renameLabel
+        }
+        user
+          .updateLabel(labelData, this.labelId)
+          .then(data => {
+            this.$emit("onLabelEdit")
+            //this.reset()
+            this.dialog = false
+          })
+          .catch(error => console.error(error))
+      }
+    },
+   /*  editLabel() {
+      this.readonly = false
+        if (this.newLabel) {
+        const labelData = {
+          name: this.newLabel
+        }
+        user
+          .createLabel(labelData)
+          .then(data => {
+            this.$emit("onLabelEdit")
+            this.newLabel = ""
+            //this.reset()
+            this.dialog = false
+          })
+          .catch(error => console.error(error))
+      }
+    }, */
+    onClickLabel(item) {
+      this.renameLabel = item.name
+      this.labelId = item._id
+      this.onClickField = true
+    },
+    reset() {
     this.newLabel = ""
   }
+  },
 };
 </script>
+
+<style lang="scss">
+@import url("../css/label.scss");
+</style>
