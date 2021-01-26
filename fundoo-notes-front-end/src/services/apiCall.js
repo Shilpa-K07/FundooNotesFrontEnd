@@ -14,7 +14,7 @@ class ApiCall {
         return axios.post(data.url, data.input,{ headers: data.headers})
     }
     // axios put method for updating data
-    put= (data) => {
+    put= (data) => {alert("api")
           return axios.put(data.url, data.input,{ headers: data.headers})
     }
 
@@ -24,7 +24,7 @@ class ApiCall {
     }
 
     // axios delete method for soft deleting data
-    delete= (data) => {alert('api')
+    delete= (data) => {
         return axios.delete(data.url,{ headers: data.headers})
     }
 }

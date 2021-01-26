@@ -56,7 +56,7 @@ Icon components for cards
               </v-list-item-content>-->
                <v-container fluid>
               <p>{{selected}}</P>
-              <v-checkbox v-model="selected" :label="item.name" :value="item" @change="$emit('labelAdded', selected)"></v-checkbox>
+              <v-checkbox v-model="selected" :label="item.name" :value="item" @change="$emit('labelAdded', selected, noteDetails._id)"></v-checkbox>
                </v-container>
             </v-list-item>
           </v-list>
@@ -78,7 +78,7 @@ export default {
   components: {
     Labels
   },
-  props: ["noteDetails", "field", "labelList"],
+  props: ["noteDetails", "field"],
   data() {
     return {
       dialog: false,
@@ -133,9 +133,6 @@ export default {
         .then(data => console.log("label-data: " + JSON.stringify(data)))
         .catch(error => console.error(error));
     },
-    changed(item) {
-      alert(item.name)
-    }
   }
 };
 </script>
