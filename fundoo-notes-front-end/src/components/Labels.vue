@@ -9,16 +9,21 @@
       </v-list-item-content>
     </v-list-item>
   </v-list>
+  
 </template>
 
 <script>
 export default {
+ /*  components: {
+    Icons
+  }, */
   data: () => ({
     items: []
   }),
   methods: {
     setLabelData(labels) {
         this.items = labels.data.data
+      /*   this.$emit('sendLabelsList', this.items) */
     }
   }
 };

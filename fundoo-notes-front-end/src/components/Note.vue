@@ -15,13 +15,14 @@ Note component to display notes on dashboardrow
             <v-list-item class="v-list">{{ item.title }}</v-list-item>
             <v-list-item class="v-list">{{ item.description }}</v-list-item>
             <v-list-item></v-list-item>
-            <Icons v-show="hover==true || click==true" :noteDetails="item" @softDelete="afterSoftDelete"/>
+            <Icons v-show="hover==true || click==true" :noteDetails="item" @softDelete="afterSoftDelete" @labelAdded="addLabel"/>
             <v-flex>
               <Dialogue :transaction="item"></Dialogue>
             </v-flex>
           </v-card>
         </v-hover>
       </v-flex>
+      <Labels />
     </v-layout>
   </v-flex>
 </template>
@@ -29,12 +30,14 @@ Note component to display notes on dashboardrow
 <script>
 import Icons from "./Icons";
 import Dialogue from "./Dialogue";
+import Labels from "./Labels"
 export default {
   name: 'Note',
   props:["field"],
   components: {
     Icons,
     Dialogue,
+    Labels
   },
   data: () => ({
     click: false,
@@ -42,14 +45,17 @@ export default {
   }),
   methods: {
     setNoteData(notes) {
-      this.items = notes.data.data;
+      this.items = notes.data.data
     },
     addNoteData(note) {
-      this.items.push(note.data);
+      this.items.push(note.data)
     },
-    afterSoftDelete(value) {alert("note")
+    afterSoftDelete(value) {
      this.$emit('softDelete')
+    },
+    addLabel(value) {
+      alert("note: "+JSON.stringify(value))
     }
   }
-};
+}
 </script>
