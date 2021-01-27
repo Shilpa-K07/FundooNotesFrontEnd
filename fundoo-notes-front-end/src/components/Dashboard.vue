@@ -58,10 +58,10 @@
           </v-col>
           <v-col cols="12" md="9" class="mt-5 mr-20">
             <v-card v-show ="showCard"
-              v-click-outside="reduceCardHeight"
+              v-click-outside="createNewNote"
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
-              @click="increaseCardHeight"
+              @click="onClickCard"
             >
               <v-text-field
                 v-model="noteTitle"
@@ -93,7 +93,7 @@
               <v-row v-show="cardClicked == true">
                 <Icons class="mt-4 ml-4"></Icons>
                 <v-spacer />
-                <a class="mr-5 mt-4">Close</a>
+                <a class="mr-5 mt-4" @click="createNewNote">Close</a>
               </v-row>
             </v-card>
             <Note
@@ -200,11 +200,11 @@ export default {
     onClickOutside() {
       this.changeStyle = false;
     },
-    increaseCardHeight() {
+    onClickCard() {
       this.cardClicked = true
       this.text = "Title"
     },
-    reduceCardHeight() {
+    createNewNote() {
       this.cardClicked = false
       this.text = "Take a note..."
       if (this.noteTitle && this.noteDescription) {
@@ -248,5 +248,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("../css/dashboard.scss");
+@import url("../scss/dashboard.scss");
 </style>

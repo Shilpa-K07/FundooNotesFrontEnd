@@ -132,7 +132,7 @@ $fontsize: "17px"; */
     word-break: break-word;
   }
   .sign-out-card {
-      height: 200px
+      height: 300px;
   }
   .sign-out-list {
       font-size: 17px;
@@ -142,6 +142,18 @@ $fontsize: "17px"; */
     border-radius: 16px;
     font-size: 12px;
     height: 25px;
+}
+.sign-out-card .v-icon.v-icon{
+    font-size: 45px;
+}
+.sign-out-btn{
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    outline: 0;
+    padding: 10px 24px;
+    text-decoration: none;
+    color:black !important
 }
 
   

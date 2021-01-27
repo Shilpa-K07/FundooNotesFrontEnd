@@ -144,5 +144,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("../css/label.scss");
+@import url("../scss/label.scss");
 </style>

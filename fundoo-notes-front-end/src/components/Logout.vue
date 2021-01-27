@@ -7,9 +7,11 @@
       <span>{{name}}</span>
     </template>
     <v-card outlined class="mx-auto sign-out-card d-flex flex-column">
-      <v-list-item class="sign-out-list">{{emailId}}</v-list-item>
+      <v-icon class="mt-5">mdi-account-circle</v-icon>
+      <v-list-item class="sign-out-list ml-6 mr-6">{{emailId}}</v-list-item>
+      <v-divider />
       <v-list-item class="ml-10">
-        <v-btn color="info" @click="clearSession">Sign out</v-btn>
+        <a class="sign-out-btn ml-8" @click="clearSession">Sign out</a>
       </v-list-item>
     </v-card>
   </v-menu>

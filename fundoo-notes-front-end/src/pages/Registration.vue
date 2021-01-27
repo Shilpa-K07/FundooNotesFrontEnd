@@ -294,5 +294,5 @@ export default {
 };
 </script>
 <style scoped>
-@import url("../css/registration.scss");
+@import url("../scss/registration.scss");
 </style>
