@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="300px">
     <template v-slot:activator="{ on }">
       <v-btn text v-on="on">
-        <v-icon>mdi-pencil</v-icon>
+       <!--  <v-icon>mdi-pencil</v-icon> -->
       </v-btn>
     </template>
     <v-card v-click-outside="onClickOutside">
@@ -51,6 +51,7 @@ export default {
         this.updateNote(noteInput,this.editTransaction._id)
           .then(data => {
             this.$refs.dashboard.getNotes()
+            //this.dialog = false
             this.reset()
           })
           .catch(error => console.log(JSON.stringify(error.response)));

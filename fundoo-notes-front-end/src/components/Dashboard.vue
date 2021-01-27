@@ -6,7 +6,7 @@
           <v-col>
             <v-app-bar fixed elevate-on-scroll class="app-bar">
               <v-app-bar-nav-icon @click="drawer = !drawer" />
-              <v-toolbar-title>FundooNotes</v-toolbar-title>
+              <v-toolbar-title>{{title}}</v-toolbar-title>
               <v-text-field
                 v-click-outside="onClickOutside"
                 label="Search"
@@ -57,7 +57,7 @@
             </v-navigation-drawer>
           </v-col>
           <v-col cols="12" md="9" class="mt-5 mr-20">
-            <v-card
+            <v-card v-show ="showCard"
               v-click-outside="reduceCardHeight"
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
@@ -100,13 +100,14 @@
               ref="note"
               class="mt-15"
               v-show="selectedItem == 'Notes' || isNote ==true"
-              @softDelete="afterDelete"
+              @softDelete="onChangeNote"
+              @onLabelAdd="onChangeNote"
             />
             <Trash
               ref="trash"
               class="mt-15"
               v-show="selectedItem == 'Trash'"
-              @hardDelete="afterDelete"
+              @hardDelete="onChangeNote"
             />
           </v-col>
         </v-row>
@@ -140,6 +141,8 @@ export default {
     changeStyle: false,
     cardClicked: false,
     isNote: false,
+    showCard: true,
+    title:"Notes",
     //isTrash: true,
     selectedItem: null,
     text: "Take a note...",
@@ -218,7 +221,7 @@ export default {
           .catch(error => console.log(JSON.stringify(error.response)))
       }
     },
-    afterDelete() {
+    onChangeNote() {
       this.getNotes();
     },
     onLabelEdit() {
@@ -227,13 +230,21 @@ export default {
     handleSelectItem(item) {
       this.isNote = false;
       this.selectedItem = item.title;
-      if (item.title != "Edit labels")
+      if (item.title != "Edit labels"){
         this.$router.push({
           name: item.title /* , query: { redirect: '/notes' } */
-        });
+        })
+        this.title = item.title
+      }
+      if(item.title == 'Trash'){
+        this.showCard = false
+      }
+      else{
+         this.showCard = true
+      }
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

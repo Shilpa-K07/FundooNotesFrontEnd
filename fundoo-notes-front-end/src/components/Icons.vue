@@ -55,7 +55,7 @@ Icon components for cards
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item-content>-->
                <v-container fluid>
-              <p>{{selected}}</P>
+            <!--   <p>{{selected}}</P> -->
               <v-checkbox v-model="selected" :label="item.name" :value="item" @change="$emit('labelAdded', selected, noteDetails._id)"></v-checkbox>
                </v-container>
             </v-list-item>
