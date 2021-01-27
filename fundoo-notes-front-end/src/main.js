@@ -15,7 +15,6 @@ import ResetPassword from './pages/ResetPassword'
 import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
 import Dashboard from './components/Dashboard'
-import Trash from './components/Trash'
 /* import Note from './components/Note'
 import Icons from './components/Icons' */
 /* import axios from 'axios'; */

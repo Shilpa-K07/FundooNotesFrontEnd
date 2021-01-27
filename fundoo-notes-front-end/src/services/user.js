@@ -141,5 +141,12 @@ class User {
     }
     return apiCall.put(data)
   }
+  getNotesByLabel = (labelId) => {
+    const data = {
+    url: process.env.VUE_APP_NOTEBYLABEL+"/"+labelId,
+    headers:headers
+    }
+    return apiCall.get(data)
+  }
 }
 module.exports = new User()

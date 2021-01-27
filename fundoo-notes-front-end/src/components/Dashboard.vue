@@ -38,9 +38,9 @@
                     >{{ item.title }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <Labels ref="labels" />
+                <Labels ref="labels" @onClickLabel="onClickLabel" />
                 <v-list-item link>
-                  <EditLabels ref="editLabels" @onLabelEdit="onLabelEdit"/>
+                  <EditLabels ref="editLabels" @onLabelEdit="onLabelEdit" />
                 </v-list-item>
                 <v-list-item v-for="item in secondList" :key="item.title" link>
                   <v-list-item-icon>
@@ -57,7 +57,8 @@
             </v-navigation-drawer>
           </v-col>
           <v-col cols="12" md="9" class="mt-5 mr-20">
-            <v-card v-show ="showCard"
+            <v-card
+              v-show="showCard"
               v-click-outside="createNewNote"
               class="mx-auto note-card"
               :class="{'increase-card-size':cardClicked}"
@@ -109,6 +110,10 @@
               v-show="selectedItem == 'Trash'"
               @hardDelete="onChangeNote"
             />
+            <LabelInNotes 
+            ref="labelInNotes" 
+            v-show="selectedItem == 'label'"
+            class="mt-15" />
           </v-col>
         </v-row>
       </v-card>
@@ -124,6 +129,7 @@ import Logout from "./Logout";
 import Trash from "./Trash";
 import Labels from "./Labels";
 import EditLabels from "./EditLabels";
+import LabelInNotes from "./LabelInNotes";
 export default {
   name: "Dashboard",
   components: {
@@ -132,7 +138,8 @@ export default {
     Logout,
     Trash,
     Labels,
-    EditLabels
+    EditLabels,
+    LabelInNotes
   },
   data: () => ({
     /* emailId: sessionStorage.emailId,
@@ -142,8 +149,8 @@ export default {
     cardClicked: false,
     isNote: false,
     showCard: true,
-    title:"Notes",
-    //isTrash: true,
+    title: "Notes",
+    isLabelClicked: false,
     selectedItem: null,
     text: "Take a note...",
     noteTitle: "",
@@ -172,27 +179,28 @@ export default {
         .then(data => {
           this.$refs.note.setNoteData(data);
           this.$refs.trash.setNoteData(data);
+          this.$refs.labelInNotes.setNoteData(data);
         })
         .catch(error => {
           console.error(error);
         });
     },
     createNote: function(noteInput) {
-      return user.createNote(noteInput)
+      return user.createNote(noteInput);
     },
     getLabels: function() {
       user
         .getLabels()
         .then(data => {
-          this.$refs.labels.setLabelData(data)
-          this.$refs.editLabels.setLabelData(data)
+          this.$refs.labels.setLabelData(data);
+          this.$refs.editLabels.setLabelData(data);
         })
         .catch(error => {
           console.error(error);
         });
     },
     reset() {
-      (this.noteTitle = ""), (this.noteDescription = "")
+      (this.noteTitle = ""), (this.noteDescription = "");
     },
     changeFiledStyle() {
       this.changeStyle = true;
@@ -201,12 +209,12 @@ export default {
       this.changeStyle = false;
     },
     onClickCard() {
-      this.cardClicked = true
-      this.text = "Title"
+      this.cardClicked = true;
+      this.text = "Title";
     },
     createNewNote() {
-      this.cardClicked = false
-      this.text = "Take a note..."
+      this.cardClicked = false;
+      this.text = "Take a note...";
       if (this.noteTitle && this.noteDescription) {
         const noteInput = {
           title: this.noteTitle,
@@ -218,33 +226,44 @@ export default {
             this.getNotes();
             this.reset();
           })
-          .catch(error => console.log(JSON.stringify(error.response)))
+          .catch(error => console.log(JSON.stringify(error.response)));
       }
     },
     onChangeNote() {
       this.getNotes();
     },
     onLabelEdit() {
-      this.getLabels()
+      this.getLabels();
     },
     handleSelectItem(item) {
       this.isNote = false;
+       this.isLabelClicked = false;
       this.selectedItem = item.title;
-      if (item.title != "Edit labels"){
+      if (item.title != "Edit labels") {
         this.$router.push({
           name: item.title /* , query: { redirect: '/notes' } */
-        })
-        this.title = item.title
+        });
+        this.title = item.title;
       }
-      if(item.title == 'Trash'){
-        this.showCard = false
+      if (item.title == "Trash") {
+        this.showCard = false;
+      } else {
+        this.showCard = true;
       }
-      else{
-         this.showCard = true
-      }
+    },
+    onClickLabel(data, labelName) { 
+      this.isNote = false;
+      this.isLabelClicked = true;
+      this.selectedItem = 'label';
+      this.title = labelName;
+      this.$refs.labelInNotes.setNoteData(data);
+     /*  this.$router.push({
+        name: labelName
+      }); */
+      
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
