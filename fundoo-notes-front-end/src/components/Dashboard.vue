@@ -103,6 +103,7 @@
               v-show="selectedItem == 'Notes' || isNote ==true"
               @softDelete="onChangeNote"
               @onLabelAdd="onChangeNote"
+              @onLabelRemove="onChangeNote"
             />
             <Trash
               ref="trash"

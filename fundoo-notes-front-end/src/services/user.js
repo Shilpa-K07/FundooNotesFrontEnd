@@ -148,5 +148,13 @@ class User {
     }
     return apiCall.get(data)
   }
+  removeLabelFromNote = (labelId, noteId) => {
+    const data = {
+      input: labelId,
+      url: process.env.VUE_APP_REMOVELABELFROMNOTE+"/"+noteId,
+      headers:headers
+    }
+    return apiCall.put(data)
+  }
 }
 module.exports = new User()

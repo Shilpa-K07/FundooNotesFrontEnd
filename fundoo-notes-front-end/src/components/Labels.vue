@@ -15,16 +15,12 @@
 <script>
 import user from "../services/user";
 export default {
- /*  components: {
-    Icons
-  }, */
   data: () => ({
     items: []
   }),
   methods: {
     setLabelData(labels) {
         this.items = labels.data.data
-      /*   this.$emit('sendLabelsList', this.items) */
     },
     getNotesByLabel(item){
       user.getNotesByLabel(item._id)

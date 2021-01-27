@@ -27,29 +27,15 @@
               :key="item.name"
               link
             >
-              <!-- <v-hover v-slot="{ hover }"> -->
-              <!-- <v-list-item-icon>
-                  <v-icon v-show="hover || item.isClicked">mdi-delete</v-icon>
-                  <v-icon v-show="!hover && !item.isClicked">mdi-label</v-icon>
-              </v-list-item-icon>-->
-              <!-- </v-hover> -->
-              <!-- :class="{ pressed: pressedElement === el, active: !hidden }" -->
               <DeleteLabel :label="item" @onLabelDelete="onLabelDelete" />
               <v-text-field
-              
                 v-model="item.name"
                 :class="{'onclick-label-list':onClickField}"
-                @click="onClickLabel(item)"
+                 @click="onClickLabel(item)"
+              
                 :append-outer-icon="item.isClicked ? 'mdi-check':'mdi-pencil'"
               ></v-text-field>
-              <!--  <v-list-item-content> :prepend-icon="onClickField ? 'mdi-delete':'mdi-label'"
-                <v-list-item class="side-nav">{{ item.name }}</v-list-item>
-              </v-list-item-content>-->
-              <!-- <v-list-item-icon>
-              <v-icon @click="onClickLabel">mdi-pencil</v-icon>-->
-              <!-- <v-icon v-show="!onClickField">mdi-pencil</v-icon>
-                <v-icon v-show="onClickField">mdi-check</v-icon>
-              </v-list-item-icon>-->
+              <p>{{item.isClicked}}</p>
             </v-list-item>
           </v-list>
           <v-divider></v-divider>
@@ -74,13 +60,16 @@ export default {
       dialog: false,
       newLabel: "",
       labelsList: [],
-      isClicked: false,
+     // isClicked: false,
       onClickField: false
-    };
+    }
   },
   methods: {
     setLabelData(labels) {
-      this.labelsList = labels.data.data;
+      this.labelsList = labels.data.data
+      this.labelsList.forEach(label => {
+        label.isClicked = false;
+      })
     },
     createLabel() {
       if (this.newLabel) {
@@ -90,12 +79,11 @@ export default {
         user
           .createLabel(labelData)
           .then(data => {
-            this.$emit("onLabelEdit");
-            this.newLabel = "";
-            //this.reset()
-            this.dialog = false;
+            this.$emit("onLabelEdit")
+            this.reset()
+            this.dialog = false
           })
-          .catch(error => console.error(error));
+          .catch(error => console.error(error))
       } else if (this.renameLabel) {
         const labelData = {
           name: this.renameLabel
@@ -103,44 +91,29 @@ export default {
         user
           .updateLabel(labelData, this.labelId)
           .then(data => {
-            this.$emit("onLabelEdit");
-            //this.reset()
-            this.dialog = false;
-          })
-          .catch(error => console.error(error));
-      }
-    },
-    onLabelDelete() {
-      this.$emit("onLabelEdit");
-    },
-    /*  editLabel() {
-      this.readonly = false
-        if (this.newLabel) {
-        const labelData = {
-          name: this.newLabel
-        }
-        user
-          .createLabel(labelData)
-          .then(data => {
             this.$emit("onLabelEdit")
-            this.newLabel = ""
-            //this.reset()
             this.dialog = false
           })
           .catch(error => console.error(error))
       }
-    }, */
+    },
+    onLabelDelete() {
+      this.$emit("onLabelEdit")
+    },
     onClickLabel(item) {
-      item.isClicked = true;
-      this.renameLabel = item.name;
-      this.labelId = item._id;
-      this.onClickField = true;
+      item.isClicked = true
+      this.renameLabel = item.name
+      this.labelId = item._id
+      this.onClickField = true
+    },
+    onClickOutsideLabel(item) {alert(JSON.stringify(item))
+       item.isClicked = false;
     },
     reset() {
-      this.newLabel = "";
+      this.newLabel = ""
     },
   }
-};
+}
 </script>
 
 <style lang="scss">

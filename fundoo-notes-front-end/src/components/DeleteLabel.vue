@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     deleteLabel() {
-      alert(this.label._id);
       user
         .deleteLabel(this.label._id)
         .then(data => {

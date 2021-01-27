@@ -15,6 +15,11 @@ Note component to display notes on dashboardrow
             <v-list-item class="v-list">{{ item.title }}</v-list-item>
             <v-list-item class="v-list">{{ item.description }}</v-list-item>
             <v-list-item></v-list-item>
+            <v-row > 
+             <v-col cols="12" md="6" v-for="label in item.labelId" :key="label._id">
+            <v-chip class="ma-3" close>{{label.name}}</v-chip>
+            </v-col>
+            </v-row>
             <Icons v-show="hover==true || click==true" :noteDetails="item" :field="trash" @hardDelete="afterHardDelete"/>
             <!-- <v-flex>
               <Dialogue :transaction="item"></Dialogue>

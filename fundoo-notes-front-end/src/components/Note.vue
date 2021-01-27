@@ -24,7 +24,7 @@ Note component to display notes on dashboardrow
             <v-list-item></v-list-item>
             <v-row > 
              <v-col cols="12" md="6" v-for="label in item.labelId" :key="label._id">
-            <v-chip class="ma-3" close>{{label.name}}</v-chip>
+            <v-chip class="ma-3" close @click:close="removeLabelFromNote(item)">{{label.name}}</v-chip>
             </v-col>
             </v-row>
             <Icons
@@ -78,30 +78,29 @@ export default {
     afterSoftDelete(value) {
       this.$emit("softDelete")
     },
-    addLabel(value1, value2) {
-      this.labelList = value1
-      //this.label = []
-     /*  alert("labellist: "+JSON.stringify(this.labelList)) */
+    addLabel(data, noteId) {
+      this.labelList = data
       this.labelList.forEach(label => {
         const labelData = {
           labelId: label._id
         }
-       // this.label.push(label.name)
-    /*     alert("label : "+this.label) */
         user
-          .addLabelToNote(labelData, value2)
+          .addLabelToNote(labelData, noteId)
           .then(data => {
             this.$emit('onLabelAdd')
-            /* this.items.forEach(item => {
-              if(item._id == value2){
-                item.label= this.label
-               alert("label: "+this.label) 
-              }
-            }) */
-            console.log("data: " + JSON.stringify(data))
           })
           .catch(eror => console.error(error))
-      });
+      })
+    },
+    removeLabelFromNote(item) {
+       const labelData = {
+          labelId: item.labelId[0]._id
+        }
+      user.removeLabelFromNote(labelData, item._id)
+      .then(data => {
+          this.$emit('onLabelRemove')
+      })
+      .catch(error => console.error(error))
     }
   }
 };
