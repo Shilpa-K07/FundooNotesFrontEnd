@@ -7,7 +7,7 @@ This component to display notes with particular label on dashboard
       <v-flex v-for="item in items" v-if="item.isDeleted == false" :key="item._id" md3 class="mr-5 mb-10">
         <v-hover v-slot="{ hover }">
           <v-card
-            class="mx-auto card-container v-list"
+            class="mx-auto v-list"
             outlined
             :class="{'on-hover':hover}"
           >

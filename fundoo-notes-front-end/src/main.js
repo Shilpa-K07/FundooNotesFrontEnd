@@ -14,7 +14,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
-import Dashboard from './components/Dashboard'
+//import Dashboard from './components/Dashboard'
 /* import Note from './components/Note'
 import Icons from './components/Icons' */
 /* import axios from 'axios'; */
@@ -24,6 +24,12 @@ Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
 
+function lazyLoadComponent(view){
+  return() => import(`./components/${view}.vue`)
+}
+function lazyLoadPage(page){
+  return() => import(`./pages/${page}.vue`)
+}
 const routes = [
   {
     path: '/register',
@@ -62,21 +68,24 @@ const routes = [
 
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard,
+    component: lazyLoadComponent('Dashboard'),
     children: [{
       path: 'notes',
       name: 'Notes',
-      component: Dashboard
+      //component: Dashboard
+      component: lazyLoadComponent('Dashboard')
     },
     {
       path: 'trash',
       name: 'Trash',
-      component: Dashboard
+      //component: Dashboard
+      component: lazyLoadComponent('Dashboard')
     },
     {
       path: '/label/:id',
       name: 'Label',
-      component: Dashboard
+      //component: Dashboard
+      component: lazyLoadComponent('Dashboard')
     }
   ]
   },
