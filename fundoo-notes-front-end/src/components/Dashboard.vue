@@ -92,7 +92,7 @@
                 class="text-weight ml-5"
               />
               <v-row v-show="cardClicked == true">
-                <Icons class="mt-4 ml-4"></Icons>
+                <Icons class="mt-4 ml-4" :mainField="mainCard"></Icons>
                 <v-spacer />
                 <a class="mr-5 mt-4" @click="createNewNote">Close</a>
               </v-row>
@@ -110,6 +110,7 @@
               class="mt-15"
               v-show="selectedItem == 'Trash'"
               @hardDelete="onChangeNote"
+              @restoreNote="onChangeNote"
             />
             <LabelInNotes 
             ref="labelInNotes" 
@@ -156,6 +157,7 @@ export default {
     text: "Take a note...",
     noteTitle: "",
     noteDescription: "",
+    mainCard: "mainCard",
     items: [
       { title: "Notes", icon: "mdi-lightbulb" },
       { title: "Reminders", icon: "mdi-bell" }
@@ -261,7 +263,10 @@ export default {
      /*  this.$router.push({
         name: labelName
       }); */
-      
+       this.$router.push({
+        name: 'Label',
+        params: { name:'label', id: labelName }
+        })
     }
   }
 };

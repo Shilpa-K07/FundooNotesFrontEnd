@@ -56,6 +56,10 @@ const routes = [
     component: ActivateAccount
   },
   {
+
+    /* name: 'customer-details',
+    params: { name: customer.name, id: index + 1 } */
+
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
@@ -67,6 +71,11 @@ const routes = [
     {
       path: 'trash',
       name: 'Trash',
+      component: Dashboard
+    },
+    {
+      path: '/label/:id',
+      name: 'Label',
       component: Dashboard
     }
   ]

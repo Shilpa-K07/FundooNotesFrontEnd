@@ -85,6 +85,14 @@ class User {
     }
     return apiCall.delete(data)
   }
+  
+  restoreNote = (noteId) => {
+    const data = {
+      url: process.env.VUE_APP_RESTORENOTE+"/"+noteId,
+      headers:headers
+    }
+    return apiCall.put(data)
+  }
 
   hardDeleteNote = (noteId) => {
     const data = {

@@ -14,7 +14,7 @@ Note component to display notes on dashboardrow
         <v-hover v-slot="{ hover }">
           <v-card
           @click.stop="item.dialog = true"
-            class="mx-auto card-container v-list"
+            class="mx-auto v-list"
             outlined
             :class="{'on-hover':hover}"
           >

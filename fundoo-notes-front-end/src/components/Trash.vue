@@ -7,7 +7,7 @@ Note component to display notes on dashboardrow
       <v-flex v-for="item in items" v-if="item.isDeleted == true" :key="item._id" md3 class="mr-5 mb-10">
         <v-hover v-slot="{ hover }">
           <v-card
-            class="mx-auto card-container v-list"
+            class="mx-auto v-list"
             outlined
             :class="{'on-hover':hover}"
             v-on:click="click== true"
@@ -20,7 +20,7 @@ Note component to display notes on dashboardrow
             <v-chip class="ma-3" close>{{label.name}}</v-chip>
             </v-col>
             </v-row>
-            <Icons v-show="hover==true || click==true" :noteDetails="item" :field="trash" @hardDelete="afterHardDelete"/>
+            <Icons v-show="hover==true || click==true" :noteDetails="item" :trashField="trash" @hardDelete="afterHardDelete" @restoreNote="restoreNote"/>
             <!-- <v-flex>
               <Dialogue :transaction="item"></Dialogue>
             </v-flex> -->
@@ -54,6 +54,9 @@ export default {
     },
     afterHardDelete() {
       this.$emit('hardDelete')
+    },
+    restoreNote() {
+       this.$emit('restoreNote')
     }
   }
 };
