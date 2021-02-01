@@ -4,14 +4,6 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 import Vuelidate from 'vuelidate';
 import Title from '../../src/components/Title.vue';
-//import Vue from 'vue';
-
-/* const localVue = createLocalVue();
-localVue.use(Vuelidate)
-const factory = (vuetify) => mount(Login, {
-  localVue,
-  vuetify,
-}); */
 
 describe('Login.vue', () => {
   let wrapper

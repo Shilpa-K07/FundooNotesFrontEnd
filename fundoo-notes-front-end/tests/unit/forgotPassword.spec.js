@@ -4,7 +4,7 @@ import Vuetify from 'vuetify';
 import Vuelidate from 'vuelidate';
 import Title from '../../src/components/Title.vue';
 
-describe('Login.vue', () => {
+describe('ForgotPassword.vue', () => {
   let wrapper
 
   beforeEach(() => {
