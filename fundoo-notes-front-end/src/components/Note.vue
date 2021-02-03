@@ -43,9 +43,10 @@ Note component to display notes on dashboardrow
                   :noteDetails="item"
                   @softDelete="afterSoftDelete"
                   @labelAdded="addLabel"
+                  ref="icons"
                 />
                 <v-flex>
-                  <Dialogue :transaction="item"></Dialogue>
+                  <Dialogue ref="dialogue"  :transaction="item"></Dialogue>
                 </v-flex>
               </v-card>
             </v-hover>
