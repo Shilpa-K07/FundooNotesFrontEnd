@@ -43,10 +43,10 @@ incase of forgot password
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators'
-import user from '../services/user'
-import Title from '../components/Title'
-import Snackbar from '../components/Snackbar'
+import { required, email } from 'vuelidate/lib/validators';
+import user from '../services/user';
+import Title from '../components/Title';
+import Snackbar from '../components/Snackbar';
 
 export default {
   components: {
@@ -67,31 +67,31 @@ export default {
 
   computed: {
     emailIdErrors () {
-      const errors = []
-      if (!this.$v.emailId.$dirty) return errors
-      !this.$v.emailId.required && errors.push('Enter email address')
-      !this.$v.emailId.email && errors.push('Must be valid email')
-      return errors
+      const errors = [];
+      if (!this.$v.emailId.$dirty) return errors;
+      !this.$v.emailId.required && errors.push('Enter email address');
+      !this.$v.emailId.email && errors.push('Must be valid email');
+      return errors;
     }
   },
   methods: {
     sendResetPasswordLink () {
-      this.$v.$touch()
+      this.$v.$touch();
       if (!this.$v.$invalid) {
         const userInput = {
           emailId: this.emailId
-        }
+        };
         this.userForgotPasword(userInput)
           .then(data => {
             if (data) {
               const snackbarData = {
                 text: 'Successfully sent password reset link',
                 timeout: this.timeout
-              }
-              this.$refs.snack.setSnackbar(snackbarData)
+              };
+              this.$refs.snack.setSnackbar(snackbarData);
               setTimeout(() => {
-                this.reset()
-              }, this.timeout)
+                this.reset();
+              }, this.timeout);
             }
           })
           .catch(error => {
@@ -99,35 +99,35 @@ export default {
                 const snackbarData = {
                   text: 'Authorization falied',
                   timeout: this.timeout
-                }
-                this.$refs.snack.setSnackbar(snackbarData)
+                };
+                this.$refs.snack.setSnackbar(snackbarData);
                 setTimeout(() => {
-                this.reset()
-              }, this.timeout)
+                this.reset();
+              }, this.timeout);
               } else if (error.response.status == 500) {
                 {
                 const snackbarData = {
                   text: 'Some error occurred',
                   timeout: this.timeout
-                }
-                this.$refs.snack.setSnackbar(snackbarData)
+                };
+                this.$refs.snack.setSnackbar(snackbarData);
                 setTimeout(() => {
-                this.reset()
-              }, this.timeout)
+                this.reset();
+              }, this.timeout);
               }
             }
-          })
+          });
       }
     },
     userForgotPasword: function (userInput) {
-      return user.userForgotPasword(userInput)
+      return user.userForgotPasword(userInput);
     },
     reset () {
-      this.$refs.forgotPasswordForm.reset()
-      this.$v.$reset()
+      this.$refs.forgotPasswordForm.reset();
+      this.$v.$reset();
     }
   }
-}
+};
 </script>
 
 <style>

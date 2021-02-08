@@ -74,8 +74,8 @@ Icon components for cards
 </template>
 
 <script>
-import Labels from './Labels'
-import user from '../services/user'
+import Labels from './Labels';
+import user from '../services/user';
 export default {
   name: 'Icons',
   components: {
@@ -91,53 +91,53 @@ export default {
       selected: [],
       isTrash: this.trashField,
       isMainCard: this.mainField
-    }
+    };
   },
   beforeMount () {
-    this.getLabels()
+    this.getLabels();
   },
   methods: {
     getLabels: function () {
       user
         .getLabels()
         .then(data => {
-          this.items = data.data.data
+          this.items = data.data.data;
         })
         .catch(error => {
-          console.error(error)
-        })
+          console.error(error);
+        });
     },
     softDeleteNote: function (noteId) {
-      return user.softDeleteNote(noteId)
+      return user.softDeleteNote(noteId);
     },
     hardDeleteNote: function (noteId) {
-      return user.hardDeleteNote(noteId)
+      return user.hardDeleteNote(noteId);
     },
     createLabel: function (noteId) {
-      return user.createLabel(noteId)
+      return user.createLabel(noteId);
     },
     onDelete () {
       if (this.currentField == 'trash') {
         this.hardDeleteNote(this.noteDetails._id)
           .then(data => {
-            this.$emit('hardDelete')
+            this.$emit('hardDelete');
           })
-          .catch(error => console.log(error))
+          .catch(error => console.log(error));
       } else {
         this.softDeleteNote(this.noteDetails._id)
           .then(data => {
-            this.$emit('softDelete')
+            this.$emit('softDelete');
           })
-          .catch(error => console.log(error))
+          .catch(error => console.log(error));
       }
     },
     restoreNote () {
       user.restoreNote(this.noteDetails._id)
       .then(data => {
-        this.$emit('restoreNote')
+        this.$emit('restoreNote');
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
     }
   }
-}
+};
 </script>

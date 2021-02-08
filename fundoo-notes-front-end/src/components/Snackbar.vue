@@ -27,10 +27,10 @@ export default {
    props: ['text', 'showSnackbar', 'timeout'],
    methods: {
      setSnackbar (snackbarData) {
-       this.text = snackbarData.text
-       this.showSnackbar = true
-       this.timeout = snackbarData.timeout
+       this.text = snackbarData.text;
+       this.showSnackbar = true;
+       this.timeout = snackbarData.timeout;
      }
    }
-}
+};
 </script>

@@ -25,9 +25,9 @@ export default {
   }),
   methods: {
     clearSession () {
-      sessionStorage.clear()
-      this.$router.push({ name: 'Login', query: { redirect: '/login' } })
+      sessionStorage.clear();
+      this.$router.push({ name: 'Login', query: { redirect: '/login' } });
     }
   }
-}
+};
 </script>

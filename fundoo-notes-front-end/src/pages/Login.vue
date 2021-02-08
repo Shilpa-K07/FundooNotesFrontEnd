@@ -77,10 +77,10 @@ This is vue component for login page
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators'
-import user from '../services/user'
-import Title from '../components/Title'
-import Snackbar from '../components/Snackbar'
+import { required, email } from 'vuelidate/lib/validators';
+import user from '../services/user';
+import Title from '../components/Title';
+import Snackbar from '../components/Snackbar';
 
 export default {
   components: {
@@ -95,8 +95,8 @@ export default {
     password: {
       required,
       isPasswordStrong (password) {
-        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/
-        return regex.test(password)
+        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/;
+        return regex.test(password);
       }
     }
   },
@@ -113,45 +113,45 @@ export default {
 
   computed: {
     emailIdErrors () {
-      const errors = []
-      if (!this.$v.emailId.$dirty) return errors
-      !this.$v.emailId.required && errors.push('Enter email address')
-      !this.$v.emailId.email && errors.push('Must be valid email')
-      return errors
+      const errors = [];
+      if (!this.$v.emailId.$dirty) return errors;
+      !this.$v.emailId.required && errors.push('Enter email address');
+      !this.$v.emailId.email && errors.push('Must be valid email');
+      return errors;
     },
     passwordErrors () {
-      const errors = []
-      if (!this.$v.password.$dirty) return errors
-      !this.$v.password.required && errors.push('Enter password')
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.required && errors.push('Enter password');
       !this.$v.password.isPasswordStrong &&
         errors.push(
           'Use 8 or more characters with a mix of letters, numbers & symbols'
-        )
-      return errors
+        );
+      return errors;
     }
   },
   methods: {
     login () {
-      this.$v.$touch()
+      this.$v.$touch();
       if (!this.$v.$invalid) {
         const userInput = {
           emailId: this.emailId,
           password: this.password
-        }
-        var response = this.userLogin(userInput)
+        };
+        var response = this.userLogin(userInput);
         response
           .then(data => {
             if (data) {
- console.log(JSON.stringify(data))
+ console.log(JSON.stringify(data));
               const snackbarData = {
                 text: 'Successfully logged in',
                 timeout: this.timeout
-              }
-              sessionStorage.setItem('token', data.data.token)
-              sessionStorage.setItem('emailId', data.data.data.emailId)
-              sessionStorage.setItem('name', data.data.data.name)
-              this.$refs.snack.setSnackbar(snackbarData)
-              this.$router.push({ name: 'Dashboard', query: { redirect: '/dashboard' } })
+              };
+              sessionStorage.setItem('token', data.data.token);
+              sessionStorage.setItem('emailId', data.data.data.emailId);
+              sessionStorage.setItem('name', data.data.data.name);
+              this.$refs.snack.setSnackbar(snackbarData);
+              this.$router.push({ name: 'Dashboard', query: { redirect: '/dashboard' } });
             }
           })
           .catch(error => {
@@ -163,30 +163,30 @@ export default {
               const snackbarData = {
                 text: 'Authorization falied',
                 timeout: this.timeout
-              }
-              this.$refs.snack.setSnackbar(snackbarData)
+              };
+              this.$refs.snack.setSnackbar(snackbarData);
             } else if (error.response.status == 401) {
               const snackbarData = {
                 text: 'Please verify your email address before login',
                 timeout: this.timeout
-              }
-              this.$refs.snack.setSnackbar(snackbarData)
+              };
+              this.$refs.snack.setSnackbar(snackbarData);
               /* setTimeout(() => {
                 this.reset()
               }, this.timeout) */
             }
-          })
+          });
       }
     },
     userLogin: function (userInput) {
-      return user.userLogin(userInput)
+      return user.userLogin(userInput);
     },
     reset () {
-      this.$refs.loginForm.reset()
-      this.$v.$reset()
+      this.$refs.loginForm.reset();
+      this.$v.$reset();
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

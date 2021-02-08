@@ -31,8 +31,8 @@ This component to display notes with particular label on dashboard
 </template>
 
 <script>
-import Icons from './Icons'
-import Dialogue from './Dialogue'
+import Icons from './Icons';
+import Dialogue from './Dialogue';
 export default {
   name: 'Note',
   components: {
@@ -44,8 +44,8 @@ export default {
   }),
   methods: {
     setNoteData (notes) {
-      this.items = notes.data.data
+      this.items = notes.data.data;
     }
   }
-}
+};
 </script>

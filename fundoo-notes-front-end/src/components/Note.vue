@@ -59,10 +59,10 @@ Note component to display notes on dashboardrow
 </template>
 
 <script>
-import Icons from './Icons'
-import Dialogue from './Dialogue'
-import Labels from './Labels'
-import user from '../services/user'
+import Icons from './Icons';
+import Dialogue from './Dialogue';
+import Labels from './Labels';
+import user from '../services/user';
 export default {
   name: 'Note',
   props: ['field'],
@@ -80,43 +80,43 @@ export default {
   }),
   methods: {
     setNoteData (notes) {
-      this.items = notes.data.data
+      this.items = notes.data.data;
       /*  this.items.forEach(item => {
         item.dialog = true
       }) */
       // this.label = notes.data.data.labelId
     },
     addNoteData (note) {
-      this.items.push(note.data)
+      this.items.push(note.data);
     },
     afterSoftDelete (value) {
-      this.$emit('softDelete')
+      this.$emit('softDelete');
     },
     addLabel (data, noteId) {
-      this.labelList = data
+      this.labelList = data;
       this.labelList.forEach(label => {
         const labelData = {
           labelId: label._id
-        }
+        };
         user
           .addLabelToNote(labelData, noteId)
           .then(data => {
-            this.$emit('onLabelAdd')
+            this.$emit('onLabelAdd');
           })
-          .catch(eror => console.error(error))
-      })
+          .catch(eror => console.error(error));
+      });
     },
     removeLabelFromNote (item) {
       const labelData = {
         labelId: item.labelId[0]._id
-      }
+      };
       user
         .removeLabelFromNote(labelData, item._id)
         .then(data => {
-          this.$emit('onLabelRemove')
+          this.$emit('onLabelRemove');
         })
-        .catch(error => console.error(error))
+        .catch(error => console.error(error));
     }
   }
-}
+};
 </script>

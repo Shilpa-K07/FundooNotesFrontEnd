@@ -8,30 +8,30 @@
 *
 **************************************************************************/
 
-import Note from '../../src/components/Note.vue'
-import { createLocalVue, mount } from '@vue/test-utils'
-import Vuetify from 'vuetify'
-import Vuelidate from 'vuelidate'
-import Labels from '../../src/components/Labels'
+import Note from '../../src/components/Note.vue';
+import { createLocalVue, mount } from '@vue/test-utils';
+import Vuetify from 'vuetify';
+import Vuelidate from 'vuelidate';
+import Labels from '../../src/components/Labels';
 
 describe('Note.vue', () => {
-  let wrapper
+  let wrapper;
 
   beforeEach(() => {
-    const localVue = createLocalVue()
-    localVue.use(Vuetify)
-    localVue.use(Vuelidate)
+    const localVue = createLocalVue();
+    localVue.use(Vuetify);
+    localVue.use(Vuelidate);
     wrapper = mount(Note, {
       localVue
-    })
-  })
+    });
+  });
 
   it('check if child Labels exists', () => {
-    expect(wrapper.contains(Labels)).toBe(true)
-  })
+    expect(wrapper.contains(Labels)).toBe(true);
+  });
 
   it('Check emitted "removeLabelFromNote" event', () => {
-    wrapper.vm.$emit('removeLabelFromNote')
-    expect(wrapper.emitted().removeLabelFromNote).toBeTruthy()
-  })
-})
+    wrapper.vm.$emit('removeLabelFromNote');
+    expect(wrapper.emitted().removeLabelFromNote).toBeTruthy();
+  });
+});

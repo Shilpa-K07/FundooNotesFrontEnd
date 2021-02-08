@@ -32,8 +32,8 @@ Note component to display notes on dashboardrow
 </template>
 
 <script>
-import Icons from './Icons'
-import Dialogue from './Dialogue'
+import Icons from './Icons';
+import Dialogue from './Dialogue';
 export default {
   name: 'Note',
   components: {
@@ -47,17 +47,17 @@ export default {
   }),
   methods: {
     setNoteData (notes) {
-      this.items = notes.data.data
+      this.items = notes.data.data;
     },
     addNoteData (note) {
-      this.items.push(note.data)
+      this.items.push(note.data);
     },
     afterHardDelete () {
-      this.$emit('hardDelete')
+      this.$emit('hardDelete');
     },
     restoreNote () {
-       this.$emit('restoreNote')
+       this.$emit('restoreNote');
     }
   }
-}
+};
 </script>

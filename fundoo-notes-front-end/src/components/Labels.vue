@@ -13,22 +13,22 @@
 </template>
 
 <script>
-import user from '../services/user'
+import user from '../services/user';
 export default {
   data: () => ({
     items: []
   }),
   methods: {
     setLabelData (labels) {
-        this.items = labels.data.data
+        this.items = labels.data.data;
     },
     getNotesByLabel (item) {
       user.getNotesByLabel(item._id)
       .then(data => {
-        this.$emit('onClickLabel', data, item.name)
+        this.$emit('onClickLabel', data, item.name);
       })
-      .catch(error => console.error(error))
+      .catch(error => console.error(error));
     }
   }
-}
+};
 </script>

@@ -8,31 +8,31 @@
 *
 **************************************************************************/
 
-import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Icons from '../../src/components/Icons.vue'
+import { shallowMount, createLocalVue } from '@vue/test-utils';
+import Icons from '../../src/components/Icons.vue';
 
-import Vuetify from 'vuetify'
-import Vuelidate from 'vuelidate'
+import Vuetify from 'vuetify';
+import Vuelidate from 'vuelidate';
 
 describe('Icons.vue', () => {
-  let wrapper
+  let wrapper;
 
   beforeEach(() => {
-    const localVue = createLocalVue()
-    localVue.use(Vuetify)
-    localVue.use(Vuelidate)
+    const localVue = createLocalVue();
+    localVue.use(Vuetify);
+    localVue.use(Vuelidate);
     wrapper = shallowMount(Icons, {
       localVue
-    })
-  })
+    });
+  });
 
   it('Check emitted "onDelete" event', () => {
-    wrapper.vm.$emit('onDelete')
-    expect(wrapper.emitted().onDelete).toBeTruthy()
-  })
+    wrapper.vm.$emit('onDelete');
+    expect(wrapper.emitted().onDelete).toBeTruthy();
+  });
 
   it('Check emitted "restoreNote" event', () => {
-    wrapper.vm.$emit('restoreNote')
-    expect(wrapper.emitted().restoreNote).toBeTruthy()
-  })
-})
+    wrapper.vm.$emit('restoreNote');
+    expect(wrapper.emitted().restoreNote).toBeTruthy();
+  });
+});

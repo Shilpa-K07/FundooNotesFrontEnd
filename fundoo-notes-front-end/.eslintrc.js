@@ -20,6 +20,7 @@ module.exports = {
     'template-curly-spacing': 'off',
     indent: 'off'
   },
+  ignorePatterns: ['./node_modules/', './.vscode/*', './logs/', './.git/*', './tests/'],
   overrides: [
     {
       files: [
@@ -31,4 +32,4 @@ module.exports = {
       }
     }
   ]
-}
+};

@@ -11,5 +11,5 @@
 const headers = {
     'Content-Type': 'application/json',
     token: sessionStorage.token
-}
-module.exports = headers
+};
+module.exports = headers;

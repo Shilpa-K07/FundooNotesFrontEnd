@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import Icons from './Icons'
-import Dashboard from './Dashboard'
-import user from '../services/user'
+import Icons from './Icons';
+import Dashboard from './Dashboard';
+import user from '../services/user';
 export default {
   components: {
     Icons,
@@ -33,30 +33,30 @@ export default {
     return {
       dialog: false,
       editTransaction: this.transaction
-    }
+    };
   },
   methods: {
     reset () {
-      this.$refs.editNoteForm.reset()
+      this.$refs.editNoteForm.reset();
     },
     updateNote: function (noteInput, noteId) {
-      return user.updateNote(noteInput, noteId)
+      return user.updateNote(noteInput, noteId);
     },
     onClickOutside () {
       if (this.editTransaction.title && this.editTransaction.description) {
         const noteInput = {
           title: this.editTransaction.title,
           description: this.editTransaction.description
-        }
+        };
         this.updateNote(noteInput, this.editTransaction._id)
           .then(data => {
-            this.$refs.dashboard.getNotes()
+            this.$refs.dashboard.getNotes();
             // this.dialog = false
-            this.reset()
+            this.reset();
           })
-          .catch(error => console.log(JSON.stringify(error.response)))
+          .catch(error => console.log(JSON.stringify(error.response)));
       }
     }
   }
-}
+};
 </script>

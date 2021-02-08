@@ -35,9 +35,9 @@ This vue component is for resetting user password
 </template>
 
 <script>
-import user from '../services/user'
-import Title from '../components/Title'
-import Snackbar from '../components/Snackbar'
+import user from '../services/user';
+import Title from '../components/Title';
+import Snackbar from '../components/Snackbar';
 
 export default {
   components: {
@@ -54,21 +54,21 @@ export default {
       {
         const userInput = {
           token: this.$route.params.token
-        }
+        };
         this.userAccountActivate(userInput)
           .then(data => {
             if (data) {
               const snackbarData = {
                 text: 'Account activated !',
                 timeout: this.timeout
-              }
-              this.$refs.snack.setSnackbar(snackbarData)
+              };
+              this.$refs.snack.setSnackbar(snackbarData);
               setTimeout(() => {
-                this.reset()
-              }, this.timeout)
+                this.reset();
+              }, this.timeout);
               setTimeout(() => {
-                this.$router.push({ name: 'Login', query: { redirect: '/login' } })
-              }, this.timeout)
+                this.$router.push({ name: 'Login', query: { redirect: '/login' } });
+              }, this.timeout);
             }
           })
           .catch(error => {
@@ -76,25 +76,25 @@ export default {
               const snackbarData = {
                 text: 'Authorization falied',
                 timeout: this.timeout
-              }
-              this.$refs.snack.setSnackbar(snackbarData)
+              };
+              this.$refs.snack.setSnackbar(snackbarData);
             } else if (error.response.status == 500) {
               {
                 const snackbarData = {
                   text: 'Some error occurred',
                   timeout: this.timeout
-                }
-                this.$refs.snack.setSnackbar(snackbarData)
+                };
+                this.$refs.snack.setSnackbar(snackbarData);
               }
             }
-          })
+          });
       }
     },
     userAccountActivate: function (userInput) {
-      return user.userAccountActivate(userInput)
+      return user.userAccountActivate(userInput);
     }
   }
-}
+};
 </script>
 <style>
 @import url("../scss/login.scss");

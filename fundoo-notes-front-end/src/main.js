@@ -8,25 +8,25 @@
 *
 **************************************************************************/
 
-import Vue from 'vue'
-import App from './App.vue'
-import Vuelidate from 'vuelidate'
-import Vuetify from 'vuetify/lib/framework'
-import '@mdi/font/css/materialdesignicons.css'
-import VueRouter from 'vue-router'
-import Register from './pages/Registration'
-import Login from './pages/Login'
-import ForgotPassword from './pages/ForgotPassword'
-import ResetPassword from './pages/ResetPassword'
-import ActivateAccount from './pages/ActivateAccount'
-import VerifyEmailAddress from './pages/VerifyEmailAddress'
+import Vue from 'vue';
+import App from './App.vue';
+import Vuelidate from 'vuelidate';
+import Vuetify from 'vuetify/lib/framework';
+import '@mdi/font/css/materialdesignicons.css';
+import VueRouter from 'vue-router';
+import Register from './pages/Registration';
+import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+import ActivateAccount from './pages/ActivateAccount';
+import VerifyEmailAddress from './pages/VerifyEmailAddress';
 
-Vue.use(Vuetify)
-Vue.use(Vuelidate)
-Vue.use(VueRouter)
+Vue.use(Vuetify);
+Vue.use(Vuelidate);
+Vue.use(VueRouter);
 
 function lazyLoadComponent (view) {
-  return () => import(`./components/${view}.vue`)
+  return () => import(`./components/${view}.vue`);
 }
 
 const routes = [
@@ -103,14 +103,14 @@ const routes = [
     name: 'Register',
     component: Register
   }
-]
+];
 const router = new VueRouter({
   mode: 'history',
   routes
-})
+});
 /* Vue.config.productionTip = false */
 new Vue({
   vuetify: new Vuetify(),
   router,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

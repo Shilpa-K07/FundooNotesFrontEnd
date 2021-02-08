@@ -124,14 +124,14 @@
 </template>
 
 <script>
-import user from '../services/user'
-import Icons from './Icons'
-import Note from './Note'
-import Logout from './Logout'
-import Trash from './Trash'
-import Labels from './Labels'
-import EditLabels from './EditLabels'
-import LabelInNotes from './LabelInNotes'
+import user from '../services/user';
+import Icons from './Icons';
+import Note from './Note';
+import Logout from './Logout';
+import Trash from './Trash';
+import Labels from './Labels';
+import EditLabels from './EditLabels';
+import LabelInNotes from './LabelInNotes';
 export default {
   name: 'Dashboard',
   components: {
@@ -171,105 +171,105 @@ export default {
     ]
   }),
   beforeMount () {
-    this.isNote = true
-    this.getNotes()
-    this.getLabels()
+    this.isNote = true;
+    this.getNotes();
+    this.getLabels();
   },
   methods: {
     getNotes: function () {
       user
         .getNotes()
         .then(data => {
-          this.$refs.note.setNoteData(data)
-          this.$refs.trash.setNoteData(data)
-          this.$refs.labelInNotes.setNoteData(data)
+          this.$refs.note.setNoteData(data);
+          this.$refs.trash.setNoteData(data);
+          this.$refs.labelInNotes.setNoteData(data);
         })
         .catch(error => {
-          console.error(error)
-        })
+          console.error(error);
+        });
     },
     createNote: function (noteInput) {
-      return user.createNote(noteInput)
+      return user.createNote(noteInput);
     },
     getLabels: function () {
       user
         .getLabels()
         .then(data => {
-          this.$refs.labels.setLabelData(data)
-          this.$refs.editLabels.setLabelData(data)
+          this.$refs.labels.setLabelData(data);
+          this.$refs.editLabels.setLabelData(data);
         })
         .catch(error => {
-          console.error(error)
-        })
+          console.error(error);
+        });
     },
     reset () {
-      (this.noteTitle = ''), (this.noteDescription = '')
+      (this.noteTitle = ''), (this.noteDescription = '');
     },
     changeFiledStyle () {
-      this.changeStyle = true
+      this.changeStyle = true;
     },
     onClickOutside () {
-      this.changeStyle = false
+      this.changeStyle = false;
     },
     onClickCard () {
-      this.cardClicked = true
-      this.text = 'Title'
+      this.cardClicked = true;
+      this.text = 'Title';
     },
     createNewNote () {
-      this.cardClicked = false
-      this.text = 'Take a note...'
+      this.cardClicked = false;
+      this.text = 'Take a note...';
       if (this.noteTitle && this.noteDescription) {
         const noteInput = {
           title: this.noteTitle,
           description: this.noteDescription
-        }
+        };
         this.createNote(noteInput)
           .then(data => {
-            this.$refs.note.addNoteData(data)
-            this.getNotes()
-            this.reset()
+            this.$refs.note.addNoteData(data);
+            this.getNotes();
+            this.reset();
           })
-          .catch(error => console.log(JSON.stringify(error.response)))
+          .catch(error => console.log(JSON.stringify(error.response)));
       }
     },
     onChangeNote () {
-      this.getNotes()
+      this.getNotes();
     },
     onLabelEdit () {
-      this.getLabels()
+      this.getLabels();
     },
     handleSelectItem (item) {
-      this.isNote = false
-       this.isLabelClicked = false
-      this.selectedItem = item.title
+      this.isNote = false;
+       this.isLabelClicked = false;
+      this.selectedItem = item.title;
       if (item.title != 'Edit labels') {
         this.$router.push({
           name: item.title /* , query: { redirect: '/notes' } */
-        })
-        this.title = item.title
+        });
+        this.title = item.title;
       }
       if (item.title == 'Trash') {
-        this.showCard = false
+        this.showCard = false;
       } else {
-        this.showCard = true
+        this.showCard = true;
       }
     },
     onClickLabel (data, labelName) {
-      this.isNote = false
-      this.isLabelClicked = true
-      this.selectedItem = 'label'
-      this.title = labelName
-      this.$refs.labelInNotes.setNoteData(data)
+      this.isNote = false;
+      this.isLabelClicked = true;
+      this.selectedItem = 'label';
+      this.title = labelName;
+      this.$refs.labelInNotes.setNoteData(data);
      /*  this.$router.push({
         name: labelName
       }); */
        this.$router.push({
         name: 'Label',
         params: { name: 'label', id: labelName }
-        })
+        });
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
