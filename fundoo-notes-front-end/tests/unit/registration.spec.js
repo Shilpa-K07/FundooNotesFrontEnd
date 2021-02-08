@@ -1,8 +1,18 @@
+/*************************************************************************
+* Purpose : to test registration component
+*
+* @file : registration.spec.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 31/01/2021
+*
+**************************************************************************/
+
 import Registration from '../../src/pages/Registration.vue'
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Vuelidate from 'vuelidate';
-import Title from '../../src/components/Title.vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils'
+import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
+import Title from '../../src/components/Title.vue'
 
 describe('Registration.vue', () => {
     let wrapper
@@ -12,7 +22,7 @@ describe('Registration.vue', () => {
         localVue.use(Vuetify)
         localVue.use(Vuelidate)
         wrapper = shallowMount(Registration, {
-            localVue,
+            localVue
         })
     })
 

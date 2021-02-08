@@ -9,20 +9,20 @@
       </v-list-item-content>
     </v-list-item>
   </v-list>
-  
+
 </template>
 
 <script>
-import user from "../services/user";
+import user from '../services/user'
 export default {
   data: () => ({
     items: []
   }),
   methods: {
-    setLabelData(labels) {
+    setLabelData (labels) {
         this.items = labels.data.data
     },
-    getNotesByLabel(item){
+    getNotesByLabel (item) {
       user.getNotesByLabel(item._id)
       .then(data => {
         this.$emit('onClickLabel', data, item.name)
@@ -30,5 +30,5 @@ export default {
       .catch(error => console.error(error))
     }
   }
-};
+}
 </script>

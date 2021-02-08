@@ -1,8 +1,18 @@
-import { shallowMount } from '@vue/test-utils'
+/*************************************************************************
+* Purpose : to test dashboard component
+*
+* @file : dashboard.spec.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 01/02/2021
+*
+**************************************************************************/
+
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Dashboard from '../../src/components/Dashboard.vue'
-import { createLocalVue } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Vuelidate from 'vuelidate';
+
+import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
 
 describe('Dashboard.vue', () => {
   let wrapper
@@ -11,7 +21,7 @@ describe('Dashboard.vue', () => {
     const localVue = createLocalVue()
     localVue.use(Vuetify)
     localVue.use(Vuelidate)
-    wrapper=shallowMount(Dashboard, {
+    wrapper = shallowMount(Dashboard, {
       localVue
     })
   })
@@ -35,14 +45,13 @@ describe('Dashboard.vue', () => {
     wrapper.vm.noteDescription = ''
     expect(wrapper.vm.noteDescription).toBe('')
   })
-  it('Check emitted "createNewNote" event', ()=>{
+  it('Check emitted "createNewNote" event', () => {
     wrapper.vm.$emit('createNewNote')
     expect(wrapper.emitted().createNewNote).toBeTruthy()
   })
 
-  it('Check emitted "onClickLabel" event', ()=>{
+  it('Check emitted "onClickLabel" event', () => {
     wrapper.vm.$emit('onClickLabel')
     expect(wrapper.emitted().onClickLabel).toBeTruthy()
   })
 })
-

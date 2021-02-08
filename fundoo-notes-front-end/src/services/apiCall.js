@@ -1,8 +1,12 @@
-/**
- * @description This file contains all the http request methods
- * @method post for adding data
- * @method put for updating data
- */
+/*************************************************************************
+* Purpose : to call APIs
+*
+* @file : sessionStorage.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 14/01/2021
+*
+**************************************************************************/
 const axios = require('axios')
 class ApiCall {
     // axios post method for posting data
@@ -11,21 +15,22 @@ class ApiCall {
     }
 
     postWithHeader=(data) => {
-        return axios.post(data.url, data.input,{ headers: data.headers})
+        return axios.post(data.url, data.input, { headers: data.headers })
     }
+
     // axios put method for updating data
     put= (data) => {
-          return axios.put(data.url, data.input,{ headers: data.headers})
+          return axios.put(data.url, data.input, { headers: data.headers })
     }
 
     // axios get method for retrieving data
     get= (data) => {
-        return axios.get(data.url,{ headers: data.headers})
+        return axios.get(data.url, { headers: data.headers })
     }
 
     // axios delete method for soft deleting data
     delete= (data) => {
-        return axios.delete(data.url,{ headers: data.headers})
+        return axios.delete(data.url, { headers: data.headers })
     }
 }
 

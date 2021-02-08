@@ -24,10 +24,10 @@ export default {
     name: sessionStorage.name
   }),
   methods: {
-    clearSession() {
-      sessionStorage.clear();
-      this.$router.push({ name: "Login", query: { redirect: "/login" } });
+    clearSession () {
+      sessionStorage.clear()
+      this.$router.push({ name: 'Login', query: { redirect: '/login' } })
     }
   }
-};
+}
 </script>

@@ -32,7 +32,7 @@
                 v-model="item.name"
                 :class="{'onclick-label-list':onClickField}"
                  @click="onClickLabel(item)"
-              
+
                 :append-outer-icon="item.isClicked ? 'mdi-check':'mdi-pencil'"
               ></v-text-field>
               <p>{{item.isClicked}}</p>
@@ -49,37 +49,37 @@
 </template>
 
 <script>
-import user from "../services/user";
-import DeleteLabel from "./DeleteLabel";
+import user from '../services/user'
+import DeleteLabel from './DeleteLabel'
 export default {
   components: {
     DeleteLabel
   },
-  data() {
+  data () {
     return {
       dialog: false,
-      newLabel: "",
+      newLabel: '',
       labelsList: [],
      // isClicked: false,
       onClickField: false
     }
   },
   methods: {
-    setLabelData(labels) {
+    setLabelData (labels) {
       this.labelsList = labels.data.data
       this.labelsList.forEach(label => {
-        label.isClicked = false;
+        label.isClicked = false
       })
     },
-    createLabel() {
+    createLabel () {
       if (this.newLabel) {
         const labelData = {
           name: this.newLabel
-        };
+        }
         user
           .createLabel(labelData)
           .then(data => {
-            this.$emit("onLabelEdit")
+            this.$emit('onLabelEdit')
             this.reset()
             this.dialog = false
           })
@@ -87,31 +87,32 @@ export default {
       } else if (this.renameLabel) {
         const labelData = {
           name: this.renameLabel
-        };
+        }
         user
           .updateLabel(labelData, this.labelId)
           .then(data => {
-            this.$emit("onLabelEdit")
+            this.$emit('onLabelEdit')
             this.dialog = false
           })
           .catch(error => console.error(error))
       }
     },
-    onLabelDelete() {
-      this.$emit("onLabelEdit")
+    onLabelDelete () {
+      this.$emit('onLabelEdit')
     },
-    onClickLabel(item) {
+    onClickLabel (item) {
       item.isClicked = true
       this.renameLabel = item.name
       this.labelId = item._id
       this.onClickField = true
     },
-    onClickOutsideLabel(item) {alert(JSON.stringify(item))
-       item.isClicked = false;
+    onClickOutsideLabel (item) {
+ alert(JSON.stringify(item))
+       item.isClicked = false
     },
-    reset() {
-      this.newLabel = ""
-    },
+    reset () {
+      this.newLabel = ''
+    }
   }
 }
 </script>

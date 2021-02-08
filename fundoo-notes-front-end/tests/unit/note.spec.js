@@ -1,11 +1,18 @@
-import { shallowMount } from '@vue/test-utils'
+/*************************************************************************
+* Purpose : to test note component
+*
+* @file : note.spec.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 01/02/2021
+*
+**************************************************************************/
+
 import Note from '../../src/components/Note.vue'
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Vuelidate from 'vuelidate';
-import Dialogue from '../../src/components/Dialogue';
-import Icons from '../../src/components/Icons';
-import Labels from '../../src/components/Labels';
+import { createLocalVue, mount } from '@vue/test-utils'
+import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
+import Labels from '../../src/components/Labels'
 
 describe('Note.vue', () => {
   let wrapper
@@ -15,7 +22,7 @@ describe('Note.vue', () => {
     localVue.use(Vuetify)
     localVue.use(Vuelidate)
     wrapper = mount(Note, {
-      localVue,
+      localVue
     })
   })
 
@@ -23,7 +30,7 @@ describe('Note.vue', () => {
     expect(wrapper.contains(Labels)).toBe(true)
   })
 
-  it('Check emitted "removeLabelFromNote" event', ()=>{
+  it('Check emitted "removeLabelFromNote" event', () => {
     wrapper.vm.$emit('removeLabelFromNote')
     expect(wrapper.emitted().removeLabelFromNote).toBeTruthy()
   })

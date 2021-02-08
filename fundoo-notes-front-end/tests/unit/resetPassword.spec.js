@@ -1,8 +1,18 @@
-import ResetPassword from '../../src/pages/ResetPassword.vue';
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Vuelidate from 'vuelidate';
-import Title from '../../src/components/Title.vue';
+/*************************************************************************
+* Purpose : to test resetPassword component
+*
+* @file : resetPassword.spec.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 01/02/2021
+*
+**************************************************************************/
+
+import ResetPassword from '../../src/pages/ResetPassword.vue'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
+import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
+import Title from '../../src/components/Title.vue'
 
 describe('ResetPassword.vue', () => {
     let wrapper
@@ -12,7 +22,7 @@ describe('ResetPassword.vue', () => {
         localVue.use(Vuetify)
         localVue.use(Vuelidate)
         wrapper = shallowMount(ResetPassword, {
-            localVue,
+            localVue
         })
     })
 
@@ -66,5 +76,4 @@ describe('ResetPassword.vue', () => {
         wrapper.vm.$emit('resetPassword')
         expect(wrapper.emitted().resetPassword).toBeTruthy()
     })
-
 })

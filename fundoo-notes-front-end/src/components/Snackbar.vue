@@ -1,6 +1,6 @@
 <!-- comment
-Here we creating snackbar component which 
-would be used in parent component 
+Here we creating snackbar component which
+would be used in parent component
 for displaying snackbar
 -->
 <template>
@@ -19,14 +19,14 @@ for displaying snackbar
         Close
       </v-btn>
     </template>
-  </v-snackbar> 
+  </v-snackbar>
 </template>
 
 <script>
 export default {
-   props:['text', 'showSnackbar','timeout'],
+   props: ['text', 'showSnackbar', 'timeout'],
    methods: {
-     setSnackbar(snackbarData){
+     setSnackbar (snackbarData) {
        this.text = snackbarData.text
        this.showSnackbar = true
        this.timeout = snackbarData.timeout

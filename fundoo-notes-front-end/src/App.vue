@@ -11,32 +11,6 @@ This is the component where all the routers are defined. This is the main compon
     <router-link to="/dashboard/notes" />
      <router-link to="/dashboard/trash"></router-link>
     <router-view />
-    <!-- 
-    <v-snackbar v-model="snackbar" :timeout="timeout">
-       {{text}}
-        <template v-slot:action="{ attrs }">
-          <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">Close</v-btn>
-        </template>
-      </v-snackbar> -->
   </div>
 </template>
-<script>
-/* export default {
-  created() {
-    this.$store.subscribe((mutation, state) => {
-      if (mutation.type === "snackbar/SHOW_MESSAGE") {
-        this.text = state.snackbar.text;
-        this.color = state.snackbar.color;
-        this.timeout = state.snackbar.timeout;
-        this.show = true;
-      }
-    });
-  },
-  data: () => ({
-    text: "",
-    timeout: "",
-    color:"",
-    show:"",
-  })
-} */
-</script>
+

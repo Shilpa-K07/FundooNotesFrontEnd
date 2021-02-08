@@ -1,8 +1,18 @@
-import ForgotPassword from '../../src/pages/ForgotPassword.vue';
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Vuelidate from 'vuelidate';
-import Title from '../../src/components/Title.vue';
+/*************************************************************************
+* Purpose : to test forgotPassword component
+*
+* @file : forgotPassword.spec.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 31/01/2021
+*
+**************************************************************************/
+
+import ForgotPassword from '../../src/pages/ForgotPassword.vue'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
+import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
+import Title from '../../src/components/Title.vue'
 
 describe('ForgotPassword.vue', () => {
   let wrapper
@@ -12,7 +22,7 @@ describe('ForgotPassword.vue', () => {
     localVue.use(Vuetify)
     localVue.use(Vuelidate)
     wrapper = shallowMount(ForgotPassword, {
-      localVue,
+      localVue
     })
   })
 
@@ -35,9 +45,8 @@ describe('ForgotPassword.vue', () => {
     expect(wrapper.contains(Title)).toBe(true)
   })
 
-  it('Check emitted "sendResetPasswordLink" event', ()=>{
+  it('Check emitted "sendResetPasswordLink" event', () => {
     wrapper.vm.$emit('sendResetPasswordLink')
     expect(wrapper.emitted().sendResetPasswordLink).toBeTruthy()
   })
-
 })

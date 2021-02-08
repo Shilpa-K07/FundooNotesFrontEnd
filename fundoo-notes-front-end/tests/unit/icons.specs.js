@@ -1,33 +1,38 @@
 /*************************************************************************
-* Purpose : to test label component
+* Purpose : to test icons component
 *
-* @file : label.spec.js
+* @file : icons.spec.js
 * @author : Shilpa K <shilpa07udupi@gmail.com>
 * @version : 1.0
-* @since :01/02/2021
+* @since : 08/02/2021
 *
 **************************************************************************/
 
 import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Labels from '../../src/components/Labels.vue'
+import Icons from '../../src/components/Icons.vue'
 
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
 
-describe('Logout.vue', () => {
+describe('Icons.vue', () => {
   let wrapper
 
   beforeEach(() => {
     const localVue = createLocalVue()
     localVue.use(Vuetify)
     localVue.use(Vuelidate)
-    wrapper = shallowMount(Labels, {
+    wrapper = shallowMount(Icons, {
       localVue
     })
   })
 
-  it('Check emitted "getNotesByLabel" event', () => {
-    wrapper.vm.$emit('getNotesByLabel')
-    expect(wrapper.emitted().getNotesByLabel).toBeTruthy()
+  it('Check emitted "onDelete" event', () => {
+    wrapper.vm.$emit('onDelete')
+    expect(wrapper.emitted().onDelete).toBeTruthy()
+  })
+
+  it('Check emitted "restoreNote" event', () => {
+    wrapper.vm.$emit('restoreNote')
+    expect(wrapper.emitted().restoreNote).toBeTruthy()
   })
 })

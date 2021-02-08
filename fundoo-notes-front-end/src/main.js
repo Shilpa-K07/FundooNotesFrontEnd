@@ -1,7 +1,13 @@
-/**
- * @description This is the entry point for the vue application. 
- * Here all the required components and plugins are imported
- */
+/*************************************************************************
+* Purpose : entry point to application
+*
+* @file : main.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 01/02/2021
+*
+**************************************************************************/
+
 import Vue from 'vue'
 import App from './App.vue'
 import Vuelidate from 'vuelidate'
@@ -14,22 +20,15 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ActivateAccount from './pages/ActivateAccount'
 import VerifyEmailAddress from './pages/VerifyEmailAddress'
-//import Dashboard from './components/Dashboard'
-/* import Note from './components/Note'
-import Icons from './components/Icons' */
-/* import axios from 'axios'; */
-/* axios.defaults.withCredentials = true  */
-//Vue.component('icons', Icons)
+
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
 
-function lazyLoadComponent(view){
-  return() => import(`./components/${view}.vue`)
+function lazyLoadComponent (view) {
+  return () => import(`./components/${view}.vue`)
 }
-function lazyLoadPage(page){
-  return() => import(`./pages/${page}.vue`)
-}
+
 const routes = [
   {
     path: '/register',
@@ -39,7 +38,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login 
+    component: Login
   },
   {
     path: '/forgotPassword',
@@ -72,19 +71,19 @@ const routes = [
     children: [{
       path: 'notes',
       name: 'Notes',
-      //component: Dashboard
+      // component: Dashboard
       component: lazyLoadComponent('Dashboard')
     },
     {
       path: 'trash',
       name: 'Trash',
-      //component: Dashboard
+      // component: Dashboard
       component: lazyLoadComponent('Dashboard')
     },
     {
       path: '/label/:id',
       name: 'Label',
-      //component: Dashboard
+      // component: Dashboard
       component: lazyLoadComponent('Dashboard')
     }
   ]
@@ -97,12 +96,12 @@ const routes = [
   {
     path: '*/*',
     name: 'Register',
-    component: Register 
+    component: Register
   },
   {
     path: '/',
     name: 'Register',
-    component: Register 
+    component: Register
   }
 ]
 const router = new VueRouter({
@@ -111,7 +110,7 @@ const router = new VueRouter({
 })
 /* Vue.config.productionTip = false */
 new Vue({
-  vuetify : new Vuetify(),
+  vuetify: new Vuetify(),
   router,
   render: h => h(App)
 }).$mount('#app')

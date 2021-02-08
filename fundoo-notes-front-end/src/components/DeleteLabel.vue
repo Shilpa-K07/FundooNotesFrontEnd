@@ -20,26 +20,26 @@
 </template>
 
 <script>
-import user from "../services/user";
+import user from '../services/user'
 export default {
-  props: ["label"],
-  data() {
+  props: ['label'],
+  data () {
     return {
       dialog: false,
       label: this.label
-    };
+    }
   },
   methods: {
-    deleteLabel() {
+    deleteLabel () {
       user
         .deleteLabel(this.label._id)
         .then(data => {
-          console.log("data: " + JSON.stringify(data));
-          this.$emit("onLabelDelete");
-          this.dialog = false;
+          console.log('data: ' + JSON.stringify(data))
+          this.$emit('onLabelDelete')
+          this.dialog = false
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error(error))
     }
   }
-};
+}
 </script>

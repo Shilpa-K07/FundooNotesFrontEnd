@@ -1,5 +1,5 @@
 <!-- comment
-Note component to display notes on dashboardrow 
+Note component to display notes on dashboardrow
 -->
 <template>
   <v-flex>
@@ -15,7 +15,7 @@ Note component to display notes on dashboardrow
             <v-list-item class="v-list">{{ item.title }}</v-list-item>
             <v-list-item class="v-list">{{ item.description }}</v-list-item>
             <v-list-item></v-list-item>
-            <v-row > 
+            <v-row >
              <v-col cols="12" md="6" v-for="label in item.labelId" :key="label._id">
             <v-chip class="ma-3" close>{{label.name}}</v-chip>
             </v-col>
@@ -32,8 +32,8 @@ Note component to display notes on dashboardrow
 </template>
 
 <script>
-import Icons from "./Icons";
-import Dialogue from "./Dialogue";
+import Icons from './Icons'
+import Dialogue from './Dialogue'
 export default {
   name: 'Note',
   components: {
@@ -43,21 +43,21 @@ export default {
   data: () => ({
     click: false,
     items: [],
-    trash: "trash"
+    trash: 'trash'
   }),
   methods: {
-    setNoteData(notes) {
-      this.items = notes.data.data;
+    setNoteData (notes) {
+      this.items = notes.data.data
     },
-    addNoteData(note) {
-      this.items.push(note.data);
+    addNoteData (note) {
+      this.items.push(note.data)
     },
-    afterHardDelete() {
+    afterHardDelete () {
       this.$emit('hardDelete')
     },
-    restoreNote() {
+    restoreNote () {
        this.$emit('restoreNote')
     }
   }
-};
+}
 </script>

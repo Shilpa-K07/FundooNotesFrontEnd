@@ -20,43 +20,43 @@
 </template>
 
 <script>
-import Icons from "./Icons";
-import Dashboard from "./Dashboard";
-import user from "../services/user";
+import Icons from './Icons'
+import Dashboard from './Dashboard'
+import user from '../services/user'
 export default {
   components: {
     Icons,
     Dashboard
   },
-  props: ["transaction"],
-  data() {
+  props: ['transaction'],
+  data () {
     return {
       dialog: false,
       editTransaction: this.transaction
-    };
+    }
   },
   methods: {
-    reset() {
+    reset () {
       this.$refs.editNoteForm.reset()
     },
-    updateNote: function(noteInput, noteId) {
+    updateNote: function (noteInput, noteId) {
       return user.updateNote(noteInput, noteId)
     },
-    onClickOutside() {
+    onClickOutside () {
       if (this.editTransaction.title && this.editTransaction.description) {
         const noteInput = {
           title: this.editTransaction.title,
           description: this.editTransaction.description
         }
-        this.updateNote(noteInput,this.editTransaction._id)
+        this.updateNote(noteInput, this.editTransaction._id)
           .then(data => {
             this.$refs.dashboard.getNotes()
-            //this.dialog = false
+            // this.dialog = false
             this.reset()
           })
-          .catch(error => console.log(JSON.stringify(error.response)));
+          .catch(error => console.log(JSON.stringify(error.response)))
       }
     }
   }
-};
+}
 </script>

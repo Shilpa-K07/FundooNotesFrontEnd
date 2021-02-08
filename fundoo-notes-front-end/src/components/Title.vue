@@ -1,5 +1,5 @@
  <!-- comment
- This is the vue component for fundooNotes title 
+ This is the vue component for fundooNotes title
  -->
 <template>
   <v-card-title>
@@ -21,6 +21,3 @@
 export default {
 }
 </script>
-
-     
- 

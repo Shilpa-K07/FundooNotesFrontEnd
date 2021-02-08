@@ -1,9 +1,19 @@
-import { shallowMount } from '@vue/test-utils'
+/*************************************************************************
+* Purpose : to test login component
+*
+* @file : login.spec.js
+* @author : Shilpa K <shilpa07udupi@gmail.com>
+* @version : 1.0
+* @since : 31/01/2021
+*
+**************************************************************************/
+
+import { shallowMount, createLocalVue, mount } from '@vue/test-utils'
 import Login from '../../src/pages/Login.vue'
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Vuelidate from 'vuelidate';
-import Title from '../../src/components/Title.vue';
+
+import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
+import Title from '../../src/components/Title.vue'
 
 describe('Login.vue', () => {
   let wrapper
@@ -13,7 +23,7 @@ describe('Login.vue', () => {
     localVue.use(Vuetify)
     localVue.use(Vuelidate)
     wrapper = shallowMount(Login, {
-      localVue,
+      localVue
     })
   })
 
@@ -61,9 +71,8 @@ describe('Login.vue', () => {
     expect(wrapper.contains(Title)).toBe(true)
   })
 
-  it('Check emitted "login" event', ()=>{
+  it('Check emitted "login" event', () => {
     wrapper.vm.$emit('login')
     expect(wrapper.emitted().login).toBeTruthy()
   })
-
 })

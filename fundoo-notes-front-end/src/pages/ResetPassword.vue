@@ -58,10 +58,10 @@ This vue component is for resetting user password
 </template>
 
 <script>
-import { required, sameAs } from "vuelidate/lib/validators";
-import user from "../services/user";
-import Title from "../components/Title";
-import Snackbar from "../components/Snackbar";
+import { required, sameAs } from 'vuelidate/lib/validators'
+import user from '../services/user'
+import Title from '../components/Title'
+import Snackbar from '../components/Snackbar'
 
 export default {
   components: {
@@ -71,48 +71,48 @@ export default {
   validations: {
     password: {
       required,
-      isPasswordStrong(password) {
-        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/;
-        return regex.test(password);
+      isPasswordStrong (password) {
+        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/
+        return regex.test(password)
       }
     },
     confirmPassword: {
       required,
-      sameAsPassword: sameAs("password")
+      sameAsPassword: sameAs('password')
     }
   },
   data: () => ({
-    password: "",
-    confirmPassword: "",
+    password: '',
+    confirmPassword: '',
     timeout: 2000,
-    text: "",
+    text: '',
     showPasswordConfirm: false,
     showPassword: false
   }),
 
   computed: {
-    passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Enter password");
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.required && errors.push('Enter password')
       !this.$v.password.isPasswordStrong &&
         errors.push(
-          "Use 8 or more characters with a mix of letters, numbers & symbols"
-        );
-      return errors;
+          'Use 8 or more characters with a mix of letters, numbers & symbols'
+        )
+      return errors
     },
-    confirmPasswordErrors() {
-      const errors = [];
-      if (!this.$v.confirmPassword.$dirty) return errors;
-      !this.$v.confirmPassword.required && errors.push("confirm password");
+    confirmPasswordErrors () {
+      const errors = []
+      if (!this.$v.confirmPassword.$dirty) return errors
+      !this.$v.confirmPassword.required && errors.push('confirm password')
       !this.$v.confirmPassword.sameAsPassword &&
-        errors.push("Password mismatch");
-      return errors;
+        errors.push('Password mismatch')
+      return errors
     }
   },
   methods: {
-    resetPassword() {
-      this.$v.$touch();
+    resetPassword () {
+      this.$v.$touch()
       if (!this.$v.$invalid) {
         const userInput = {
           newPassword: this.password,
@@ -122,35 +122,34 @@ export default {
           .then(data => {
             if (data) {
               const snackbarData = {
-                text: "Successfully changed password",
-                timeout: this.timeout
-              };
-              this.$refs.snack.setSnackbar(snackbarData)
-              setTimeout(() => {
-                this.reset();
-              }, this.timeout)
-              setTimeout(() => {
-                this.$router.push({ name: 'Login', query: { redirect: '/login' } });
-              }, this.timeout)
-            }
-          })
-          .catch(error => { 
-            if (error.response.status == 401) {
-              const snackbarData = {
-                text: "Authorization falied",
+                text: 'Successfully changed password',
                 timeout: this.timeout
               }
               this.$refs.snack.setSnackbar(snackbarData)
               setTimeout(() => {
                 this.reset()
               }, this.timeout)
-             
+              setTimeout(() => {
+                this.$router.push({ name: 'Login', query: { redirect: '/login' } })
+              }, this.timeout)
+            }
+          })
+          .catch(error => {
+            if (error.response.status == 401) {
+              const snackbarData = {
+                text: 'Authorization falied',
+                timeout: this.timeout
+              }
+              this.$refs.snack.setSnackbar(snackbarData)
+              setTimeout(() => {
+                this.reset()
+              }, this.timeout)
             } else if (error.response.status == 500) {
-              {  
+              {
                 const snackbarData = {
-                  text: "Some error occurred",
+                  text: 'Some error occurred',
                   timeout: this.timeout
-                };
+                }
                 this.$refs.snack.setSnackbar(snackbarData)
                 setTimeout(() => {
                   this.reset()
@@ -160,15 +159,15 @@ export default {
           })
       }
     },
-    userPasswordReset: function(userInput) {
+    userPasswordReset: function (userInput) {
       return user.userPasswordReset(userInput)
     },
-    reset() {
+    reset () {
       this.$refs.resetPasswordForm.reset()
       this.$v.$reset()
     }
   }
-};
+}
 </script>
 
 <style>

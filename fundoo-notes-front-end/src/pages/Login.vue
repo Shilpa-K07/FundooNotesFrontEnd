@@ -77,10 +77,10 @@ This is vue component for login page
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
-import user from "../services/user";
-import Title from "../components/Title";
-import Snackbar from "../components/Snackbar";
+import { required, email } from 'vuelidate/lib/validators'
+import user from '../services/user'
+import Title from '../components/Title'
+import Snackbar from '../components/Snackbar'
 
 export default {
   components: {
@@ -94,79 +94,80 @@ export default {
     },
     password: {
       required,
-      isPasswordStrong(password) {
-        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/;
-        return regex.test(password);
+      isPasswordStrong (password) {
+        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/
+        return regex.test(password)
       }
     }
   },
   data: () => ({
-    emailId: "",
-    password: "",
+    emailId: '',
+    password: '',
     isAuthorized: true,
     isVerified: true,
     snackbar: false,
     timeout: 2000,
     showPassword: false,
-    text: ""
+    text: ''
   }),
 
   computed: {
-    emailIdErrors() {
-      const errors = [];
-      if (!this.$v.emailId.$dirty) return errors;
-      !this.$v.emailId.required && errors.push("Enter email address");
-      !this.$v.emailId.email && errors.push("Must be valid email");
-      return errors;
+    emailIdErrors () {
+      const errors = []
+      if (!this.$v.emailId.$dirty) return errors
+      !this.$v.emailId.required && errors.push('Enter email address')
+      !this.$v.emailId.email && errors.push('Must be valid email')
+      return errors
     },
-    passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Enter password");
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.required && errors.push('Enter password')
       !this.$v.password.isPasswordStrong &&
         errors.push(
-          "Use 8 or more characters with a mix of letters, numbers & symbols"
+          'Use 8 or more characters with a mix of letters, numbers & symbols'
         )
       return errors
     }
   },
   methods: {
-    login() {
+    login () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         const userInput = {
           emailId: this.emailId,
           password: this.password
-        };
+        }
         var response = this.userLogin(userInput)
         response
           .then(data => {
-            if (data) {console.log(JSON.stringify(data))
+            if (data) {
+ console.log(JSON.stringify(data))
               const snackbarData = {
-                text: "Successfully logged in",
+                text: 'Successfully logged in',
                 timeout: this.timeout
               }
-              sessionStorage.setItem("token", data.data.token)
-              sessionStorage.setItem("emailId", data.data.data.emailId)
-              sessionStorage.setItem("name", data.data.data.name)
+              sessionStorage.setItem('token', data.data.token)
+              sessionStorage.setItem('emailId', data.data.data.emailId)
+              sessionStorage.setItem('name', data.data.data.name)
               this.$refs.snack.setSnackbar(snackbarData)
-              this.$router.push({ name: 'Dashboard',query: { redirect: '/dashboard' }} );
+              this.$router.push({ name: 'Dashboard', query: { redirect: '/dashboard' } })
             }
           })
           .catch(error => {
             if (
               error.response.data.message.includes(
-                "ERR:401-Authorization failed"
+                'ERR:401-Authorization failed'
               )
             ) {
               const snackbarData = {
-                text: "Authorization falied",
+                text: 'Authorization falied',
                 timeout: this.timeout
               }
               this.$refs.snack.setSnackbar(snackbarData)
             } else if (error.response.status == 401) {
               const snackbarData = {
-                text: "Please verify your email address before login",
+                text: 'Please verify your email address before login',
                 timeout: this.timeout
               }
               this.$refs.snack.setSnackbar(snackbarData)
@@ -177,13 +178,13 @@ export default {
           })
       }
     },
-    userLogin: function(userInput) {
+    userLogin: function (userInput) {
       return user.userLogin(userInput)
     },
-    reset() {
+    reset () {
       this.$refs.loginForm.reset()
       this.$v.$reset()
-    },
+    }
   }
 }
 </script>

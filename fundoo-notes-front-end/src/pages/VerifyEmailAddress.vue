@@ -1,5 +1,5 @@
 <!-- cooment
-This vue component is for sending verification email to user 
+This vue component is for sending verification email to user
 for account activation
 -->
 <template>
@@ -43,10 +43,10 @@ for account activation
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
-import user from "../services/user";
-import Title from "../components/Title";
-import Snackbar from "../components/Snackbar";
+import { required, email } from 'vuelidate/lib/validators'
+import user from '../services/user'
+import Title from '../components/Title'
+import Snackbar from '../components/Snackbar'
 
 export default {
   components: {
@@ -60,23 +60,23 @@ export default {
     }
   },
   data: () => ({
-    emailId: "",
+    emailId: '',
     timeout: 2000,
-    text: ""
+    text: ''
   }),
 
   computed: {
-    emailIdErrors() {
-      const errors = [];
-      if (!this.$v.emailId.$dirty) return errors;
-      !this.$v.emailId.required && errors.push("Enter email address");
-      !this.$v.emailId.email && errors.push("Must be valid email");
-      return errors;
+    emailIdErrors () {
+      const errors = []
+      if (!this.$v.emailId.$dirty) return errors
+      !this.$v.emailId.required && errors.push('Enter email address')
+      !this.$v.emailId.email && errors.push('Must be valid email')
+      return errors
     }
   },
   methods: {
-    verifyEmail() {
-      this.$v.$touch();
+    verifyEmail () {
+      this.$v.$touch()
       if (!this.$v.$invalid) {
         const userInput = {
           emailId: this.emailId
@@ -85,9 +85,9 @@ export default {
           .then(data => {
             if (data) {
               const snackbarData = {
-                text: "Verification link has been sent",
+                text: 'Verification link has been sent',
                 timeout: this.timeout
-              };
+              }
               this.$refs.snack.setSnackbar(snackbarData)
               setTimeout(() => {
                 this.reset()
@@ -95,21 +95,19 @@ export default {
             }
           })
           .catch(error => {
-            if (error.response.status == 401) 
-              {
+            if (error.response.status == 401) {
                 const snackbarData = {
-                  text: "Authorization falied",
+                  text: 'Authorization falied',
                   timeout: this.timeout
                 }
                 this.$refs.snack.setSnackbar(snackbarData)
                 setTimeout(() => {
                 this.reset()
               }, this.timeout)
-              }
-            else if(error.response.status == 500) {
+              } else if (error.response.status == 500) {
                 {
                 const snackbarData = {
-                  text: "Some error occurred",
+                  text: 'Some error occurred',
                   timeout: this.timeout
                 }
                 this.$refs.snack.setSnackbar(snackbarData)
@@ -121,15 +119,15 @@ export default {
           })
       }
     },
-    userEmailVerification: function(userInput) {
+    userEmailVerification: function (userInput) {
       return user.userEmailVerification(userInput)
     },
-    reset() {
+    reset () {
       this.$refs.emailVerifyForm.reset()
       this.$v.$reset()
     }
   }
-};
+}
 </script>
 
 <style>

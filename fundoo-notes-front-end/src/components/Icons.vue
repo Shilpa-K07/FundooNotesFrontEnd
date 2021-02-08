@@ -45,7 +45,7 @@ Icon components for cards
       </template>
       <span>Restore</span>
     </v-tooltip>
-   
+
     <!-- <v-tooltip bottom> -->
     <v-menu bottom left>
       <template v-slot:activator="{on}">
@@ -74,15 +74,15 @@ Icon components for cards
 </template>
 
 <script>
-import Labels from "./Labels";
-import user from "../services/user";
+import Labels from './Labels'
+import user from '../services/user'
 export default {
-  name: "Icons",
+  name: 'Icons',
   components: {
     Labels
   },
-  props: ["noteDetails", "trashField", "mainField"],
-  data() {
+  props: ['noteDetails', 'trashField', 'mainField'],
+  data () {
     return {
       dialog: false,
       deleteDetails: this.noteDetails,
@@ -91,13 +91,13 @@ export default {
       selected: [],
       isTrash: this.trashField,
       isMainCard: this.mainField
-    };
+    }
   },
-  beforeMount() {
+  beforeMount () {
     this.getLabels()
   },
   methods: {
-    getLabels: function() {
+    getLabels: function () {
       user
         .getLabels()
         .then(data => {
@@ -107,37 +107,37 @@ export default {
           console.error(error)
         })
     },
-    softDeleteNote: function(noteId) {
+    softDeleteNote: function (noteId) {
       return user.softDeleteNote(noteId)
     },
-    hardDeleteNote: function(noteId) {
+    hardDeleteNote: function (noteId) {
       return user.hardDeleteNote(noteId)
     },
-    createLabel: function(noteId) {
+    createLabel: function (noteId) {
       return user.createLabel(noteId)
     },
-    onDelete() {
-      if (this.currentField == "trash") {
+    onDelete () {
+      if (this.currentField == 'trash') {
         this.hardDeleteNote(this.noteDetails._id)
           .then(data => {
-            this.$emit("hardDelete")
+            this.$emit('hardDelete')
           })
           .catch(error => console.log(error))
       } else {
         this.softDeleteNote(this.noteDetails._id)
           .then(data => {
-            this.$emit("softDelete")
+            this.$emit('softDelete')
           })
           .catch(error => console.log(error))
       }
     },
-    restoreNote() {
+    restoreNote () {
       user.restoreNote(this.noteDetails._id)
       .then(data => {
-        this.$emit("restoreNote")
+        this.$emit('restoreNote')
       })
       .catch(error => console.log(error))
     }
   }
-};
+}
 </script>

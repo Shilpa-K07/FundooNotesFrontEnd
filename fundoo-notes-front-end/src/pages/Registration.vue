@@ -154,10 +154,10 @@
   </v-form>
 </template>
 <script>
-import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
-import user from "../services/user";
-import Title from "../components/Title";
-import Snackbar from "../components/Snackbar";
+import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
+import user from '../services/user'
+import Title from '../components/Title'
+import Snackbar from '../components/Snackbar'
 export default {
   components: {
     Title,
@@ -177,121 +177,121 @@ export default {
     },
     password: {
       required,
-      isPasswordStrong(password) {
-        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/;
-        return regex.test(password);
+      isPasswordStrong (password) {
+        const regex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W){1}.*$/
+        return regex.test(password)
       }
     },
     confirmPassword: {
       required,
-      sameAsPassword: sameAs("password")
+      sameAsPassword: sameAs('password')
     }
   },
 
   data: () => ({
-    firstName: "",
-    lastName: "",
-    emailId: "",
-    password: "",
-    confirmPassword: "",
+    firstName: '',
+    lastName: '',
+    emailId: '',
+    password: '',
+    confirmPassword: '',
     showPassword: false,
     isClicked: false,
     isPasswordMismatch: false,
     timeout: 2000,
-    logoPath: require("../assets/account.svg")
+    logoPath: require('../assets/account.svg')
   }),
 
   computed: {
-    firstNameErrors() {
+    firstNameErrors () {
       const errors = []
       if (!this.$v.firstName.$dirty) return errors
-      !this.$v.firstName.required && errors.push("Enter first name")
+      !this.$v.firstName.required && errors.push('Enter first name')
       !this.$v.firstName.minLength &&
-        errors.push("Name must contain 2 characters")
+        errors.push('Name must contain 2 characters')
       return errors
     },
-    lastNameErrors() {
+    lastNameErrors () {
       const errors = []
       if (!this.$v.lastName.$dirty) return errors
-      !this.$v.lastName.required && errors.push("Enter last name")
+      !this.$v.lastName.required && errors.push('Enter last name')
       return errors
     },
-    emailIdErrors() {
+    emailIdErrors () {
       const errors = []
       if (!this.$v.emailId.$dirty) return errors
-      !this.$v.emailId.required && errors.push("Enter email address")
-      !this.$v.emailId.email && errors.push("Must be valid email")
+      !this.$v.emailId.required && errors.push('Enter email address')
+      !this.$v.emailId.email && errors.push('Must be valid email')
       return errors
     },
-    passwordErrors() {
+    passwordErrors () {
       const errors = []
       if (!this.$v.password.$dirty) return errors
-      !this.$v.password.required && errors.push("Enter password")
+      !this.$v.password.required && errors.push('Enter password')
       !this.$v.password.isPasswordStrong &&
         errors.push(
-          "Use 8 or more characters with a mix of letters, numbers & symbols"
-        );
-      return errors;
+          'Use 8 or more characters with a mix of letters, numbers & symbols'
+        )
+      return errors
     },
-    confirmPasswordErrors() {
+    confirmPasswordErrors () {
       const errors = []
       if (!this.$v.confirmPassword.$dirty) return errors
-      !this.$v.confirmPassword.required && errors.push("confirm password")
+      !this.$v.confirmPassword.required && errors.push('confirm password')
       !this.$v.confirmPassword.sameAsPassword &&
-        errors.push("Password mismatch")
+        errors.push('Password mismatch')
       return errors
     }
   },
   methods: {
-    register() {
-      this.$v.$touch();
-      this.isClicked = true;
+    register () {
+      this.$v.$touch()
+      this.isClicked = true
       if (!this.$v.$invalid) {
         const userInput = {
           firstName: this.firstName,
           lastName: this.lastName,
           emailId: this.emailId,
           password: this.password
-        };
-        var response = this.userRegistration(userInput);
+        }
+        var response = this.userRegistration(userInput)
         response
           .then(data => {
             if (data) {
               const snackbarData = {
-                text: "Successfully registered",
+                text: 'Successfully registered',
                 timeout: this.timeout
-              };
-              this.$refs.snack.setSnackbar(snackbarData);
+              }
+              this.$refs.snack.setSnackbar(snackbarData)
               // this.reset()
               setTimeout(() => {
-                this.reset();
-              }, this.timeout);
+                this.reset()
+              }, this.timeout)
             }
           })
           .catch(error => {
             if (error.response.status == 409) {
               const snackbarData = {
-                text: "User exists with this emailID",
+                text: 'User exists with this emailID',
                 timeout: this.timeout
-              };
-              this.$refs.snack.setSnackbar(snackbarData);
+              }
+              this.$refs.snack.setSnackbar(snackbarData)
               // this.reset()
               setTimeout(() => {
-                this.reset();
-              }, this.timeout);
+                this.reset()
+              }, this.timeout)
             }
-          });
+          })
       }
     },
-    userRegistration: function(userInput) {
+    userRegistration: function (userInput) {
       return user.userRegistration(userInput)
     },
-    reset() {
+    reset () {
       this.$refs.form.reset()
       this.$v.$reset()
     }
   }
-};
+}
 </script>
 <style scoped>
 @import url("../scss/registration.scss");

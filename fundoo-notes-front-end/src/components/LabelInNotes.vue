@@ -14,7 +14,7 @@ This component to display notes with particular label on dashboard
             <v-list-item class="v-list">{{ item.title }}</v-list-item>
             <v-list-item class="v-list">{{ item.description }}</v-list-item>
             <v-list-item></v-list-item>
-            <v-row > 
+            <v-row >
              <v-col cols="12" md="6" v-for="label in item.labelId" :key="label._id">
             <v-chip class="ma-3" close>{{label.name}}</v-chip>
             </v-col>
@@ -31,8 +31,8 @@ This component to display notes with particular label on dashboard
 </template>
 
 <script>
-import Icons from "./Icons";
-import Dialogue from "./Dialogue";
+import Icons from './Icons'
+import Dialogue from './Dialogue'
 export default {
   name: 'Note',
   components: {
@@ -43,9 +43,9 @@ export default {
     items: []
   }),
   methods: {
-    setNoteData(notes) {
+    setNoteData (notes) {
       this.items = notes.data.data
-    },
+    }
   }
-};
+}
 </script>

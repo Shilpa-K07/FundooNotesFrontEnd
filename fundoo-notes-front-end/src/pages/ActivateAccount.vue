@@ -1,5 +1,5 @@
 <!-- comment
-This component is for activating user account 
+This component is for activating user account
 -->
 <!-- cooment
 This vue component is for resetting user password
@@ -35,9 +35,9 @@ This vue component is for resetting user password
 </template>
 
 <script>
-import user from "../services/user";
-import Title from "../components/Title";
-import Snackbar from "../components/Snackbar";
+import user from '../services/user'
+import Title from '../components/Title'
+import Snackbar from '../components/Snackbar'
 
 export default {
   components: {
@@ -46,11 +46,11 @@ export default {
   },
   data: () => ({
     timeout: 2000,
-    text: ""
+    text: ''
   }),
 
   methods: {
-    activateAccount() {
+    activateAccount () {
       {
         const userInput = {
           token: this.$route.params.token
@@ -59,42 +59,42 @@ export default {
           .then(data => {
             if (data) {
               const snackbarData = {
-                text: "Account activated !",
+                text: 'Account activated !',
                 timeout: this.timeout
-              };
-              this.$refs.snack.setSnackbar(snackbarData);
+              }
+              this.$refs.snack.setSnackbar(snackbarData)
               setTimeout(() => {
                 this.reset()
               }, this.timeout)
               setTimeout(() => {
-                this.$router.push({ name: 'Login', query: { redirect: '/login' } });
+                this.$router.push({ name: 'Login', query: { redirect: '/login' } })
               }, this.timeout)
             }
           })
           .catch(error => {
             if (error.response.status == 401) {
               const snackbarData = {
-                text: "Authorization falied",
+                text: 'Authorization falied',
                 timeout: this.timeout
-              };
+              }
               this.$refs.snack.setSnackbar(snackbarData)
             } else if (error.response.status == 500) {
               {
                 const snackbarData = {
-                  text: "Some error occurred",
+                  text: 'Some error occurred',
                   timeout: this.timeout
-                };
-                this.$refs.snack.setSnackbar(snackbarData);
+                }
+                this.$refs.snack.setSnackbar(snackbarData)
               }
             }
-          });
+          })
       }
     },
-    userAccountActivate: function(userInput) {
-      return user.userAccountActivate(userInput);
-    },
+    userAccountActivate: function (userInput) {
+      return user.userAccountActivate(userInput)
+    }
   }
-};
+}
 </script>
 <style>
 @import url("../scss/login.scss");
